@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "84230e99-d021-4317-aa17-69158284684a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "icon_ParkingApron": {
+      "ver": "1.0.3",
+      "uuid": "2c2b59ff-47f2-45b2-838a-aa446fce5d86",
+      "rawTextureUuid": "84230e99-d021-4317-aa17-69158284684a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 173,
+      "height": 131,
+      "rawWidth": 173,
+      "rawHeight": 131,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

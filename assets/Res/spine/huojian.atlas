@@ -1,0 +1,48 @@
+
+huojian.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+0003
+  rotate: true
+  xy: 411, 81
+  size: 146, 74
+  orig: 146, 74
+  offset: 0, 0
+  index: -1
+006
+  rotate: false
+  xy: 354, 51
+  size: 39, 61
+  orig: 39, 61
+  offset: 0, 0
+  index: -1
+008
+  rotate: false
+  xy: 211, 2
+  size: 141, 110
+  orig: 141, 110
+  offset: 0, 0
+  index: -1
+009
+  rotate: false
+  xy: 2, 20
+  size: 207, 207
+  orig: 207, 207
+  offset: 0, 0
+  index: -1
+010
+  rotate: true
+  xy: 211, 114
+  size: 113, 198
+  orig: 113, 198
+  offset: 0, 0
+  index: -1
+011
+  rotate: false
+  xy: 395, 7
+  size: 100, 72
+  orig: 100, 72
+  offset: 0, 0
+  index: -1
