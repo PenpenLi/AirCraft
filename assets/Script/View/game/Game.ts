@@ -5,7 +5,6 @@
 
 import GameCtr from "../../Controller/GameCtr";
 import NodePoolManager from "../../Common/NodePoolManager";
-import FlyPlane from "./FlyPlane";
 import Apron from "./Apron";
 import LandPlane from "./LandPlane";
 import ViewManager from "../../Common/ViewManager";
@@ -13,7 +12,6 @@ import GameData from "../../Common/GameData";
 import PlaneFrameMG from "./PlaneFrameMG";
 import UpgradeView from "../view/UpgradeView";
 import OffLineProfit from "../view/OffLineProfit";
-import SpeedTotal from "./SpeedTotal";
 import UnLockView from "../view/UnLockView";
 import Guide from "./Guide";
 import UserManager from "../../Common/UserManager";
@@ -62,27 +60,8 @@ export default class Game extends cc.Component {
     ndPlanePos: cc.Node = null;
     @property(cc.Prefab)
     pfLandPlane: cc.Prefab = null;
-    @property(cc.Prefab)
-    pfFlyPlane: cc.Prefab = null;
-    @property(cc.Node)
-    ndStartingZone: cc.Node = null;
-    @property(cc.Node)
-    ndRunwayContent: cc.Node = null;
-    @property(cc.Node)
-    ndGoldZone: cc.Node = null;                                         //跑道上产生金币的区域
-    @property(cc.Node)
-    ndgold: cc.Node = null;
-    @property(cc.ProgressBar)
-    pgbLevel: cc.ProgressBar = null;
     @property(cc.Node)
     ndTrash: cc.Node = null;
-    @property(cc.Node)
-    ndUFO: cc.Node = null;
-    @property(cc.Node)
-    ndGoldRain: cc.Node = null;
-
-    @property(cc.Node)
-    ndFastBuy: cc.Node = null;
     @property(cc.Node)
     ndExtend: cc.Node = null;
     @property(cc.Node)
@@ -100,20 +79,11 @@ export default class Game extends cc.Component {
     @property(cc.Prefab)
     pfOffLineProfit: cc.Prefab = null;
     @property(cc.Prefab)
-    pfSpeedUp: cc.Prefab = null;
-    @property(cc.Prefab)
     pfUnlock: cc.Prefab = null;
     @property(cc.Prefab)
     pfInviteFriend: cc.Prefab = null;
     @property(cc.Prefab)
-    pfUfoGift: cc.Prefab = null;
-    @property(cc.Prefab)
     pfLoginAward: cc.Prefab = null;
-
-    @property(sp.Skeleton)
-    rocketSke: sp.Skeleton = null;
-    @property(cc.Node)
-    ndRocket: cc.Node = null;
 
     private landPlanePool;
     private flyPlanePool;
@@ -139,8 +109,6 @@ export default class Game extends cc.Component {
     onLoad() {
         GameCtr.getInstance().setGame(this);
         this.initPools();
-        this.getRoute();
-        this.showRocket();
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
@@ -159,9 +127,6 @@ export default class Game extends cc.Component {
 
     initPools() {
         this.landPlanePool = NodePoolManager.create(this.pfLandPlane);
-        this.flyPlanePool = NodePoolManager.create(this.pfFlyPlane);
-        this.goldNumPool = NodePoolManager.create(this.ndGoldZone.children[0]);
-        this.goldParticlePool = NodePoolManager.create(this.ndGoldZone.getChildByName("particle"));
     }
 
     gameStart() {
@@ -193,14 +158,9 @@ export default class Game extends cc.Component {
     }
 
     initGame() {
-        this.showFastBuy();
-        this.setGold();
         this.setDiamonds();
-        this.setLevel();
-        this.setPgbLevel();
         this.showMoreGameBtn();
         setInterval(() => {
-            console.log("yanshi!!!!!!!!!");
             if(WXCtr.isOnHide) return;
             GameData.submitGameData();
             GameCtr.dianmondNotice((resp) => {
@@ -211,18 +171,11 @@ export default class Game extends cc.Component {
             });
             WXCtr.createBannerAd(100, 300);
         }, 60000);
-        setInterval(() => {
-            console.log("yanshi!!!!!!!!!");
-            if(WXCtr.isOnHide) return;
-            this.freePlane();
-        }, 30000);
     }
 
     refreshGameBtns() {
-        this.rocketSke.node.active = GameCtr.reviewSwitch;
         this.ndMoreGame.active = GameCtr.reviewSwitch;
         this.ndFriendBtn.active = GameCtr.reviewSwitch;
-        this.showUFO();
         this.showSlider();
         this.showBannerSlider();
     }
@@ -241,68 +194,9 @@ export default class Game extends cc.Component {
         )));
     }
 
-    setGold() {
-        let lbGold = this.ndgold.getChildByName("lbGold").getComponent(cc.Label);
-        if (this.lastGold === 0 || this.lastGold > GameData.gold) {
-            lbGold.string = GameCtr.formatNum(GameData.gold, 9);
-            // lbGold.node.runAction(cc.sequence(
-            //     cc.scaleTo(0.1, 1.2),
-            //     cc.scaleTo(0.05, 1.0)
-            // ));
-            this.lastGold = GameData.gold;
-        } else {
-            lbGold.node.stopAllActions();
-            let increment = Math.floor((GameData.gold - this.lastGold) / 20);
-            lbGold.node.runAction(cc.repeat(cc.sequence(
-                cc.callFunc(() => {
-                    this.lastGold += increment;
-                    lbGold.string = GameCtr.formatNum(this.lastGold, 9);
-                }),
-                cc.delayTime(0.025),
-            ), 20));
-        }
-        cc.systemEvent.emit("SET_GOLD");
-    }
-
     setDiamonds() {
         let lbDiamonds = this.ndDiamonds.getChildByName("lbDiamonds").getComponent(cc.Label);
         lbDiamonds.string = GameData.diamonds + "";
-    }
-
-    setProfit() {
-        let lbProfit = this.ndgold.getChildByName("lbProfit").getComponent(cc.Label);
-        lbProfit.string = GameCtr.formatNum(GameData.profit) + "/秒";
-    }
-
-    setLevel() {
-        let lbLevel = this.pgbLevel.node.getChildByName("lbLevel").getComponent(cc.Label);
-        lbLevel.string = GameData.level + "";
-        this.setRunway(GameData.level);
-        this.showLandPort(GameData.level);
-    }
-
-    setPgbLevel() {
-        let ratio = GameData.experience / GameData.getNextExperience();
-        this.pgbLevel.progress = ratio;
-        if (ratio >= 1) {
-            GameData.experience = 0;
-            this.pgbLevel.progress = 0;
-            GameData.level++;
-            this.setLevel();
-            this.showUpgrade(GameData.level);
-        }
-    }
-
-    freePlane() {
-        let maxLevel = GameData.maxPlaneLevel;
-        if (maxLevel < 4) {
-            return;
-        }
-        let level = Math.floor(maxLevel / 2.5 + Math.random() * maxLevel * Math.pow(0.1, maxLevel / 30) - maxLevel * Math.pow(0.1, maxLevel / 30) / 2);
-        if (level <= 0) {
-            level = 1;
-        }
-        this.buyPlane(level, "freeGift");
     }
 
     //增加游戏分数
@@ -311,51 +205,12 @@ export default class Game extends cc.Component {
         this.lbScore.string = GameCtr.score + "";
     }
 
-    getRoute() {
-        let nd = this.ndGame.getChildByName("ndRoute");
-        for (let i = 0; i < nd.childrenCount; i++) {
-            let node = nd.children[i];
-            let pos = node.getPosition();
-            this.routePosArr.push(pos);
-        }
-    }
-
-    enablePortsLayout() {
-        for (let i = 0; i < this.ndPlanePos.childrenCount; i++) {
-            let node = this.ndPlanePos.children[i];
-            let zNum = parseInt(node.name);
-            node.setLocalZOrder(zNum);
-            for (let k = 0; k < node.childrenCount; k++) {
-                let nd = node.children[k];
-                let z = parseInt(nd.name);
-                nd.setLocalZOrder(z);
-            }
-            let lineLayout = node.getComponent(cc.Layout);
-            lineLayout.enabled = true;
-        }
-
-        let layout = this.ndPlanePos.getComponent(cc.Layout);
-        layout.enabled = true;
-    }
-
-    disablePortsLayout() {
-        for (let i = 0; i < this.ndPlanePos.childrenCount; i++) {
-            let node = this.ndPlanePos.children[i];
-            let lineLayout = node.getComponent(cc.Layout);
-            lineLayout.enabled = false;
-        }
-
-        let layout = this.ndPlanePos.getComponent(cc.Layout);
-        layout.enabled = false;
-    }
-
     showLandPort(level) {
         if (level > 11) {
             level = 11;
         }
         let info = posConfig[level];
         this.allPort = [];
-        this.enablePortsLayout();
         for (let i = 0; i < this.ndPlanePos.childrenCount; i++) {
             let num = info[i];
             let node = this.ndPlanePos.getChildByName(i + "");
@@ -373,45 +228,6 @@ export default class Game extends cc.Component {
         }
 
         this.setPortPlane();
-
-        this.scheduleOnce(() => { this.disablePortsLayout() }, 0.1);
-    }
-
-    setRunway(level) {
-        this.allRunways = [];
-        if (level > 8) {
-            level = 8;
-        }
-        this.runways = level + 2;
-
-        for (let i = 0; i < level + 2; i++) {
-            let nd = this.ndRunwayContent.children[i];
-            nd.active = true;
-            this.allRunways.push(nd);
-        }
-        let ndLb = this.ndStartingZone.getChildByName("lb");
-        ndLb.y = (82 + (this.runways - 1) * 37) / 2 + 30;
-        this.setRunWayNum();
-    }
-
-    addUsedRunway() {
-        let nd = this.allRunways[this.runwayUsed];
-        nd.children[0].active = true;
-        this.runwayUsed++;
-        this.setRunWayNum();
-    }
-
-    reduceRunway() {
-        this.runwayUsed--;
-        let nd = this.allRunways[this.runwayUsed];
-        nd.children[0].active = false;
-        this.setRunWayNum();
-    }
-
-    setRunWayNum() {
-        let ndLb = this.ndStartingZone.getChildByName("lb");
-        let lb = ndLb.getComponent(cc.Label);
-        lb.string = this.runwayUsed + "/" + this.runways;
     }
 
     setPortPlane() {
@@ -426,26 +242,6 @@ export default class Game extends cc.Component {
         this.showOffLineProfitPop();
     }
 
-    addFlyPlane(land, random = false) {
-        let node = this.flyPlanePool.get();
-        this.ndPlanes.addChild(node);
-        let plane: FlyPlane = node.getComponent(FlyPlane);
-        plane.land = land;
-        plane.readFly(random);
-        plane.setLevel(land.getLevel());
-        this.flyPlaneArr.push(plane);
-        GameData.addProfitOfPlane(land.getLevel());
-        this.setProfit();
-        this.addUsedRunway();
-    }
-
-    removeFlyPlane(node) {
-        this.flyPlanePool.put(node);
-        let flyPlane = node.getComponent(FlyPlane);
-        let idx = this.flyPlaneArr.indexOf(flyPlane);
-        this.flyPlaneArr.splice(idx, 1);
-        this.reduceRunway();
-    }
 
     addLandPlane(level, boxType = null) {
         let nd;
@@ -495,21 +291,7 @@ export default class Game extends cc.Component {
         landPlane.apronTag = port.tag;
         comp.plane = landPlane;
         comp.isUsed = true;
-        //设置对应停机坪状态
-        // GameData.setApronState(port.tag, level);
-        let planeState = GameData.getPlaneStateOfApron(port.tag);
-        if (planeState) {
-            this.addFlyPlane(landPlane, true);
-            landPlane.setToFlyState();
-            GameData.setPlaneStateOfApron(this.node.parent.tag, true);
-        }
-    }
-
-    speedUp(ratio) {
-        for (let i = 0; i < this.flyPlaneArr.length; i++) {
-            let plane: FlyPlane = this.flyPlaneArr[i];
-            plane.speedUp(ratio);
-        }
+        
     }
 
     showTrash() {
@@ -528,18 +310,6 @@ export default class Game extends cc.Component {
         wPos = this.ndGame.convertToNodeSpaceAR(wPos);
         expParticle.node.position = wPos;
         expParticle.resetSystem();
-        let tPos = this.pgbLevel.node.getChildByName("bg").position;
-        tPos = this.pgbLevel.node.convertToWorldSpaceAR(tPos);
-        tPos = this.ndGame.convertToNodeSpaceAR(tPos);
-        let particle = this.pgbLevel.node.getChildByName("particle").getComponent(cc.ParticleSystem);
-        expParticle.node.runAction(cc.sequence(
-            cc.moveTo(1.0, tPos),
-            cc.callFunc(() => {
-                this.setPgbLevel();
-                expParticle.stopSystem();
-                particle.resetSystem();
-            })
-        ));
     }
 
     showPortLight(port) {
@@ -568,79 +338,6 @@ export default class Game extends cc.Component {
         ViewManager.showMall();
     }
 
-    // 显示快速购买按钮
-    showFastBuy(times = null) {
-        let level = 1
-        if (GameData.maxPlaneLevel > 9) {
-            level = GameData.maxPlaneLevel - 9;
-        }
-        if (!times) {
-            times = GameData.getBuyTimesOfPlane(level);
-        }
-        let spr = this.ndFastBuy.getChildByName("sprPlane").getComponent(cc.Sprite);
-        PlaneFrameMG.setPlaneFrame(spr, level, "land");
-        let lbPrice = this.ndFastBuy.getChildByName("lbPrice").getComponent(cc.Label);
-        let price = GameData.getPriceOfPlane(level, times);
-        lbPrice.string = GameCtr.formatNum(price);
-    }
-
-    //购买飞机
-    buyPlane(level, boxType = null, diamonds = null, freeMall = false) {
-        cc.log("!!!!!!!!!!!!!!!!!!!");
-        if (freeMall) {
-            this.addLandPlane(level, boxType);
-            return;
-        }
-        if (diamonds) {
-            if (GameData.diamonds >= diamonds) {
-                if (this.addLandPlane(level, boxType)) {
-                    GameData.diamonds -= diamonds;
-                    this.setDiamonds();
-                    // GameData.changeDiamonds(-diamonds, () => { this.setDiamonds(); });
-                    return true;
-                } else {
-                    ViewManager.toast("停机坪已满！");
-                    return false;
-                }
-            } else {
-                ViewManager.toast("钻石数量不足！");
-            }
-        } else {
-            let times = GameData.getBuyTimesOfPlane(level);
-            let price = GameData.getPriceOfPlane(level, times);
-            if (boxType == "freeGift") {
-                this.addLandPlane(level, boxType);
-                return;
-            }
-            if (GameData.gold >= price) {
-                if (this.addLandPlane(level, boxType)) {
-
-                    GameData.reduceGold(price);
-                    this.setGold();
-                    times++;
-                    GameData.setBuyTimesOfPlane(level, times);
-                    this.showFastBuy();
-                    return true;
-                } else {
-                    ViewManager.toast("停机坪已满！");
-                    return false;
-                }
-            } else {
-                if (!GameCtr.reviewSwitch) {
-                    ViewManager.toast("金币不足！");
-                    return false;
-                }
-                ViewManager.toast("金币不足！", cc.color(255, 255, 255), 0.5);
-                this.enableFastBuyBtn(false);
-                if (GameCtr.mall) {
-                    GameCtr.mall.enableAllItemGoldBtn(false);
-                }
-                this.scheduleOnce(() => { ViewManager.showShareGold(); }, 0.8);
-                return false;
-            }
-        }
-    }
-
     addFreeMallPlane() {
         if (this.addLandPlane(GameCtr.freeMallPlaneLevel, "buyGift")) {
             GameCtr.freeMallPlaneNum--;
@@ -656,44 +353,12 @@ export default class Game extends cc.Component {
         }
     }
 
-    showGoldRain() {
-        this.ndGoldRain.active = true;
-        GameCtr.ufoProfitBuff = true;
-        this.unschedule(this.hideGoldRain);
-        this.scheduleOnce(this.hideGoldRain, 60);
-    }
-
-    hideGoldRain() {
-        this.ndGoldRain.active = false;
-        GameCtr.ufoProfitBuff = false;
-    }
-
-    enableFastBuyBtn(enable) {
-        let btn = this.ndFastBuy.getComponent(cc.Button);
-        btn.interactable = enable;
-    }
 
     removeLandPlane(node) {
         let idx = this.landPlaneArr.indexOf(node);
         this.landPlaneArr.splice(idx, 1);
     }
 
-    //快速购买
-    fastBuy() {
-        if (Guide.guideStep <= 7) {
-            if (Guide.guideStep <= 1) {
-                Guide.setGuideStorage(++Guide.guideStep);
-            } else {
-                return;
-            }
-        }
-        let level = 1
-        if (GameData.maxPlaneLevel > 9) {
-            level = GameData.maxPlaneLevel - 9;
-        }
-        this.buyPlane(level);
-        GameCtr.clickStatistics(GameCtr.StatisticType.FAST_BUY);                               //快速购买点击统计
-    }
 
     /**
      * 显示升级弹窗
@@ -750,73 +415,15 @@ export default class Game extends cc.Component {
         particle.resetSystem();
         let particle1 = this.ndGame.getChildByName("OffLineProfitParticle1").getComponent(cc.ParticleSystem);
         particle1.resetSystem();
-        this.ndgold.runAction(cc.sequence(
-            cc.delayTime(0.5),
-            cc.repeat(
-                cc.sequence(
-                    cc.scaleTo(0.1, 1.2),
-                    cc.scaleTo(0.05, 1)
-                ), 5
-            )
-        ))
-    }
-
-    showRocket() {
-        this.rocketSke.setAnimation(1, "1", true);
-        this.rocketSke.setCompleteListener(trackEntry => {
-            var animationName = trackEntry.animation ? trackEntry.animation.name : "";
-            if (animationName == "2") {
-                this.rocketSke.setAnimation(1, "1", true);
-            }
-        });
-        this.schedule(() => {
-            this.rocketSke.clearTrack(1);
-            this.rocketSke.setAnimation(0, "2", false);
-        }, 20);
-        // let rocket = this.ndRocket.getChildByName("icon_rocket");
-        // rocket.runAction(cc.repeatForever(
-        //     cc.sequence(
-        //         cc.scaleTo(0.3, 1.1),
-        //         cc.scaleTo(0.3, 1.0),
+        // this.ndgold.runAction(cc.sequence(
+        //     cc.delayTime(0.5),
+        //     cc.repeat(
+        //         cc.sequence(
+        //             cc.scaleTo(0.1, 1.2),
+        //             cc.scaleTo(0.05, 1)
+        //         ), 5
         //     )
-        // ));
-    }
-
-    /**
-     * 显示加速弹窗
-     */
-    showSpeedUpPop() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
-        let nd = cc.instantiate(this.pfSpeedUp);
-        let comp = nd.getComponent(UpgradeView);
-        ViewManager.showPromptDialog({
-            node: nd,
-            title: "分享加速200%",
-            closeButton: true,
-            transition: false
-        });
-    }
-
-    countDown() {
-        let ndCountDown = this.ndRocket.getChildByName("icon_rocket").getChildByName("speed_time_bg");
-        if (SpeedTotal.speedUpTime <= 0) {
-            ndCountDown.active = false;
-            return;
-        }
-        ndCountDown.active = true;
-        let min: any = Math.floor(SpeedTotal.speedUpTime / 60);
-        let sec: any = SpeedTotal.speedUpTime % 60;
-        if (min < 10) {
-            min = "0" + min;
-        }
-        if (sec < 10) {
-            sec = "0" + sec;
-        }
-        let lbTime = ndCountDown.getChildByName("lbTime").getComponent(cc.Label);
-        lbTime.string = min + ":" + sec;
-        this.scheduleOnce(() => { this.countDown(); }, 1);
+        // ))
     }
 
     /**
@@ -915,46 +522,6 @@ export default class Game extends cc.Component {
         }
         ViewManager.showRanking();
         GameCtr.clickStatistics(GameCtr.StatisticType.RANKING);                               //排行榜点击统计
-    }
-
-    /**
-     * 显示UFO
-     */
-    showUFO() {
-        if (GameCtr.surplusVideoTimes <= 0) return;
-        let maxLevel = GameData.maxPlaneLevel;
-        if (maxLevel < 3 || !WXCtr.videoAd) {
-            this.scheduleOnce(() => {
-                this.showUFO();
-            }, GameCtr.ufoDelayTime);
-            return;
-
-        }
-        this.ndUFO.setPositionX(720);
-        this.ndUFO.scaleX = 0.8;
-        this.ndUFO.runAction(cc.sequence(
-            cc.moveBy(5, cc.v2(-1100, 0)),
-            cc.delayTime(5),
-            cc.moveBy(2, cc.v2(500, 0)),
-            cc.delayTime(2),
-            cc.moveBy(1.0, cc.v2(500)),
-        ));
-        this.ufoShowTimes++;
-
-        this.scheduleOnce(() => {
-            this.showUFO();
-        }, GameCtr.ufoDelayTime);
-    }
-
-    showUfoGift() {
-        this.ndUFO.setPositionX(1500);
-        let nd = cc.instantiate(this.pfUfoGift);
-        ViewManager.showPromptDialog({
-            node: nd,
-            title: "飞碟奖励",
-            closeButton: true,
-            transition: false
-        });
     }
 
     //自动弹出登录奖励

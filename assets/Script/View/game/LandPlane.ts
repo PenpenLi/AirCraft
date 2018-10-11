@@ -1,5 +1,4 @@
 import GameCtr from "../../Controller/GameCtr";
-import FlyPlane from "./FlyPlane";
 import Apron from "./Apron";
 import GameData from "../../Common/GameData";
 import PlaneFrameMG from "./PlaneFrameMG";
@@ -122,10 +121,6 @@ export default class LandPlane extends cc.Component {
         if (this.judgeTrash(wPos)) {
             return true;
         }
-        if (this.judgeStart(wPos)) {
-            GameCtr.ins.mGame.hideTrash();
-            return true;
-        }
         if (this.judgeApron(wPos)) {
             GameCtr.ins.mGame.hideTrash();
             return true;
@@ -152,7 +147,6 @@ export default class LandPlane extends cc.Component {
                     this.node.destroy();
                     let profit = Math.floor(GameData.getPriceOfPlane(this.level, 0));
                     GameData.gold += profit;
-                    GameCtr.ins.mGame.setGold();
                     GameCtr.ins.mGame.hideTrash();
                     if (GameCtr.freeMallPlaneNum > 0) {
                         GameCtr.ins.mGame.addFreeMallPlane();
@@ -174,29 +168,6 @@ export default class LandPlane extends cc.Component {
             return true;
         } else {
             return false;
-        }
-    }
-
-    //检测飞机是否在起飞的地方
-    judgeStart(wPos) {
-        let startNode = GameCtr.ins.mGame.ndStartingZone;
-        let runwayBeUsed = GameCtr.ins.mGame.runwayUsed + 1;
-        if (startNode.getBoundingBoxToWorld().contains(wPos)) {
-            if (runwayBeUsed <= GameCtr.ins.mGame.runways) {
-                AudioManager.getInstance().playSound("audio/runway", false);
-                GameCtr.ins.mGame.addFlyPlane(this);
-                this.moveNode.destroy();
-                this.moveNode = null;
-                this.setToFlyState();
-                GameData.setPlaneStateOfApron(this.node.parent.tag, true);
-                if (Guide.guideStep <= 7) {
-                    Guide.setGuideStorage(++Guide.guideStep);
-                }
-                return true;
-            } else {
-                ViewManager.toast("跑道已满！");
-                return false;
-            }
         }
     }
 
@@ -352,89 +323,14 @@ export default class LandPlane extends cc.Component {
     }
 
     setFrame(level) {
-        PlaneFrameMG.setPlaneFrame(this.spr, level, "land");
-    }
-
-    showBox(boxType) {
-        let idx = boxTypeArr.indexOf(boxType);
-        if (idx != -1) {
-            this.sprBox.node.active = true;
-            PlaneFrameMG.setBoxFrame(this.sprBox, idx);
-            if (Guide.guideStep <= 7) {
-                return;
-            }
-            this.sprBox.node.runAction(cc.sequence(
-                cc.delayTime(3.0),
-                cc.rotateBy(0.05, 10),
-                cc.rotateBy(0.05, -20),
-                cc.rotateBy(0.05, 20),
-                cc.rotateBy(0.05, -20),
-                cc.rotateBy(0.05, 20),
-                cc.rotateBy(0.05, -20),
-                cc.rotateBy(0.05, 20),
-                cc.rotateBy(0.05, -20),
-                cc.rotateBy(0.05, 20),
-                cc.rotateBy(0.05, -10),
-                cc.callFunc(() => {
-                    GameCtr.ins.mGame.showPortLight(this.node.parent);
-                }),
-                cc.removeSelf()
-            ));
-        }
-    }
-
-    clickBox() {
-        this.sprBox.node.stopAllActions();
-        this.sprBox.node.runAction(cc.sequence(
-            cc.rotateBy(0.05, 10),
-            cc.rotateBy(0.05, -20),
-            cc.rotateBy(0.05, 20),
-            cc.rotateBy(0.05, -20),
-            cc.rotateBy(0.05, 20),
-            cc.rotateBy(0.05, -20),
-            cc.rotateBy(0.05, 20),
-            cc.rotateBy(0.05, -20),
-            cc.rotateBy(0.05, 20),
-            cc.rotateBy(0.05, -10),
-            cc.callFunc(() => {
-                GameCtr.ins.mGame.showPortLight(this.node.parent);
-            }),
-            cc.removeSelf()
-        ));
-        if (Guide.guideStep <= 7) {
-            Guide.setGuideStorage(++Guide.guideStep);
-        }
-    }
-
-    setToFlyState() {
-        this.node.opacity = 180;
-        this.node.children[0].active = true;
-        this.isFlying = true;
-    }
-
-    resetState() {
-        this.node.opacity = 255;
-        this.isFlying = false;
-        this.node.children[0].active = false;
+        PlaneFrameMG.setPlaneFrame(this.spr, level);
     }
 
     recyclePlane() {
         let flyArr = GameCtr.ins.mGame.flyPlaneArr;
 
         let wPos = this.node.parent.convertToWorldSpaceAR(this.node.position);
-        for (let i = 0; i < flyArr.length; i++) {
-            let flyPlane: FlyPlane = flyArr[i];
-            if (flyPlane.land.apronTag == this.apronTag && flyPlane.getLevel() == this.level) {
-                flyPlane.landToAirPort(wPos);
-                GameData.setPlaneStateOfApron(this.node.parent.tag, false);
-                GameData.reduceProfitOfPlane(this.level);
-                GameCtr.ins.mGame.setProfit();
-                break;
-            }
-        }
-        if (Guide.guideStep <= 7) {
-            Guide.setGuideStorage(++Guide.guideStep);
-        }
+        
     }
 
     // update (dt) {}
