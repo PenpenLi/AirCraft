@@ -2,19 +2,22 @@ import GameCtr from "../Controller/GameCtr";
 import WXCtr from "../Controller/WXCtr";
 import Guide from "../View/game/Guide";
 import UserManager from "./UserManager";
+import HttpCtr from "../Controller/HttpCtr";
 
 
 const { ccclass, property } = cc._decorator;
 
 const dataKeyConfig = {
-    money: "data_1",
-    diamonds: "data_2",
-    fertilizerLevel: "data_3",
-    pesticideLevel: "data_4",
-    wateringCanLevel: "data_5",
-    offLineProfitLevel: "data_6",
-    exp: "data_7",
-    gameLevel: "data_8",
+    factoryLevel: "data_1",
+    repositoryLevel: "",                                                //工厂等级
+    recycle: "",                                                        //仓库等级
+    attack: "",                                                         //回收技术
+    criticalStrike: "",                                                 //攻击技术
+    highRecycle: "",                                                    //暴击技术
+    highAttackSpeed: "",                                                //高级回收
+    highAttack: "",                                                     //高级攻速
+    highCriticalStrike: "",                                             //高级暴击
+    forceCriticalStrike: "",                                            //暴击暴伤
     guideStep: "data_12",
 };
 
@@ -77,7 +80,7 @@ export default class GameData {
             GameData.planeData[key] = data[key];
         }
         GameData.setUserData(GameData.planeData);
-        GameCtr.submitUserData({});
+        HttpCtr.submitUserData({});
         GameCtr.ins.mGame.gameStart();
     }
 
@@ -104,7 +107,7 @@ export default class GameData {
     }
 
     static submitGameData() {
-        GameCtr.submitUserData({
+        HttpCtr.submitUserData({
             gold: GameData._gold,
             money: GameData._diamond,
         });
@@ -133,7 +136,7 @@ export default class GameData {
         }
         GameData._diamond = diamonds;
         GameData.setUserData({ diamonds: GameData._diamond });
-        GameCtr.submitUserData({ money: GameData._diamond });
+        HttpCtr.submitUserData({ money: GameData._diamond });
     }
 
     //获取钻石数量
@@ -144,7 +147,7 @@ export default class GameData {
     //改变钻石数量
     static changeDiamonds(num, callback = null) {
         let diamonds;
-        GameCtr.getUserInfo((data) => {
+        HttpCtr.getUserInfo((data) => {
             diamonds = data.money;
             GameData.diamonds = diamonds + num;
             if (callback) {
@@ -157,7 +160,7 @@ export default class GameData {
     static set maxPlaneLevel(level) {
         GameData._maxPlaneLevel = level;
         GameData.setUserData({ maxPlaneLevel: GameData._maxPlaneLevel });
-        GameCtr.submitUserData({
+        HttpCtr.submitUserData({
             maxfeiji: GameData._maxPlaneLevel,
         });
     }
@@ -183,7 +186,7 @@ export default class GameData {
         let data = {};
         data[key] = level;
         GameData.setUserData(data);
-        GameCtr.submitUserData(data);
+        HttpCtr.submitUserData(data);
     }
 
     //获取停机坪状态
@@ -210,7 +213,7 @@ export default class GameData {
         let data = {};
         data[key] = level;
         GameData.setUserData(data);
-        GameCtr.submitUserData(data);
+        HttpCtr.submitUserData(data);
     }
 
     // 获取飞机等级
