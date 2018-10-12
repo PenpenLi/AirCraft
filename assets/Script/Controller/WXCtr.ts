@@ -517,21 +517,9 @@ export default class WXCtr {
         }
     }
 
-    static getStorageData(key, callback = null) {
+    static getStorageData(key) {
         if (window.wx != undefined) {
-            wx.getStorage({
-                key: key,
-                success: (resp) => {
-                    if (callback) {
-                        callback(resp.data);
-                    }
-                },
-                fail: (resp) => {
-                    if (callback) {
-                        callback(null);
-                    }
-                },
-            });
+            return wx.getStorageSync(key);
         }
     }
 
