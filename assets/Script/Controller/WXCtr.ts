@@ -5,6 +5,7 @@ import Http from "../Common/Http";
 import UserManager from "../Common/UserManager";
 import ViewManager from "../Common/ViewManager";
 import GameData from "../Common/GameData";
+import HttpCtr from "./HttpCtr";
 
 const { ccclass, property } = cc._decorator;
 
@@ -296,7 +297,7 @@ export default class WXCtr {
                 success: function (res) {
                     let info = res.userInfo;
                     WXCtr.authed = true;
-                    GameCtr.saveUserInfo(res);
+                    HttpCtr.saveUserInfo(res);
                 },
                 fail: function (res) {
                 }
@@ -510,7 +511,7 @@ export default class WXCtr {
                 shareTicket: shareTicket,
                 success: (resp) => {
                     if (resp.encryptedData && resp.iv) {
-                        GameCtr.shareGroupCheck(resp.encryptedData, resp.iv, callback);
+                        HttpCtr.shareGroupCheck(resp.encryptedData, resp.iv, callback);
                     }
                 },
             });
