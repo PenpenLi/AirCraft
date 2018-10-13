@@ -5,6 +5,7 @@ import PlaneFrameMG from "./PlaneFrameMG";
 import Guide from "./Guide";
 import ViewManager from "../../Common/ViewManager";
 import AudioManager from "../../Common/AudioManager";
+import Util from "../../Common/Util";
 
 
 const { ccclass, property } = cc._decorator;
@@ -13,9 +14,6 @@ let boxTypeArr = ["freeGift", "buyGift", "ufoGift"];
 
 @ccclass
 export default class LandPlane extends cc.Component {
-
-    @property(cc.Sprite)
-    sprBox: cc.Sprite = null;
 
     private spr: cc.Sprite;
 
@@ -62,7 +60,6 @@ export default class LandPlane extends cc.Component {
                 if (!this.moveNode) {
                     GameCtr.lastZ = GameCtr.lastZ < 100 ? 100 : ++GameCtr.lastZ;
                     this.node.parent.setLocalZOrder(GameCtr.lastZ);
-                    this.node.parent.parent.setLocalZOrder(GameCtr.lastZ);
                     this.createMoveNode();
                     this.moveNode.position = this.node.position;
                 }
@@ -145,24 +142,11 @@ export default class LandPlane extends cc.Component {
                     GameData.setApronState(this.node.parent.tag, 0);   //自己停机坪状态设为0（没有飞机）
                     GameCtr.ins.mGame.removeLandPlane(this.node);
                     this.node.destroy();
-                    let profit = Math.floor(GameData.getPriceOfPlane(this.level, 0));
-                    GameData.gold += profit;
+                    
                     GameCtr.ins.mGame.hideTrash();
-                    if (GameCtr.freeMallPlaneNum > 0) {
-                        GameCtr.ins.mGame.addFreeMallPlane();
-                    }
-                    else if (GameCtr.leftUfoBox > 0) {
-                        GameCtr.ins.mGame.addUFOGiftBox();
-                    }
 
                     let addGold = trash.getChildByName("AddGold");
                     let lb = addGold.getChildByName("lbNum").getComponent(cc.Label);
-                    lb.string = "+" + GameCtr.formatNum(profit);
-                    addGold.runAction(cc.sequence(
-                        cc.moveTo(0, cc.v2(23, -23)),
-                        cc.moveBy(0.5, cc.v2(0, 100)),
-                        cc.moveBy(0, cc.v2(1000, 0))
-                    ));
                 })
             ));
             return true;
@@ -261,13 +245,6 @@ export default class LandPlane extends cc.Component {
         GameCtr.ins.mGame.removeLandPlane(this.node);
         this.node.destroy();
 
-        if (GameCtr.freeMallPlaneNum > 0) {
-            GameCtr.ins.mGame.addFreeMallPlane();
-        }
-        else if (GameCtr.leftUfoBox > 0) {
-            GameCtr.ins.mGame.addUFOGiftBox();
-        }
-
         let tmpNode = this.moveNode;
 
         if (GameData.maxPlaneLevel < otherPlane.level + 1) {
@@ -297,7 +274,6 @@ export default class LandPlane extends cc.Component {
                     otherPlane.moveNode.destroy();
                     otherPlane.moveNode = null;
                 }
-                GameData.addExperience(otherPlane.level);
                 if (otherPlane.level > GameData.maxPlaneLevel) {
                     GameData.maxPlaneLevel = otherPlane.level;
                 }

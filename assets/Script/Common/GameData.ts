@@ -89,7 +89,11 @@ export default class GameData {
         data["saveTime"] = new Date().getTime();
         for (let key in data) {
             WXCtr.setStorageData(key, data[key]);
+            if (dataKeyConfig[key]) {
+                data[dataKeyConfig[key]] = data[key];
+            }
         }
+        HttpCtr.submitUserData(data);
     }
 
     //设置金币数量

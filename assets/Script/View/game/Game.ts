@@ -17,24 +17,11 @@ import Guide from "./Guide";
 import UserManager from "../../Common/UserManager";
 import WXCtr from "../../Controller/WXCtr";
 import AudioManager from "../../Common/AudioManager";
+import HttpCtr from "../../Controller/HttpCtr";
+import Util from "../../Common/Util";
 
 
 const { ccclass, property } = cc._decorator;
-
-let posConfig = [
-    [2, 2, 0, 0, 0],
-    [2, 2, 1, 0, 0],
-    [2, 2, 2, 0, 0],
-    [2, 2, 2, 1, 0],
-    [2, 2, 2, 2, 0],
-    [3, 2, 2, 2, 0],
-    [3, 3, 2, 2, 0],
-    [3, 3, 3, 2, 0],
-    [3, 3, 3, 3, 0],
-    [3, 3, 3, 3, 1],
-    [3, 3, 3, 3, 2],
-    [3, 3, 3, 3, 3],
-];
 
 @ccclass
 export default class Game extends cc.Component {
@@ -54,8 +41,6 @@ export default class Game extends cc.Component {
 
     @property(cc.Label)
     lbScore: cc.Label = null;
-    @property(cc.Node)
-    ndPlanes: cc.Node = null;
     @property(cc.Node)
     ndPlanePos: cc.Node = null;
     @property(cc.Prefab)
@@ -161,14 +146,14 @@ export default class Game extends cc.Component {
         this.setDiamonds();
         this.showMoreGameBtn();
         setInterval(() => {
-            if(WXCtr.isOnHide) return;
+            if (WXCtr.isOnHide) return;
             GameData.submitGameData();
-            GameCtr.dianmondNotice((resp) => {
-                if (resp.moeny) {
-                    GameData.diamonds += resp.moeny;
-                    this.setDiamonds();
-                }
-            });
+            // GameCtr.dianmondNotice((resp) => {
+            //     if (resp.moeny) {
+            //         GameData.diamonds += resp.moeny;
+            //         this.setDiamonds();
+            //     }
+            // });
             WXCtr.createBannerAd(100, 300);
         }, 60000);
     }
@@ -209,22 +194,14 @@ export default class Game extends cc.Component {
         if (level > 11) {
             level = 11;
         }
-        let info = posConfig[level];
         this.allPort = [];
-        for (let i = 0; i < this.ndPlanePos.childrenCount; i++) {
-            let num = info[i];
+        for (let i = 1; i <= this.ndPlanePos.childrenCount; i++) {
             let node = this.ndPlanePos.getChildByName(i + "");
-            if (num > 0) {
-                node.active = true;
-                for (let k = 11; k < num + 11; k++) {
-                    let nd = node.getChildByName(k + "");
-                    let ndSke = nd.getChildByName("banzi")
-                    ndSke.active = false;
-                    nd.active = true;
-                    nd.tag = i * 3 + k - 10;
-                    this.allPort.push(nd);
-                }
-            }
+            let ndSke = node.getChildByName("banzi")
+            ndSke.active = false;
+            node.active = true;
+            node.tag = i;
+            this.allPort.push(node);
         }
 
         this.setPortPlane();
@@ -291,7 +268,7 @@ export default class Game extends cc.Component {
         landPlane.apronTag = port.tag;
         comp.plane = landPlane;
         comp.isUsed = true;
-        
+
     }
 
     showTrash() {
@@ -334,25 +311,9 @@ export default class Game extends cc.Component {
         if (Guide.guideStep <= 7) {
             return;
         }
-        GameCtr.clickStatistics(GameCtr.StatisticType.MALL);                               //商城点击统计
+        HttpCtr.clickStatistics(GameCtr.StatisticType.MALL);                               //商城点击统计
         ViewManager.showMall();
     }
-
-    addFreeMallPlane() {
-        if (this.addLandPlane(GameCtr.freeMallPlaneLevel, "buyGift")) {
-            GameCtr.freeMallPlaneNum--;
-        }
-    }
-
-    addUFOGiftBox() {
-        let num = GameCtr.leftUfoBox;
-        for (let i = 0; i < num; i++) {
-            if (this.addLandPlane(GameCtr.UfoBoxLevel, "ufoGift")) {
-                GameCtr.leftUfoBox--;
-            }
-        }
-    }
-
 
     removeLandPlane(node) {
         let idx = this.landPlaneArr.indexOf(node);
@@ -380,34 +341,28 @@ export default class Game extends cc.Component {
      */
     showOffLineProfitPop() {
         console.log("离线收益！！！！！！");
-        let profit = GameData.profit;
-        WXCtr.getStorageData("lastTime", (resp) => {
-            if (resp) {
-                let lastTime = resp;
-                let cTime = new Date().getTime();
-                let offTime = Math.floor((cTime - lastTime) / 1000);
-                let offLineProfit = Math.floor(GameData.profit * offTime * Math.pow(0.4, offTime / 28800));
-                if (offTime > 2 * 60 && offLineProfit > 0) {
-                    let nd = cc.instantiate(this.pfOffLineProfit);
-                    let comp = nd.getComponent(OffLineProfit)
-                    ViewManager.show({
-                        node: nd,
-                        closeOnKeyBack: true,
-                        transitionShow: false,
-                        maskOpacity: 200,
-                        localZOrder: 1001
-                    });
-                    comp.setOffLineProfit(offTime, offLineProfit);
-                    GameCtr.submitUserData({ data_4: cTime });
-                    WXCtr.setStorageData("lastTime", cTime);
-                } else {
-                    this.autoShowLoginAward();
-                }
-            }
-            else {
-                this.autoShowLoginAward();
-            }
-        });
+        let profit = 0;                                         //
+        let lastTime = WXCtr.getStorageData("lastTime");
+        let cTime = new Date().getTime();
+        let offTime = Math.floor((cTime - lastTime) / 1000);
+        let offLineProfit = Math.floor(profit * offTime * Math.pow(0.4, offTime / 28800));
+        if (offTime > 2 * 60 && offLineProfit > 0) {
+            let nd = cc.instantiate(this.pfOffLineProfit);
+            let comp = nd.getComponent(OffLineProfit)
+            ViewManager.show({
+                node: nd,
+                closeOnKeyBack: true,
+                transitionShow: false,
+                maskOpacity: 200,
+                localZOrder: 1001
+            });
+            comp.setOffLineProfit(offTime, offLineProfit);
+            HttpCtr.submitUserData({ data_4: cTime });
+            WXCtr.setStorageData("lastTime", cTime);
+        } else {
+            this.autoShowLoginAward();
+        }
+
     }
 
     showOffLineProfitParticle() {
@@ -457,18 +412,6 @@ export default class Game extends cc.Component {
         });
     }
 
-    //获取停机坪所有飞机的基础收益总和
-    getAllPlaneBaseProfit() {
-        let profits = 0;
-        for (let i = 0; i < this.landPlaneArr.length; i++) {
-            let node = this.landPlaneArr[i];
-            let landPlane = node.getComponent(LandPlane);
-            let profit = GameData.getBaseProfitOfPlane(landPlane.getLevel());
-            profits += profit;
-        }
-        return profits;
-    }
-
     /**
      * 更多游戏
      */
@@ -478,7 +421,7 @@ export default class Game extends cc.Component {
         }
         if (GameCtr.otherData) {
             WXCtr.gotoOther(GameCtr.otherData);
-            GameCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, GameCtr.otherData.appid);                               //更多游戏点击统计
+            HttpCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, GameCtr.otherData.appid);                               //更多游戏点击统计
         }
     }
 
@@ -486,7 +429,7 @@ export default class Game extends cc.Component {
         if (Guide.guideStep <= 7) {
             return;
         }
-        GameCtr.clickStatistics(GameCtr.StatisticType.GIFT);                                    //关注礼包点击统计
+        HttpCtr.clickStatistics(GameCtr.StatisticType.GIFT);                                    //关注礼包点击统计
         WXCtr.customService();
     }
 
@@ -497,7 +440,7 @@ export default class Game extends cc.Component {
 
         let btn = this.ndCustom.getComponent(cc.Button);
         btn.interactable = false;
-        GameCtr.clickStatistics(GameCtr.StatisticType.UFO);                               //UFO视频点击统计
+        HttpCtr.clickStatistics(GameCtr.StatisticType.UFO);                               //UFO视频点击统计
         if (WXCtr.videoAd) {
             AudioManager.getInstance().stopAll();
             WXCtr.offCloseVideo();
@@ -508,7 +451,7 @@ export default class Game extends cc.Component {
                 GameData.diamonds += 60;
                 ViewManager.toast("恭喜获得60钻石奖励！");
                 this.setDiamonds();
-                WXCtr.setStorageData("everydayDiamonds", { day: GameCtr.getCurrTimeYYMMDD() });
+                WXCtr.setStorageData("everydayDiamonds", { day: Util.getCurrTimeYYMMDD() });
             });
         }
     }
@@ -521,22 +464,21 @@ export default class Game extends cc.Component {
             return;
         }
         ViewManager.showRanking();
-        GameCtr.clickStatistics(GameCtr.StatisticType.RANKING);                               //排行榜点击统计
+        HttpCtr.clickStatistics(GameCtr.StatisticType.RANKING);                               //排行榜点击统计
     }
 
     //自动弹出登录奖励
     autoShowLoginAward() {
-        WXCtr.getStorageData("loginAwardData", (info) => {
-            let day = GameCtr.getCurrTimeYYMMDD();
-            if (!info) {
-                this.showLoginAward();
-                WXCtr.setStorageData("loginAwardData", { day: GameCtr.getCurrTimeYYMMDD() });
-            }
-            else if (info.day != day) {
-                this.showLoginAward();
-                WXCtr.setStorageData("loginAwardData", { day: GameCtr.getCurrTimeYYMMDD() })
-            }
-        });
+        let day = Util.getCurrTimeYYMMDD();
+        let info = WXCtr.getStorageData("loginAwardData");
+        if (!info) {
+            this.showLoginAward();
+            WXCtr.setStorageData("loginAwardData", { day: Util.getCurrTimeYYMMDD() });
+        }
+        else if (info.day != day) {
+            this.showLoginAward();
+            WXCtr.setStorageData("loginAwardData", { day: Util.getCurrTimeYYMMDD() })
+        }
     }
 
     //每日登录奖励
@@ -586,7 +528,7 @@ export default class Game extends cc.Component {
         )));
         if (this.sliderIdx >= GameCtr.sliderDatas.length) this.sliderIdx = 0;
         let data = GameCtr.sliderDatas[this.sliderIdx];
-        GameCtr.loadImg(this.sprSlider, data.img);
+        Util.loadImg(this.sprSlider, data.img);
         this.scheduleOnce(() => {
             this.sliderIdx++;
             this.showSlider();
@@ -599,7 +541,7 @@ export default class Game extends cc.Component {
         }
         let data = GameCtr.sliderDatas[this.sliderIdx];
         WXCtr.gotoOther(data);
-        GameCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, data.appid);
+        HttpCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, data.appid);
     }
 
     showBannerSlider() {
@@ -609,27 +551,26 @@ export default class Game extends cc.Component {
         for (let i = 0; i < content.childrenCount; i++) {
             let nd = content.children[i];
             let spr = nd.getComponent(cc.Sprite);
-            GameCtr.loadImg(spr, GameCtr.bannerDatas[i].img);
+            Util.loadImg(spr, GameCtr.bannerDatas[i].img);
         }
     }
 
     clickBannerSlider(event, idx) {
         let data = GameCtr.bannerDatas[idx];
         WXCtr.gotoOther(data);
-        GameCtr.clickStatistics(GameCtr.StatisticType.BANNER_SLIDER, data.appid);                               //今日新游点击统计
+        HttpCtr.clickStatistics(GameCtr.StatisticType.BANNER_SLIDER, data.appid);                               //今日新游点击统计
     }
 
     showGiftBtn() {
-        WXCtr.getStorageData("everydayDiamonds", (info) => {
-            let day = GameCtr.getCurrTimeYYMMDD();
-            if (GameData.maxPlaneLevel >= 7 && GameCtr.surplusVideoTimes > 0) {
-                if (info && info.day != day) {
-                    this.ndCustom.active = GameCtr.reviewSwitch;
-                } else if (!info) {
-                    this.ndCustom.active = GameCtr.reviewSwitch;
-                }
+        let day = Util.getCurrTimeYYMMDD();
+        let info = WXCtr.getStorageData("everydayDiamonds");
+        if (GameData.maxPlaneLevel >= 7 && GameCtr.surplusVideoTimes > 0) {
+            if (info && info.day != day) {
+                this.ndCustom.active = GameCtr.reviewSwitch;
+            } else if (!info) {
+                this.ndCustom.active = GameCtr.reviewSwitch;
             }
-        });
+        }
     }
     // update (dt) {
 
