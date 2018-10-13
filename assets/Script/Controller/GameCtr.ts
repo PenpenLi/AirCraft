@@ -5,6 +5,7 @@ import WXCtr from "./WXCtr";
 import Http from "../Common/Http";
 import UserManager from "../Common/UserManager";
 import Game from "../View/game/Game";
+import Fight from "../View/fight/Fight";
 import GameData from "../Common/GameData";
 import ViewManager from "../Common/ViewManager";
 import Start from "../View/start/Start";
@@ -15,6 +16,7 @@ export default class GameCtr {
     public static ins: GameCtr;
     public mGame: Game;
     public mStart: Start;
+    public mFight: Fight;
 
     public static bannerId = null;
 
@@ -93,6 +95,14 @@ export default class GameCtr {
     //设置start实例（开始界面）
     setStart(start: Start) {
         this.mStart = start;
+    }
+
+    setFight(fight:Fight){
+        this.mFight =fight;
+    }
+
+    getFight(){
+        return this.mFight;
     }
 
     //场景切换
