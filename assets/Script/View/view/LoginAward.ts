@@ -3,6 +3,7 @@ import LoginAwardCell from "./LoginAwardCell";
 import ViewManager from "../../Common/ViewManager";
 import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
+import HttpCtr from "../../Controller/HttpCtr";
 
 const { ccclass, property } = cc._decorator;
 
@@ -19,7 +20,7 @@ export default class LoginAward extends cc.Component {
     }
 
     setAwardDatas() {
-        GameCtr.getLoginAwardList((res) => {
+        HttpCtr.getLoginAwardList((res) => {
             let idx = 0;
             let data = res.data;
             let signedSum = res.todaySum;
@@ -37,7 +38,7 @@ export default class LoginAward extends cc.Component {
     signIn(event) {
         let btn = event.target.getComponent(cc.Button);
         btn.interactable = false;
-        GameCtr.sign((res) => {
+        HttpCtr.sign((res) => {
             btn.interactable = true;
             if (res) {
                 

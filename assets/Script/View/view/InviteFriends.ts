@@ -4,6 +4,7 @@ import PopupView from "./PopupView";
 import WXCtr from "../../Controller/WXCtr";
 import UserManager from "../../Common/UserManager";
 import GameData from "../../Common/GameData";
+import HttpCtr from "../../Controller/HttpCtr";
 
 
 const { ccclass, property } = cc._decorator;
@@ -41,50 +42,43 @@ export default class InviteFriends extends cc.Component {
     }
 
     start() {
-        GameCtr.getInviteResult((data) => {
+        HttpCtr.getInviteResult((data) => {
             this.setData(data);
             this.addItems();
-        });
-        GameCtr.dianmondNotice((resp) => {
-            if (resp.moeny) {
-                GameData.diamonds += resp.moeny;
-                GameCtr.ins.mGame.setDiamonds();
-            }
         });
     }
 
     setData(data) {
         this.data = data;
 
-        WXCtr.getStorageData("inviteNum", (resp) => {
-            let startNum = 0;
-            let inviteNum = 0;
-            if (resp) {
-                if (UserManager.user.data_5 && UserManager.user.data_5 > resp) {
-                    startNum = UserManager.user.data_5;
-                    inviteNum = UserManager.user.data_5;
-                } else {
-                    startNum = resp;
-                    inviteNum = resp;
-                }
+        let resp = WXCtr.getStorageData("inviteNum");
+        let startNum = 0;
+        let inviteNum = 0;
+        if (resp) {
+            if (UserManager.user.data_5 && UserManager.user.data_5 > resp) {
+                startNum = UserManager.user.data_5;
+                inviteNum = UserManager.user.data_5;
             } else {
-                if (UserManager.user.data_5) {
-                    startNum = UserManager.user.data_5;
-                    inviteNum = UserManager.user.data_5;
-                }
+                startNum = resp;
+                inviteNum = resp;
             }
-            let addNum = 0;
-            for (let i = startNum; i < data.length; i++) {
-                if (data[i].ok) {
-                    addNum += data[i].value;
-                    inviteNum = data[i].top;
-                }
+        } else {
+            if (UserManager.user.data_5) {
+                startNum = UserManager.user.data_5;
+                inviteNum = UserManager.user.data_5;
             }
-            GameData.diamonds += addNum;
-            GameData.setUserData({ inviteNum: inviteNum });
-            GameCtr.submitUserData({ data_5: inviteNum });
-            GameCtr.ins.mGame.setDiamonds();
-        });
+        }
+        let addNum = 0;
+        for (let i = startNum; i < data.length; i++) {
+            if (data[i].ok) {
+                addNum += data[i].value;
+                inviteNum = data[i].top;
+            }
+        }
+        GameData.diamonds += addNum;
+        GameData.setUserData({ inviteNum: inviteNum });
+        HttpCtr.submitUserData({ data_5: inviteNum });
+        GameCtr.ins.mGame.setDiamonds();
     }
 
     reigsterTouch() {
@@ -125,7 +119,7 @@ export default class InviteFriends extends cc.Component {
     }
 
     invite() {
-        GameCtr.clickStatistics(GameCtr.StatisticType.INVITE);                               //邀请分享统计
+        HttpCtr.clickStatistics(GameCtr.StatisticType.INVITE);                               //邀请分享统计
         WXCtr.share({
             invite: true
         })

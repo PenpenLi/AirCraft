@@ -45,11 +45,6 @@ export default class GameCtr {
     public static surplusVideoTimes = 6;                            //剩余看视频次数
     public static ufoDelayTime = 60;                                //UFO出现时间间隔
 
-    public static freeMallPlaneNum = 0;
-    public static freeMallPlaneLevel = 0;
-    public static surplusFreeMallPlanes = 5;                        //剩余免费商店飞机数量
-    public static lastFreeMallPlaneTime = 0;                        //上次领取免费商店飞机时间
-    public static shareMax = 0;                                     //分享无限制等级上限
     public static IPONEX_HEIGHT=2436;                                                 
     public static isStartGame = false;                              //游戏是否已经开始
 

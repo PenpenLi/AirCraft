@@ -6,6 +6,7 @@ import UserManager from "../Common/UserManager";
 import ViewManager from "../Common/ViewManager";
 import GameData from "../Common/GameData";
 import HttpCtr from "./HttpCtr";
+import Util from "../Common/Util";
 
 const { ccclass, property } = cc._decorator;
 
@@ -72,7 +73,7 @@ export default class WXCtr {
             wx.onHide(() => {
                 console.log("退到后台！！！！！");
                 let time = new Date().getTime();
-                GameCtr.submitUserData({ data_4: time });
+                HttpCtr.submitUserData({ data_4: time });
                 WXCtr.setStorageData("lastTime", time);
                 WXCtr.isOnHide = true;
             });
@@ -239,7 +240,7 @@ export default class WXCtr {
             console.log("微信登录!!");
             window.wx.login({
                 success: function (loginResp) {
-                    GameCtr.login(loginResp.code);
+                    HttpCtr.login(loginResp.code);
                 },
                 fail: function (res) {
                     console.log("微信登录失败!!");
@@ -386,7 +387,7 @@ export default class WXCtr {
             WXCtr.videoAd.show();
             GameCtr.surplusVideoTimes--;
             console.log("今天剩余观看视频次数为：", GameCtr.surplusVideoTimes);
-            WXCtr.setStorageData("VideoTimes", { day: GameCtr.getCurrTimeYYMMDD(), times: GameCtr.surplusVideoTimes });
+            WXCtr.setStorageData("VideoTimes", { day: Util.getCurrTimeYYMMDD(), times: GameCtr.surplusVideoTimes });
         }
     }
 
@@ -395,7 +396,7 @@ export default class WXCtr {
             if (res && res.isEnded || res === undefined) {
                 // 正常播放结束，可以下发游戏奖励
                 callback(true);
-                GameCtr.videoCheck(WXCtr.launchOption.query);
+                HttpCtr.videoCheck(WXCtr.launchOption.query);
             }
             else {
                 // 播放中途退出，不下发游戏奖励

@@ -3,6 +3,7 @@ import GameCtr from "../../Controller/GameCtr";
 import PlaneFrameMG from "../game/PlaneFrameMG";
 import WXCtr from "../../Controller/WXCtr";
 import AudioManager from "../../Common/AudioManager";
+import Util from "../../Common/Util";
 
 
 const { ccclass, property } = cc._decorator;
@@ -49,13 +50,11 @@ export default class MallItem extends cc.Component {
         this.level = data.level;
         this.times = data.times;
         this.setFrame(data.level);
-        this.setPgbProgress(data.level);
         if (data.level <= GameData.maxPlaneLevel) {
             if (data.level >= GameData.maxPlaneLevel - 3 && data.level <= GameData.maxPlaneLevel - 2) {
                 this.showDiamondsBtn(data.level);
             } else if (data.level < GameData.maxPlaneLevel - 3) {
                 this.showGoldBtn();
-                this.setPrice(data.level, data.times);
             } else if (data.level > GameData.maxPlaneLevel - 2) {
                 this.showDisableBtn(data.level);
             }
@@ -65,7 +64,7 @@ export default class MallItem extends cc.Component {
     }
 
     setFrame(level) {
-        PlaneFrameMG.setPlaneFrame(this.spr, level, "land");
+        PlaneFrameMG.setPlaneFrame(this.spr, level);
     }
 
     disableItem(level) {
@@ -93,19 +92,18 @@ export default class MallItem extends cc.Component {
     }
 
     showShareBtn() {
-        WXCtr.getStorageData("mallFreePlanes", (info) => {
-            if (GameCtr.surplusVideoTimes > 0) {
-                this.btnVideo.node.active = true;
-                return;
-            }
-            let day = GameCtr.getCurrTimeYYMMDD();
-            if (info && info.day == day) {
-                GameCtr.surplusFreeMallPlanes = info.times;
-            }
-            if (GameCtr.surplusFreeMallPlanes > 0 && GameCtr.reviewSwitch) {
-                this.btnShare.node.active = true;
-            }
-        });
+        let info = WXCtr.getStorageData("mallFreePlanes");
+        if (GameCtr.surplusVideoTimes > 0) {
+            this.btnVideo.node.active = true;
+            return;
+        }
+        let day = Util.getCurrTimeYYMMDD();
+        if (info && info.day == day) {
+            GameCtr.surplusFreeMallPlanes = info.times;
+        }
+        if (GameCtr.surplusFreeMallPlanes > 0 && GameCtr.reviewSwitch) {
+            this.btnShare.node.active = true;
+        }
     }
 
     showGoldBtn() {
@@ -131,65 +129,5 @@ export default class MallItem extends cc.Component {
         this.diamonds = Math.floor(level * 15 * (1 - Math.pow(0.2, (level / 45)))) + 1;
         lbDiamonds.string = this.diamonds + "";
     }
-
-    setPrice(level, times) {
-        this.price = GameData.getPriceOfPlane(level, times);
-        this.lbPrice.string = GameCtr.formatNum(this.price);
-    }
-
-
-    setPgbProgress(level) {
-        let ratio = level / GameData.maxPlane;
-        this.pgbEarn.progress = ratio;
-
-        let speed = GameData.getSpeedOfPlane(level);
-        ratio = this.maxSpeed / speed;
-        this.pgbSpeed.progress = ratio;
-    }
-
-    buyPlaneWithGold() {
-        let flag = GameCtr.ins.mGame.buyPlane(this.level, "buyGift");
-        if (flag) {
-            this.setPrice(this.level, ++this.times);
-        }
-    }
-
-    buyPlaneWithDiamonds() {
-        GameCtr.ins.mGame.buyPlane(this.level, "buyGift", this.diamonds);
-    }
-
-    getPlaneByShare() {
-        this.btnShare.node.active = false;
-        WXCtr.share({
-            callback: () => {
-                GameCtr.freeMallPlaneNum++;
-                GameCtr.freeMallPlaneLevel = this.level;
-                GameCtr.ins.mGame.addFreeMallPlane();
-                GameCtr.surplusFreeMallPlanes--;
-                WXCtr.setStorageData("mallFreePlanes", { day: GameCtr.getCurrTimeYYMMDD(), times: GameCtr.surplusFreeMallPlanes });
-                GameCtr.lastFreeMallPlaneTime = new Date().getTime();
-            }
-        });
-    }
-
-    getPlaneByVideo() {
-        this.btnVideo.interactable = false;
-        if (WXCtr.videoAd) {
-            AudioManager.getInstance().stopAll();
-            WXCtr.offCloseVideo();
-            WXCtr.showVideoAd();
-            WXCtr.onCloseVideo((res) => {
-                GameCtr.playBgm();
-                if (res) {
-                    this.btnVideo.interactable = true;
-                    this.btnVideo.node.active = false;
-                    GameCtr.freeMallPlaneLevel = this.level;
-                    GameCtr.ins.mGame.addFreeMallPlane();
-                    GameCtr.lastFreeMallPlaneTime = new Date().getTime();
-                }
-            });
-        }
-    }
-
     // update (dt) {}
 }

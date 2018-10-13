@@ -2,6 +2,8 @@ import GameCtr from "../../Controller/GameCtr";
 import RankingCell from "./RankingCell";
 import WXCtr from "../../Controller/WXCtr";
 import UserManager from "../../Common/UserManager";
+import HttpCtr from "../../Controller/HttpCtr";
+import Util from "../../Common/Util";
 
 
 const { ccclass, property } = cc._decorator;
@@ -58,7 +60,7 @@ export default class RankingView extends cc.Component {
         this.showWorld();
         this.showSelf();
         // this.schedule(() => { this._updateSubDomainCanvas(); }, 1);
-        GameCtr.getWorldRankingList((resp) => {
+        HttpCtr.getWorldRankingList((resp) => {
             this.dataList = resp.data;
             this.addItems();
         });
@@ -97,13 +99,13 @@ export default class RankingView extends cc.Component {
     showSelf() {
         let ndSelf = this.ndWorld.getChildByName("ndSelf");
         let sprHead = ndSelf.getChildByName("sprSelf").getComponent(cc.Sprite);
-        GameCtr.loadImg(sprHead, UserManager.user.icon);
+        Util.loadImg(sprHead, UserManager.user.icon);
         let lbName = ndSelf.getChildByName("lbName").getComponent(cc.Label);
         lbName.string = UserManager.user.nick;
         let lbLocation = ndSelf.getChildByName("lbLocation").getComponent(cc.Label);
         lbLocation.string = UserManager.user.city;
         let lbGold = ndSelf.getChildByName("lbGold").getComponent(cc.Label);
-        lbGold.string = GameCtr.formatNum(UserManager.user.gold);
+        lbGold.string = Util.formatNum(UserManager.user.gold);
     }
 
     showWorld() {

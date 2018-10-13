@@ -1,5 +1,6 @@
 import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
+import Util from "../../Common/Util";
 
 
 const {ccclass, property} = cc._decorator;
@@ -37,7 +38,7 @@ export default class FreindItem extends cc.Component {
             }
 
             if(data.Icon){
-                GameCtr.loadImg(this.sprHead, data.Icon);
+                Util.loadImg(this.sprHead, data.Icon);
             }
             this.ndHook.active = true;
         }

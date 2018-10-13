@@ -18,7 +18,6 @@ export default class LandPlane extends cc.Component {
     private spr: cc.Sprite;
 
     private level = 1;
-    private isFlying = false;
 
     public apronTag = 0;
 
@@ -54,17 +53,12 @@ export default class LandPlane extends cc.Component {
             this.touchID = event.getID();
             this.isTouch = true;
 
-
-            if (!this.isFlying) {
-                GameCtr.ins.mGame.showTrash();
-                if (!this.moveNode) {
-                    GameCtr.lastZ = GameCtr.lastZ < 100 ? 100 : ++GameCtr.lastZ;
-                    this.node.parent.setLocalZOrder(GameCtr.lastZ);
-                    this.createMoveNode();
-                    this.moveNode.position = this.node.position;
-                }
-            } else {
-                this.recyclePlane();
+            GameCtr.ins.mGame.showTrash();
+            if (!this.moveNode) {
+                GameCtr.lastZ = GameCtr.lastZ < 100 ? 100 : ++GameCtr.lastZ;
+                this.node.parent.setLocalZOrder(GameCtr.lastZ);
+                this.createMoveNode();
+                this.moveNode.position = this.node.position;
             }
         }
     }
@@ -129,7 +123,7 @@ export default class LandPlane extends cc.Component {
     judgeTrash(wPos) {
         let trash = GameCtr.ins.mGame.ndTrash;
         if (trash.getBoundingBoxToWorld().contains(wPos)) {
-            if(this.level == GameData.maxPlaneLevel) return false;
+            if (this.level == GameData.maxPlaneLevel) return false;
             GameData.setApronState(this.node.parent.tag, 0);   //自己停机坪状态设为0（没有飞机）
             this.moveNode.runAction(cc.sequence(
                 cc.scaleTo(0.3, 0),
@@ -142,7 +136,7 @@ export default class LandPlane extends cc.Component {
                     GameData.setApronState(this.node.parent.tag, 0);   //自己停机坪状态设为0（没有飞机）
                     GameCtr.ins.mGame.removeLandPlane(this.node);
                     this.node.destroy();
-                    
+
                     GameCtr.ins.mGame.hideTrash();
 
                     let addGold = trash.getChildByName("AddGold");
@@ -185,23 +179,19 @@ export default class LandPlane extends cc.Component {
                     AudioManager.getInstance().playSound("audio/click", false);
                     return true;
                 } else {
-                    if (apron.plane.isFlying) {
-                        return false;
-                    } else {
-                        if (apron.plane.level == this.level) {
-                            if (this.level < GameData.maxPlane) {
-                                this.composePlane(apron.plane);
-                            } else {
-                                this.exChangePlane(apron, wPos);
-                                AudioManager.getInstance().playSound("audio/click", false);
-                                ViewManager.toast("已达到等级上限，新的飞机正在路上！");
-                            }
+                    if (apron.plane.level == this.level) {
+                        if (this.level < GameData.maxPlane) {
+                            this.composePlane(apron.plane);
                         } else {
                             this.exChangePlane(apron, wPos);
                             AudioManager.getInstance().playSound("audio/click", false);
+                            ViewManager.toast("已达到等级上限，新的飞机正在路上！");
                         }
-                        return true;
+                    } else {
+                        this.exChangePlane(apron, wPos);
+                        AudioManager.getInstance().playSound("audio/click", false);
                     }
+                    return true;
                 }
             }
         }
@@ -241,7 +231,7 @@ export default class LandPlane extends cc.Component {
         let pApron = this.node.parent.getComponent(Apron);
         pApron.reset();
         GameData.setApronState(this.node.parent.tag, 0);     //自己停机坪状态设为0（没有飞机）
-        GameData.setApronState(otherParent.tag, otherPlane.level+1);  //目标停机坪状态设为合成后的飞机等级
+        GameData.setApronState(otherParent.tag, otherPlane.level + 1);  //目标停机坪状态设为合成后的飞机等级
         GameCtr.ins.mGame.removeLandPlane(this.node);
         this.node.destroy();
 
@@ -301,13 +291,5 @@ export default class LandPlane extends cc.Component {
     setFrame(level) {
         PlaneFrameMG.setPlaneFrame(this.spr, level);
     }
-
-    recyclePlane() {
-        let flyArr = GameCtr.ins.mGame.flyPlaneArr;
-
-        let wPos = this.node.parent.convertToWorldSpaceAR(this.node.position);
-        
-    }
-
     // update (dt) {}
 }
