@@ -3,6 +3,8 @@ import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
 import WXCtr from "../../Controller/WXCtr";
 import AudioManager from "../../Common/AudioManager";
+import Util from "../../Common/Util";
+import HttpCtr from "../../Controller/HttpCtr";
 
 
 const { ccclass, property } = cc._decorator;
@@ -34,7 +36,7 @@ export default class OffLineProfit extends cc.Component {
         let maxTime = 8 * 60 * 60;
         if (offTime > maxTime) offTime = maxTime;
         this.offLineProfit = profit;
-        this.lbProfit.string = "+" + GameCtr.formatNum(this.offLineProfit);
+        this.lbProfit.string = "+" + Util.formatNum(this.offLineProfit);
         if (!WXCtr.videoAd || GameCtr.surplusVideoTimes <= 0) {
             this.ndVedioBtn.active = false;
         }
@@ -49,7 +51,7 @@ export default class OffLineProfit extends cc.Component {
                 this.close();
             }
         })
-        GameCtr.clickStatistics(GameCtr.StatisticType.OFF_LINE_SHARE);              //离线分享收益点击统计
+        HttpCtr.clickStatistics(GameCtr.StatisticType.OFF_LINE_SHARE);              //离线分享收益点击统计
     }
 
     clickVedio() {
@@ -64,7 +66,7 @@ export default class OffLineProfit extends cc.Component {
                 }
                 this.close();
             });
-            GameCtr.clickStatistics(GameCtr.StatisticType.OFF_LINE_VEDIO);          //离线视频收益点击统计
+            HttpCtr.clickStatistics(GameCtr.StatisticType.OFF_LINE_VEDIO);          //离线视频收益点击统计
         }
     }
 
@@ -74,7 +76,6 @@ export default class OffLineProfit extends cc.Component {
         }
         GameData.gold += this.offLineProfit;
         GameData.offLineProfit = 0;
-        GameCtr.ins.mGame.setGold();
         let popupView = this.node.parent.getComponent(PopupView);
         if (!!popupView) {
             popupView.dismiss();

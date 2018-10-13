@@ -55,6 +55,9 @@ export default class Game extends cc.Component {
     sprSlider: cc.Sprite = null;
 
     @property(cc.Node)
+    ndProduceBtn: cc.Node = null;
+
+    @property(cc.Node)
     ndBannerSlider: cc.Node = null;
     @property(cc.Node)
     ndFriendBtn: cc.Node = null;
@@ -71,25 +74,15 @@ export default class Game extends cc.Component {
     pfLoginAward: cc.Prefab = null;
 
     private landPlanePool;
-    private flyPlanePool;
     public goldParticlePool;
-    public goldNumPool;
 
-    public routePosArr = [];
-    public flyPlaneArr = [];
     public landPlaneArr = [];
 
     public allPort = [];
 
-    public allRunways = [];                         //所有跑道
-    public runways = 0;                             //跑道总数
-    public runwayUsed = 0;                          //使用的跑道数
 
     private ufoShowTimes = 0;
-    private testSound = 1;
     private sliderIdx = 0;
-
-    private lastGold = 0;
 
     onLoad() {
         GameCtr.getInstance().setGame(this);
@@ -107,7 +100,7 @@ export default class Game extends cc.Component {
     }
 
     start() {
-        // this.gameStart();
+        this.gameStart();
     }
 
     initPools() {
@@ -122,38 +115,31 @@ export default class Game extends cc.Component {
     }
 
     showLoading() {
-        let pgb = this.ndLoading.getChildByName("pgbLoading").getComponent(cc.ProgressBar);
-        pgb.node.active = true;
-        let plane = pgb.node.getChildByName("plane");
-        if (pgb.progress <= 1) {
-            this.scheduleOnce(() => {
-                plane.x = pgb.node.width * pgb.progress - (pgb.node.width / 2);
-                pgb.progress += 0.015;
-                this.showLoading();
-            }, 0.02);
-        } else {
-            this.ndLoading.active = false;
+        // let pgb = this.ndLoading.getChildByName("pgbLoading").getComponent(cc.ProgressBar);
+        // pgb.node.active = true;
+        // let plane = pgb.node.getChildByName("plane");
+        // if (pgb.progress <= 1) {
+        //     this.scheduleOnce(() => {
+        //         plane.x = pgb.node.width * pgb.progress - (pgb.node.width / 2);
+        //         pgb.progress += 0.015;
+        //         this.showLoading();
+        //     }, 0.02);
+        // } else {
+        //     this.ndLoading.active = false;
 
-            Guide.setGuideStorage(Guide.guideStep);
-            GameCtr.playBgm();
             this.initGame();
             this.refreshGameBtns();
             WXCtr.createBannerAd(100, 300);
-        }
+        // }
     }
 
     initGame() {
         this.setDiamonds();
+        this.showLandPort();
         this.showMoreGameBtn();
         setInterval(() => {
             if (WXCtr.isOnHide) return;
             GameData.submitGameData();
-            // GameCtr.dianmondNotice((resp) => {
-            //     if (resp.moeny) {
-            //         GameData.diamonds += resp.moeny;
-            //         this.setDiamonds();
-            //     }
-            // });
             WXCtr.createBannerAd(100, 300);
         }, 60000);
     }
@@ -190,10 +176,7 @@ export default class Game extends cc.Component {
         this.lbScore.string = GameCtr.score + "";
     }
 
-    showLandPort(level) {
-        if (level > 11) {
-            level = 11;
-        }
+    showLandPort() {
         this.allPort = [];
         for (let i = 1; i <= this.ndPlanePos.childrenCount; i++) {
             let node = this.ndPlanePos.getChildByName(i + "");
@@ -219,43 +202,6 @@ export default class Game extends cc.Component {
         this.showOffLineProfitPop();
     }
 
-
-    addLandPlane(level, boxType = null) {
-        let nd;
-        let plane = this.landPlanePool.get();
-        plane.scale = 0;
-        for (let i = 0; i < this.allPort.length; i++) {
-            let nd = this.allPort[i];
-            let comp = nd.getComponent(Apron);
-            if (comp.isUsed) {
-                continue;
-            } else {
-                nd.addChild(plane);
-                this.landPlaneArr.push(plane);
-                let landPlane = plane.getComponent(LandPlane);
-                landPlane.setLevel(level);
-                landPlane.apronTag = nd.tag;
-                comp.plane = landPlane;
-                comp.isUsed = true;
-                //设置对应停机坪状态
-                GameData.setApronState(nd.tag, level);
-                if (boxType) {
-                    landPlane.showBox(boxType);
-                    plane.position = cc.v2(0, 1600);
-                    plane.scale = 1.0;
-                    plane.runAction(cc.moveTo(0.5, cc.v2(0, 0)));
-                } else {
-                    plane.position = cc.v2(0, 0);
-                    plane.runAction(cc.scaleTo(0.2, 1.0).easing(cc.easeBackOut()));
-                }
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     setPlaneOnLand(level, port) {
         let comp = port.getComponent(Apron);
         if (comp.isUsed) return;
@@ -268,7 +214,26 @@ export default class Game extends cc.Component {
         landPlane.apronTag = port.tag;
         comp.plane = landPlane;
         comp.isUsed = true;
+    }
 
+    addBasePlane() {
+        for (let i = 0; i < this.allPort.length; i++) {
+            let port = this.allPort[i];
+            let comp = port.getComponent(Apron);
+            if (comp.isUsed) {
+                continue;
+            } else {
+                let plane = this.landPlanePool.get();
+                port.addChild(plane);
+                plane.position = cc.v2(0, 0);
+                let landPlane = plane.getComponent(LandPlane);
+                landPlane.setLevel(1);
+                landPlane.apronTag = port.tag+10;
+                comp.plane = landPlane;
+                comp.isUsed = true;
+                return;
+            }
+        }
     }
 
     showTrash() {
@@ -287,6 +252,12 @@ export default class Game extends cc.Component {
         wPos = this.ndGame.convertToNodeSpaceAR(wPos);
         expParticle.node.position = wPos;
         expParticle.resetSystem();
+        expParticle.node.runAction(cc.sequence(
+            cc.delayTime(1.0),
+            cc.callFunc(() => {
+                expParticle.stopSystem();
+            })
+        ));
     }
 
     showPortLight(port) {
@@ -296,12 +267,8 @@ export default class Game extends cc.Component {
         ske.setAnimation(0, "animation", false);
     }
 
-
-    showGuide() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
-        Guide.show();
+    startProduce() {
+        
     }
 
     /**
@@ -370,15 +337,6 @@ export default class Game extends cc.Component {
         particle.resetSystem();
         let particle1 = this.ndGame.getChildByName("OffLineProfitParticle1").getComponent(cc.ParticleSystem);
         particle1.resetSystem();
-        // this.ndgold.runAction(cc.sequence(
-        //     cc.delayTime(0.5),
-        //     cc.repeat(
-        //         cc.sequence(
-        //             cc.scaleTo(0.1, 1.2),
-        //             cc.scaleTo(0.05, 1)
-        //         ), 5
-        //     )
-        // ))
     }
 
     /**

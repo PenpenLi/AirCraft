@@ -1,6 +1,7 @@
 import WXCtr from "../../Controller/WXCtr";
 import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
+import HttpCtr from "../../Controller/HttpCtr";
 
 /**
  * 新手引导
@@ -32,7 +33,7 @@ export default class Guide extends cc.Component {
 
     public static ins: Guide;
 
-    public static guideStep = 0;
+    public static guideStep = 8;
 
 
 
@@ -63,7 +64,7 @@ export default class Guide extends cc.Component {
 
     static setGuideStorage(step) {
         Guide.guideStep = step;   
-        GameCtr.submitUserData({data_1: step});
+        HttpCtr.submitUserData({data_1: step});
         GameData.setUserData({guideStep: step});
         if(step <= 7){
             Guide.ins.hideHand();
@@ -175,7 +176,7 @@ export default class Guide extends cc.Component {
             cc.moveTo(0,cc.v2(130,20))
         ))
 
-        GameCtr.ins.mGame.addLandPlane(2, "freeGift");
+        // GameCtr.ins.mGame.addLandPlane(2, "freeGift");
         this.lbtip.string = "点开宝箱获得额外飞机。";
         this.lbtip.node.position = cc.v2(130, 400);
     }

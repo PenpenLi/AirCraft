@@ -41,16 +41,12 @@ export default class Mall extends cc.Component {
     onLoad() {
         this.itemPages = 1;
         this.reigsterTouch();
-        cc.systemEvent.on("SET_GOLD", this.setGold, this);
     }
     
     onDestroy() {
-        cc.systemEvent.off("SET_GOLD", this.setGold, this);
     }
 
     start() {
-        this.addItems();
-        this.setGold();
     }
 
     reigsterTouch() {
@@ -61,56 +57,8 @@ export default class Mall extends cc.Component {
         if (this.ndContent.y > this.contentOrigin + (this.itemPages * this.pageSize - 3) * this.cellHeight) {
             if (this.itemPages < 6) {
                 this.itemPages++;
-                this.addItems();
+                // this.addItems();
             }
-        }
-    }
-
-    addItems() {
-        let maxLevel = GameData.maxPlaneLevel;
-        let freeLevel = Math.floor((Math.random() * 10 + 70) / 100 * maxLevel * Math.pow(0.9, maxLevel / 30));
-        if(freeLevel > 15){
-            if (maxLevel - freeLevel < 4) {
-                freeLevel = maxLevel - 4;
-            }
-        }else{
-            if (maxLevel - freeLevel < 3) {
-                freeLevel = maxLevel - 3;
-            }
-        }
-        let cTime = new Date().getTime();
-        let lTime = GameCtr.lastFreeMallPlaneTime;
-        let offTime = Math.floor((cTime - lTime) / 1000);
-
-        for (let i = (this.itemPages - 1) * this.pageSize; i < this.itemPages * this.pageSize; i++) {
-            if(i >= GameData.maxPlane) return;
-            let item = cc.instantiate(this.pfItem);
-            this.ndContent.addChild(item);
-            let comp = item.getComponent(MallItem);
-            this.allItems.push(comp);
-            let level = i + 1;
-            let times = GameData.getBuyTimesOfPlane(level);
-            comp.setData({level: level, times: times})
-            if(freeLevel == level && maxLevel > 6 && offTime > 60) {
-                comp.showShareBtn();
-            }
-        }
-    }
-
-    setGold() {
-        if(this.lastGold === 0 || this.lastGold > GameData.gold) {
-            this.lbGold.string = GameCtr.formatNum(GameData.gold, 9);
-            this.lastGold = GameData.gold;
-        }else{
-            this.lbGold.node.stopAllActions();
-            let increment = Math.floor((GameData.gold - this.lastGold) / 20);
-            this.lbGold.node.runAction(cc.repeat(cc.sequence(
-                cc.callFunc(()=>{
-                    this.lastGold += increment;
-                    this.lbGold.string = GameCtr.formatNum(this.lastGold, 9);
-                }),
-                cc.delayTime(0.025),
-            ), 20));
         }
     }
 
