@@ -268,7 +268,11 @@ export default class Game extends cc.Component {
     }
 
     startProduce() {
-        
+
+    }
+
+    update (dt) {
+
     }
 
     /**
@@ -530,7 +534,4 @@ export default class Game extends cc.Component {
             }
         }
     }
-    // update (dt) {
-
-    // }
 }

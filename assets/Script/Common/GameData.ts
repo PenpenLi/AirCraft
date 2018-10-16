@@ -8,6 +8,7 @@ import HttpCtr from "../Controller/HttpCtr";
 const { ccclass, property } = cc._decorator;
 
 const dataKeyConfig = {
+    repPlaneNum: "",                                                   //仓库飞机数量
     factoryLevel: "data_1",                                             //工厂等级
     repositoryLevel: "",                                                //仓库等级
     recycle: "",                                                        //回收技术
@@ -27,6 +28,7 @@ export default class GameData {
     private static _gold: number = 20000;                               //金币数量
     private static _diamond: number = 0;                                //钻石数量
     private static _maxPlaneLevel: number = 1;                          //个人拥有的飞机最高等级   
+    private static _repPlaneNum: number = 0;                           //仓库飞机数量
     private static _factoryLevel: number = 0;                           //工厂等级
     private static _repositoryLevel: number = 0;                        //仓库等级
     private static _recycleLevel: number = 0;                           //回收技术等级
@@ -61,6 +63,20 @@ export default class GameData {
     // 获取回收技术等级
     static get recycleLevel() {
         return GameData._recycleLevel;
+    }
+
+    // 设置仓库飞机数量
+    static set repPlaneNum(num) {
+        if(num < 0) {
+            num = 0;
+        }
+        GameData._repPlaneNum = num;
+        GameData.setUserData({repPlaneNum: GameData._repPlaneNum});
+    }
+
+    // 获取仓库飞机数量
+    static get repPlaneNum() {
+        return GameData._repPlaneNum;
     }
 
     // 设置攻击技术等级

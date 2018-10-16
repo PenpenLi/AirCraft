@@ -1,4 +1,5 @@
 import GameCtr from "../../Controller/GameCtr";
+import Util from "../../Common/Util";
 
 const {ccclass, property} = cc._decorator;
 
@@ -27,13 +28,13 @@ export default class RankingCell extends cc.Component {
 
     setData(data) {
         if(data.Icon){
-            GameCtr.loadImg(this.sprHead, data.Icon);
+            Util.loadImg(this.sprHead, data.Icon);
         }
         if(data.nick){
-            this.lbName.string = GameCtr.cutstr(data.nick, 12);
+            this.lbName.string = Util.cutstr(data.nick, 12);
         }
         if(data.value){
-            this.lbGold.string = GameCtr.formatNum(data.value);
+            this.lbGold.string = Util.formatNum(data.value);
         }
         if(data.top && this.lbRanking){
             this.lbRanking.string = data.top;
