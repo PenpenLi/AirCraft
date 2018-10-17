@@ -70,7 +70,7 @@ export default class NewClass extends cc.Component {
 
 
     initAirs(){
-        for(let i=0;i<16;i++){
+        for(let i=0;i<5;i++){
             let air = cc.instantiate(this.airsPrefab[0]);
             let infodata={lifeValue:3,bulletHurt:1,isEnemy:false,level:1}
             air.parent=cc.find("Canvas");
@@ -166,12 +166,9 @@ export default class NewClass extends cc.Component {
                 this._selfAirs.splice(i,1);
             }
         }
-
         //己方战败
         if(this._selfAirs.length==0){
-            //do sth
-            //显示挑战失败
-            //显示 重新挑战 回到主页 两个按钮
+            this.clear();
             this.showGameOver();
         }
     }
@@ -262,32 +259,52 @@ export default class NewClass extends cc.Component {
     showPass(){
         this._levelSmall++;
         this.setGameCount();
-        let pass01=this._otherNode.getChildByName("pass_01");
-        let pass02=this._otherNode.getChildByName("pass_02");
-        pass01.runAction(cc.fadeIn(0));
-        pass02.runAction(cc.fadeIn(0));
-        pass01.x=-650;
-        pass02.x= 650;
-        pass01.runAction(cc.sequence(
-            cc.moveTo(0.5,cc.p(-80,450)),
-            cc.delayTime(0.5),
-            cc.fadeOut(0.5)
-        ));
-
-        pass02.runAction(cc.sequence(
-            cc.moveTo(0.5,cc.p(80,450)),
-            cc.delayTime(0.5),
-            cc.fadeOut(0.5),
-            cc.callFunc(()=>{
-                if(this._levelSmall<10){
+        if(this._levelSmall<10){
+            let pass01=this._otherNode.getChildByName("pass_01");
+            let pass02=this._otherNode.getChildByName("pass_02");
+            pass01.runAction(cc.fadeIn(0));
+            pass02.runAction(cc.fadeIn(0));
+            pass01.x=-650;
+            pass02.x= 650;
+            pass01.runAction(cc.sequence(
+                cc.moveTo(0.5,cc.p(-80,450)),
+                cc.delayTime(0.5),
+                cc.fadeOut(0.5)
+            ));
+    
+            pass02.runAction(cc.sequence(
+                cc.moveTo(0.5,cc.p(80,450)),
+                cc.delayTime(0.5),
+                cc.fadeOut(0.5),
+                cc.callFunc(()=>{
                     this.initEnemys();
-                }
-            })
-        ));
-
-        if(this._levelSmall==10){
-            this.initBoss();
+                })
+            ));
+        }else{
+            this.showBossComming();
         }
+    }
+
+    showBossComming(){
+        let word_boss=this._otherNode.getChildByName("word_boss");
+
+        for(let i=0;i<4;i++){
+            let word=word_boss.getChildByName(i+"");
+            word.x=-935;
+            word.runAction(cc.sequence(
+                cc.delayTime(i*0.2),
+                cc.moveTo(0.3,cc.p(200-150*i,0)).easing(cc.easeSineInOut()),
+                cc.delayTime(1),
+                cc.moveTo(0.3,cc.p(1600-200*i,0)).easing(cc.easeSineInOut()),
+            ))
+        }
+
+        this.node.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(()=>{
+                this.initBoss();
+            })
+        ))
     }
 
     showGameOver(){
@@ -308,6 +325,30 @@ export default class NewClass extends cc.Component {
         this._levelBig++;
     }
 
+    resetGame(){
+        this._levelSmall=1;
+        this.initEnemys();
+        this.initAirs();
+        this.initFightTouch();
+        this.setGameCount();
+    }
+
+    clear(){
+        for(let i=0;i<this._airs.length;i++){
+            this._airs[i].node.destroy();
+        }
+        
+        while(cc.find("Canvas").getChildByTag(10086)){
+            cc.find("Canvas").removeChildByTag(10086);
+        }
+
+        this._enemyAirs.splice(0,this._enemyAirs.length);
+        this._selfAirs.splice(0,this._selfAirs.length);
+        this._airs.splice(0,this._airs.length);
+        this._bullets.splice(0,this._bullets.length);
+        
+    }
+
 
     update(dt){
         this._interval+=dt;
@@ -316,16 +357,14 @@ export default class NewClass extends cc.Component {
             this.getCurrentBullets();
             for(let i=0;i<this._airs.length;i++){
                 for(let j=0;j<this._bullets.length;j++){
-                    if( this._airs[i] && this._bullets[j].active && this._bullets[j].getComponent("Bullet").getIsEmeny()!=this._airs[i].info.isEnemy &&cc.rectContainsPoint(this._airs[i].node.getBoundingBox(),cc.p(this._bullets[j].x,this._bullets[j].y))){
-                        this._airs[i].node.getComponent("Air").onAttacked(this._bullets[j].getComponent("Bullet").getHurt());
+                    if( this._airs[i] && this._bullets[j] && this._bullets[j].active && this._bullets[j].getComponent("Bullet").getIsEmeny()!=this._airs[i].info.isEnemy &&cc.rectContainsPoint(this._airs[i].node.getBoundingBox(),cc.p(this._bullets[j].x,this._bullets[j].y))){
                         this._bullets[j].active=false;
                         this.showStrike({x:this._bullets[j].x,y:this._bullets[j].y});
+                        this._airs[i].node.getComponent("Air").onAttacked(this._bullets[j].getComponent("Bullet").getHurt());
                     }
                 }
             }
             this._interval=0;
         }
-
-        
     } 
 }

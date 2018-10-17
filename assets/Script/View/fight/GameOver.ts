@@ -1,3 +1,5 @@
+import GameCtr from "../../Controller/GameCtr";
+
 const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
@@ -13,15 +15,19 @@ export default class NewClass extends cc.Component {
         this._btn_play=this.node.getChildByName("btn_playAgain");
         this._btn_back=this.node.getChildByName("btn_back");
         this._lb_gold=this.node.getChildByName("lb_gold");
+
+        this.initBtnEvent(this._btn_play);
+        this.initBtnEvent(this._btn_back);
     }
 
 
     initBtnEvent(btn){
         btn.on(cc.Node.EventType.TOUCH_END,(e)=>{
             if(e.target.getName()=="btn_playAgain"){
-
+                GameCtr.getInstance().getFight().resetGame();
+                this.node.destroy();
             }else if(e.target.getName()=="btn_back"){
-
+                cc.director.loadScene("Game");
             }
         })
     }
