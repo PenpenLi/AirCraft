@@ -169,7 +169,7 @@ export default class NewClass extends cc.Component {
             bubbleHurt=this._bubbleHurtPool.get();
             console.log('log---------从对象池中获取bubbleHurt');
         }else{
-            bubbleHurt=cc.instantiate(this.bubbleHurt);
+            bubbleHurt=cc.instantiate(this.bubbleHurts[Math.floor(Math.random()*2)]);
             console.log('log---------重新实例化bubbleHurt');
         }
         bubbleHurt.parent=this.node;
