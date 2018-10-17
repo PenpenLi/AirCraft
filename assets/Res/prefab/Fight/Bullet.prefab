@@ -71,9 +71,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "e07e4e45-c8b6-45fd-8558-a85995a79f80"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -96,7 +94,124 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "enemyBulletSkins": [
+      {
+        "__uuid__": "983968fe-3b6f-4c2c-8cb3-179591c950b4"
+      },
+      {
+        "__uuid__": "7b98342c-9a1b-4b9d-b664-992b67c49120"
+      },
+      {
+        "__uuid__": "ac183ccb-198d-42e9-b60c-b9b975cd3e5b"
+      },
+      {
+        "__uuid__": "a40941aa-90fa-42a9-aacf-d4236880ecc3"
+      },
+      {
+        "__uuid__": "ed534e0d-8473-4d38-b648-de2f7875d901"
+      },
+      {
+        "__uuid__": "13b7a05a-eb9d-47d9-936e-22263ff800a3"
+      },
+      {
+        "__uuid__": "174a7c1f-a55f-4f7b-9d4a-e5f4c6000bfa"
+      },
+      {
+        "__uuid__": "05992620-3a6d-46ad-8132-f8b5dacfdd05"
+      },
+      {
+        "__uuid__": "45c75cc8-4893-4e78-83e6-e979411c5ab5"
+      },
+      {
+        "__uuid__": "c8591674-c006-4720-bbd2-01c0762f0a8c"
+      }
+    ],
+    "selfBulletSkins": [
+      {
+        "__uuid__": "b5925237-12a6-4c33-8882-73b383ba3bf5"
+      },
+      {
+        "__uuid__": "51da9c91-48ff-4175-a212-6d848c2d3910"
+      },
+      {
+        "__uuid__": "26940ac5-261f-4322-a1cc-d9b98baa6dc7"
+      },
+      {
+        "__uuid__": "45fa654b-ed6a-4b3b-865b-c3eab3177bff"
+      },
+      {
+        "__uuid__": "730e3c71-d5dc-421c-a1be-aa4f1e48a585"
+      },
+      {
+        "__uuid__": "cf42a160-0e97-4cef-adfd-d1de84d479d9"
+      },
+      {
+        "__uuid__": "cb1e6c37-f67d-4ab2-8309-1f4622954225"
+      },
+      {
+        "__uuid__": "89bcc2e6-93ac-48ce-b3d5-98e526c4d9f4"
+      },
+      {
+        "__uuid__": "cd1e997e-c246-475b-be45-c9a643a7f60d"
+      },
+      {
+        "__uuid__": "9ff5a836-4179-4924-9c8c-36548d543727"
+      },
+      {
+        "__uuid__": "5bb37e5c-aefa-4f67-81b5-9eac1a8cf526"
+      },
+      {
+        "__uuid__": "4edddc56-4029-436c-a367-db4af9e0c994"
+      },
+      {
+        "__uuid__": "4f7c3dec-31c2-4830-b51f-cf09f91bdd02"
+      },
+      {
+        "__uuid__": "2f43364e-7e2e-43b0-af5b-061a7caf1952"
+      },
+      {
+        "__uuid__": "d25362ee-2793-4873-9e9c-abf2ff9ecdd0"
+      },
+      {
+        "__uuid__": "31ae4764-7fbd-4c8b-b9e4-44991bb65032"
+      },
+      {
+        "__uuid__": "fc399191-14fb-46ed-9cab-dfbe909a8dbe"
+      },
+      {
+        "__uuid__": "ff295353-43a9-41d5-a443-90b9b8b92801"
+      },
+      {
+        "__uuid__": "57c08922-64c3-4dc9-b12f-9cb21c39e0f6"
+      },
+      {
+        "__uuid__": "0b7b6c1c-e6f4-4e6e-a4b3-f61915184b3a"
+      },
+      {
+        "__uuid__": "37f0eb83-2def-4564-bdc3-7b91caa4a122"
+      },
+      {
+        "__uuid__": "9114435e-8942-489a-b052-b187b4618fca"
+      }
+    ],
+    "bossBulletSkins": [
+      {
+        "__uuid__": "55a2a9b2-9b39-4cfb-8483-768725c6b6be"
+      },
+      {
+        "__uuid__": "529a41fe-67d2-4f90-9234-0aa165a1d4cd"
+      },
+      {
+        "__uuid__": "9ffa9a00-fb1e-45cb-8216-a3aa7af89e37"
+      },
+      {
+        "__uuid__": "c2076d89-307d-43e9-8116-2772f3a75d77"
+      },
+      {
+        "__uuid__": "d248cfe5-7baa-4f5c-be35-61e3f9c9120e"
+      }
+    ]
   },
   {
     "__type__": "cc.PrefabInfo",

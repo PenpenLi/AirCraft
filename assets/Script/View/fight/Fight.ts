@@ -6,31 +6,42 @@ export default class NewClass extends cc.Component {
     _gameBg2=null;
     _touchNode=null;
     _lbGameCount=null;
+    _otherNode=null;
+    _strikePool=null;
     _airs=[];
     _selfAirs=[];
     _enemyAirs=[];
     _selfAirsPos=[];
     _bullets=[];
+   
     _interval=0;
     _airTag=0;
-
+    _levelSmall=1;//小关卡
+    _levelBig=1;  //大关卡
+    
     @property(cc.Prefab)
     airsPrefab:cc.Prefab[]=[];
     
     @property(cc.Prefab)
     gameOver:cc.Prefab=null;
-    
 
+    @property(cc.Prefab)
+    strike:cc.Prefab=null;
+    
     onLoad(){
         GameCtr.getInstance().setFight(this);
+        this._strikePool=new cc.NodePool();
         this.initNode();
         this.initEnemys();
         this.initAirs();
+        this.initStrikes();
         this.initFightTouch();
         this.startBgRoll();
+        this.setGameCount();
     }
 
     initNode(){
+        this._otherNode=this.node.getChildByName("otherNode");
         this._gameBg1=this.node.getChildByName("bg1");
         this._gameBg2=this.node.getChildByName("bg2");
         this._touchNode=this.node.getChildByName("touchNode");
@@ -59,9 +70,9 @@ export default class NewClass extends cc.Component {
 
 
     initAirs(){
-        for(let i=0;i<4;i++){
+        for(let i=0;i<16;i++){
             let air = cc.instantiate(this.airsPrefab[0]);
-            let infodata={lifeValue:3,bulletHurt:1,isEnemy:false}
+            let infodata={lifeValue:3,bulletHurt:1,isEnemy:false,level:1}
             air.parent=cc.find("Canvas");
             air.tag=this._airTag;
             air.getComponent("Air").init(infodata);
@@ -75,9 +86,9 @@ export default class NewClass extends cc.Component {
 
 
     initEnemys(){
-        for(let i=0; i<4; i++){
+        for(let i=0; i<5; i++){
             let enemy = cc.instantiate(this.airsPrefab[0]);
-            let infodata={lifeValue:5,bulletHurt:1,isEnemy:true}
+            let infodata={lifeValue:5,bulletHurt:1,isEnemy:true,level:this._levelSmall}
             enemy.parent=cc.find("Canvas");
             enemy.tag=this._airTag;
             enemy.x=-200+i*200;
@@ -88,6 +99,25 @@ export default class NewClass extends cc.Component {
             this.addAir({node:enemy,info:infodata});
             this.addEnemyAir({node:enemy,info:infodata})
             this._airTag++;
+        }
+    }
+
+    initBoss(){
+        let boss=cc.instantiate(this.airsPrefab[0]);
+        let infoData={lifeValue:10,bulletHurt:3,isEnemy:true,level:Math.floor(Math.random()*6),isBoss:true};
+        boss.parent=cc.find("Canvas");
+        boss.y=600;
+        boss.getComponent("Air").init(infoData);
+        boss.getComponent("Air").startAttack();
+        this.addAir({node:boss,info:infoData});
+        this.addEnemyAir({node:boss,info:infoData})
+        this._airTag++;
+    }
+
+    initStrikes(){
+        for(let i=0;i<30;i++){
+            let strike=cc.instantiate(this.strike);
+            this._strikePool.put(strike);
         }
     }
 
@@ -120,8 +150,6 @@ export default class NewClass extends cc.Component {
     }
 
     removeAir(air){
-        this.romoveSelfAir(air);
-        this.removeEnemyAir(air);
         for(let i=0;i<this._airs.length;i++){
             if(air.tag==this._airs[i].node.tag){
                 this._airs.splice(i,1);
@@ -130,7 +158,6 @@ export default class NewClass extends cc.Component {
 
         this.romoveSelfAir(air);
         this.removeEnemyAir(air);
-        //console.log("log---------------removeAir--------this.Airs=:",this._airs);
     }
 
     romoveSelfAir(air){
@@ -150,18 +177,15 @@ export default class NewClass extends cc.Component {
     }
 
     removeEnemyAir(air){
+        if(this._enemyAirs.length==0){return;}
         for(let i=0;i<this._enemyAirs.length;i++){
             if(air.tag==this._enemyAirs[i].node.tag){
                 this._enemyAirs.splice(i,1);
             }
         }
-
         //敌人战败
         if(this._enemyAirs.length==0){
-           //do sth
-           //显示通关
-           //初始下个敌人阵型
-           this.initEnemys();
+           this.showPass();
         }
     }
 
@@ -177,7 +201,7 @@ export default class NewClass extends cc.Component {
         startPosY=-800+100*(line-1);
         for(let i=0;i<formation.length;i++){
             for(let j=0;j<formation[i].length;j++){
-                formation[i][j].node.x=0-(formation[i].length-1)*50+j*100;
+                formation[i][j].node.x=0-(formation[i].length-1)*70+j*140;
                 formation[i][j].node.y=startPosY-150*(i-1);
             }
         }
@@ -214,6 +238,57 @@ export default class NewClass extends cc.Component {
         }
     }
 
+    showStrike(pos){
+        let strike=null;
+        if(this._strikePool.size()>0){
+            strike=this._strikePool.get();
+            console.log('log---------从对象池中获取strike-----');
+        }else{
+            strike=cc.instantiate(this.strike);
+            console.log('log---------重新实例化strike对象-----');
+        }
+        strike.parent=cc.find("Canvas");
+        strike.x=pos.x;
+        strike.y=pos.y;
+        strike.stopAllActions();
+        strike.runAction(cc.sequence(
+            cc.delayTime(0.1),
+            cc.callFunc(()=>{
+                this._strikePool.put(strike);
+            })
+        ))
+    }
+
+    showPass(){
+        this._levelSmall++;
+        this.setGameCount();
+        let pass01=this._otherNode.getChildByName("pass_01");
+        let pass02=this._otherNode.getChildByName("pass_02");
+        pass01.runAction(cc.fadeIn(0));
+        pass02.runAction(cc.fadeIn(0));
+        pass01.x=-650;
+        pass02.x= 650;
+        pass01.runAction(cc.sequence(
+            cc.moveTo(0.5,cc.p(-80,450)),
+            cc.delayTime(0.5),
+            cc.fadeOut(0.5)
+        ));
+
+        pass02.runAction(cc.sequence(
+            cc.moveTo(0.5,cc.p(80,450)),
+            cc.delayTime(0.5),
+            cc.fadeOut(0.5),
+            cc.callFunc(()=>{
+                if(this._levelSmall<10){
+                    this.initEnemys();
+                }
+            })
+        ));
+
+        if(this._levelSmall==10){
+            this.initBoss();
+        }
+    }
 
     showGameOver(){
         if(cc.find("Canvas").getChildByName("gameOver")){
@@ -222,6 +297,15 @@ export default class NewClass extends cc.Component {
 
         let gameOver=cc.instantiate(this.gameOver);
         gameOver.parent=cc.find("Canvas");
+    }
+
+    setGameCount(){
+        this._lbGameCount.getComponent(cc.Label).string=this._levelBig+"/"+this._levelSmall;
+    }
+
+    doUpLevel(){
+        this._levelSmall=0;
+        this._levelBig++;
     }
 
 
@@ -235,6 +319,7 @@ export default class NewClass extends cc.Component {
                     if( this._airs[i] && this._bullets[j].active && this._bullets[j].getComponent("Bullet").getIsEmeny()!=this._airs[i].info.isEnemy &&cc.rectContainsPoint(this._airs[i].node.getBoundingBox(),cc.p(this._bullets[j].x,this._bullets[j].y))){
                         this._airs[i].node.getComponent("Air").onAttacked(this._bullets[j].getComponent("Bullet").getHurt());
                         this._bullets[j].active=false;
+                        this.showStrike({x:this._bullets[j].x,y:this._bullets[j].y});
                     }
                 }
             }
