@@ -238,7 +238,7 @@ export default class LandPlane extends cc.Component {
         let tmpNode = this.moveNode;
 
         if (GameData.maxPlaneLevel < otherPlane.level + 1) {
-            GameCtr.ins.mGame.showUnlockPop(otherPlane.level + 1);    //弹出解锁弹窗
+            // GameCtr.ins.mGame.showUnlockPop(otherPlane.level + 1);    //弹出解锁弹窗
         }
 
         AudioManager.getInstance().playSound("audio/click", false);
