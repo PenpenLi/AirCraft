@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "BubbleHurt",
+    "_name": "BubbleHurt1",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -77,7 +77,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "8057b4f1-a5c9-439a-a160-01211d370c6d"
+      "__uuid__": "12c27499-54ff-4cc9-89c8-940a4715570b"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -105,9 +105,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "a074868c-6f78-4a05-886e-9a107c766c51"
+      "__uuid__": "1d820481-9f43-4053-b322-cfbb0c1a45e6"
     },
-    "fileId": "72WYA3+vxG9L43mZzkgnh5",
+    "fileId": "3dxVneAXJJf48rGy4F21fU",
     "sync": false
   }
 ]
