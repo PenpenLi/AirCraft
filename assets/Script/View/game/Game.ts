@@ -55,9 +55,6 @@ export default class Game extends cc.Component {
     sprSlider: cc.Sprite = null;
 
     @property(cc.Node)
-    ndProduceBtn: cc.Node = null;
-
-    @property(cc.Node)
     ndBannerSlider: cc.Node = null;
     @property(cc.Node)
     ndFriendBtn: cc.Node = null;
@@ -72,6 +69,8 @@ export default class Game extends cc.Component {
     pfInviteFriend: cc.Prefab = null;
     @property(cc.Prefab)
     pfLoginAward: cc.Prefab = null;
+    @property(cc.Prefab)
+    pfPlaneUpgrade: cc.Prefab = null;
 
     private landPlanePool;
     public goldParticlePool;
@@ -273,6 +272,17 @@ export default class Game extends cc.Component {
 
     update (dt) {
 
+    }
+
+    /**
+     * 显示飞机升级弹窗
+     */
+    showPlaneUpgradePop() {
+        let nd = cc.instantiate(this.pfPlaneUpgrade);
+        ViewManager.show({
+            node: nd,
+            maskOpacity: 200
+        });
     }
 
     /**
