@@ -1,5 +1,7 @@
 import ListView, { AbsAdapter } from "./ListView";
 import PlaneUpgradeItem from "./PlaneUpgradeItem";
+import GameData from "../../Common/GameData";
+import PopupView from "./PopupView";
 
 const { ccclass, property } = cc._decorator;
 
@@ -14,16 +16,28 @@ export default class PlaneUpgadePop extends cc.Component {
     // onLoad () {}
 
     start() {
-        const data: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+        let data: any[] = [];
+        for(let i = 1; i <= GameData.maxPlane; i++) {
+            let level = GameData.getPlaneLevel(i);
+            let info = {idx: i, level: level}
+            data.push(info);
+        }
         this.adapter = new ListAdapter();
         this.adapter.setDataSet(data);
         this.mListView.setAdapter(this.adapter);
     }
 
-    setData(data) {
-        
+    close() {
+        if (!this.node.parent) {
+            return;
+        }
+        let popupView = this.node.parent.getComponent(PopupView);
+        if (!!popupView) {
+            popupView.dismiss();
+        } else {
+            this.node.destroy();
+        }
     }
-
     // update (dt) {}
 }
 
@@ -31,7 +45,7 @@ class ListAdapter extends AbsAdapter<PlaneUpgradeItem> {
     constructor() {
         super(PlaneUpgradeItem);
     }
-    updateView(comp: PlaneUpgradeItem, posIndex: number) {
-        comp.setData(this.getItem(posIndex));
+    updateView(comp: PlaneUpgradeItem, data: any) {
+        comp.setData(this.getItem(data));
     }
 }
