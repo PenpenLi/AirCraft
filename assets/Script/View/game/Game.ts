@@ -73,6 +73,10 @@ export default class Game extends cc.Component {
     pfPlaneUpgrade: cc.Prefab = null;
     @property(cc.Prefab)
     pfSettingUpgrade: cc.Prefab = null;
+    @property(cc.Prefab)
+    pfMission:cc.Prefab = null;
+    @property(cc.Prefab)
+    pfMall: cc.Prefab = null;
 
     private landPlanePool;
     public goldParticlePool;
@@ -233,6 +237,7 @@ export default class Game extends cc.Component {
                 landPlane.apronTag = port.tag+10;
                 comp.plane = landPlane;
                 comp.isUsed = true;
+                GameData.setApronState(i, 1);
                 return;
             }
         }
@@ -300,14 +305,25 @@ export default class Game extends cc.Component {
     }
 
     /**
+     * 显示任务弹窗
+     */
+    showMissionPop() {
+        let nd = cc.instantiate(this.pfMission);
+        ViewManager.show({
+            node: nd,
+            maskOpacity: 200
+        });
+    }
+
+    /**
      * 显示商店
      */
     showMall() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
-        HttpCtr.clickStatistics(GameCtr.StatisticType.MALL);                               //商城点击统计
-        ViewManager.showMall();
+        let nd = cc.instantiate(this.pfMall);
+        ViewManager.show({
+            node: nd,
+            maskOpacity: 200
+        });
     }
 
     removeLandPlane(node) {

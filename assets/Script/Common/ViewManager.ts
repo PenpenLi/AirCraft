@@ -33,9 +33,6 @@ export default class ViewManager extends cc.Component {
     promptDialog: cc.Prefab = null;//提示弹窗
 
     @property(cc.Prefab)
-    mall: cc.Prefab = null;
-
-    @property(cc.Prefab)
     ranking: cc.Prefab = null;
 
     @property(cc.Prefab)
@@ -330,20 +327,6 @@ export default class ViewManager extends cc.Component {
             localZOrder: ViewManager.LocalZOrder.Toast,
             mask: false,
             transitionDismiss: false
-        });
-    }
-
-    /**
-     * 显示商店
-     */
-    static showMall() {
-        let nd = cc.instantiate(ViewManager.mViewManager.mall);
-        ViewManager.show({
-            node: nd,
-            name: "mall",
-            closeOnKeyBack: true,
-            transitionShow: false,
-            maskOpacity: 200
         });
     }
 
