@@ -402,6 +402,7 @@ export default class GameData {
         if (GameData.planeData) {
             GameData.planeData[key] = level;
         }
+        GameCtr.selfPlanes[idx] = level;
         let data = {};
         data[key] = level;
         GameData.setUserData(data);

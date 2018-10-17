@@ -1,5 +1,6 @@
 import ListView, { AbsAdapter } from "./ListView";
 import SettingUpgradeItem from "./SettingUpgradeItem";
+import PopupView from "./PopupView";
 
 
 const {ccclass, property} = cc._decorator;
@@ -24,6 +25,18 @@ export default class SettingUpgradePop extends cc.Component {
         this.mListView.setAdapter(this.adapter);
     }
 
+    close() {
+        if (!this.node.parent) {
+            return;
+        }
+        let popupView = this.node.parent.getComponent(PopupView);
+        if (!!popupView) {
+            popupView.dismiss();
+        } else {
+            this.node.destroy();
+        }
+    }
+
     // update (dt) {}
 }
 
@@ -31,7 +44,7 @@ class ListAdapter extends AbsAdapter<SettingUpgradeItem> {
     constructor() {
         super(SettingUpgradeItem);
     }
-    updateView(comp: SettingUpgradeItem, data: any) {
-        // comp.setData(this.getItem(data));
+    updateView(comp: SettingUpgradeItem, type: number) {
+        comp.setType(this.getItem(type));
     }
 }

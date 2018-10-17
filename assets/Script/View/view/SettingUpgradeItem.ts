@@ -1,5 +1,6 @@
 import GameData from "../../Common/GameData";
 import Util from "../../Common/Util";
+import PlaneFrameMG from "../game/PlaneFrameMG";
 
 
 const { ccclass, property } = cc._decorator;
@@ -10,7 +11,7 @@ const settingNames = ["", "工厂", "仓库", "回收技术", "攻击技术", "�
 export default class SettingUpgradeItem extends cc.Component {
 
     @property(cc.Sprite)
-    sprPlane: cc.Sprite = null;
+    sprSetting: cc.Sprite = null;
     @property(cc.Sprite)
     sprCoin: cc.Sprite = null;
     @property(cc.Label)
@@ -21,8 +22,12 @@ export default class SettingUpgradeItem extends cc.Component {
     lbPrice: cc.Label = null;
     @property(cc.Label)
     lbAttribute: cc.Label = null;
+    @property(cc.SpriteFrame)
+    diamondFrame: cc.SpriteFrame = null;
 
     // LIFE-CYCLE CALLBACKS:
+    private type = 0;
+    private price = 0;
 
     // onLoad () {}
 
@@ -31,8 +36,13 @@ export default class SettingUpgradeItem extends cc.Component {
     }
 
     public setType(type) {
+        this.type = type;
         this.lbName.string = settingNames[type];
+        PlaneFrameMG.setSettingFrame(this.sprSetting, type-1);
         this.setSettingInfo(type);
+        if(type > 5) {
+            this.sprCoin.spriteFrame = this.diamondFrame;
+        }
     }
 
     setSettingInfo(type) {
@@ -40,27 +50,32 @@ export default class SettingUpgradeItem extends cc.Component {
             case 1:
                 this.lbLevel.string = "等级 "+(GameData.factoryLevel+1);
                 this.lbAttribute.string = "缩短制造时间-"+(GameData.factoryLevel+1)*0.2+"秒";
-                this.lbPrice.string = Util.formatNum(Math.pow(2, GameData.factoryLevel)*1000);
+                this.price = Math.pow(2, GameData.factoryLevel)*1000;
+                this.lbPrice.string = Util.formatNum(this.price);
                 break;
             case 2:
                 this.lbLevel.string = "等级 "+(GameData.repositoryLevel+1);
                 this.lbAttribute.string = "增加制造库存"+(GameData.repositoryLevel+1)*2;
-                this.lbPrice.string = Util.formatNum(Math.pow(2, GameData.factoryLevel)*1000);
+                this.price = Math.pow(2, GameData.factoryLevel)*1000;
+                this.lbPrice.string = Util.formatNum(this.price);
                 break;
             case 3:
                 this.lbLevel.string = "等级 "+(GameData.recycleLevel+1);
                 this.lbAttribute.string = "增加金币获得"+5*(GameData.recycleLevel+1)+"%";
-                this.lbPrice.string = Util.formatNum(Math.pow(2, GameData.factoryLevel)*1000);
+                this.price = Math.pow(2, GameData.factoryLevel)*1000;
+                this.lbPrice.string = Util.formatNum(this.price);
                 break;
             case 4:
                 this.lbLevel.string = "等级 "+(GameData.attackLevel+1);
                 this.lbAttribute.string = "增加飞机攻击力"+(GameData.attackLevel+1)+"%";
-                this.lbPrice.string = Util.formatNum(Math.pow(2, GameData.factoryLevel)*1000);
+                this.price = Math.pow(2, GameData.factoryLevel)*1000;
+                this.lbPrice.string = Util.formatNum(this.price);
                 break;
             case 5:
                 this.lbLevel.string = "等级 "+(GameData.criticalStrikeLevel+1);
                 this.lbAttribute.string = "增加飞机暴击率"+(GameData.criticalStrikeLevel+1)+"%";
-                this.lbPrice.string = Util.formatNum(Math.pow(2, GameData.factoryLevel)*1000);
+                this.price = Math.pow(2, GameData.factoryLevel)*1000;
+                this.lbPrice.string = Util.formatNum(this.price);
                 break;
             case 6:
                 this.lbLevel.string = "等级 "+(GameData.highRecycleLevel+1);
@@ -90,12 +105,14 @@ export default class SettingUpgradeItem extends cc.Component {
         }
     }
 
-    clickUpgrade(target, type) {
-        // if(GameData.gold >= this.price){
-        //     this.setLevel(++this.level);
-        //     GameData.gold -= this.price;
-        //     GameData.setPlaneLevel(this.idx, this.level);
-        // }
+    clickUpgrade() {
+        if(this.type <= 5) {
+            if(GameData.gold >= this.price){
+                // this.setLevel(++this.level);
+                GameData.gold -= this.price;
+                // GameData.setPlaneLevel(this.idx, this.level);
+            }
+        }
     }
 
     // update (dt) {}

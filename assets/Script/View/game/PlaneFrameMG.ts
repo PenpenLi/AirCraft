@@ -10,7 +10,7 @@ export default class PlaneFrameMG extends cc.Component {
     @property([cc.SpriteFrame])
     landFrames: cc.SpriteFrame[] = [];
     @property([cc.SpriteFrame])
-    boxFrames: cc.SpriteFrame[] = [];
+    settingFrames: cc.SpriteFrame[] = [];
     
     onLoad() {
         PlaneFrameMG.mPlaneFrameMG = this;
@@ -25,9 +25,13 @@ export default class PlaneFrameMG extends cc.Component {
         sprite.spriteFrame = arr[level];
     }
 
-    static setBoxFrame(sprite, idx) {
-        sprite.spriteFrame = PlaneFrameMG.mPlaneFrameMG.boxFrames[idx];
+    static setSettingFrame(sprite, idx){
+        let arr = PlaneFrameMG.mPlaneFrameMG.settingFrames;
+        if(!arr[idx]){
+            cc.error("no Frame!!!!");
+            return;
+        }
+        sprite.spriteFrame = arr[idx];
     }
-
     // update (dt) {}
 }

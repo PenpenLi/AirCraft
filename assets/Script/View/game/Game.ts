@@ -71,6 +71,8 @@ export default class Game extends cc.Component {
     pfLoginAward: cc.Prefab = null;
     @property(cc.Prefab)
     pfPlaneUpgrade: cc.Prefab = null;
+    @property(cc.Prefab)
+    pfSettingUpgrade: cc.Prefab = null;
 
     private landPlanePool;
     public goldParticlePool;
@@ -196,6 +198,7 @@ export default class Game extends cc.Component {
             if (level > 0) {
                 this.setPlaneOnLand(level, port);
             }
+            GameCtr.selfPlanes.push(level);
         }
 
         // this.showOffLineProfitPop();
@@ -279,6 +282,17 @@ export default class Game extends cc.Component {
      */
     showPlaneUpgradePop() {
         let nd = cc.instantiate(this.pfPlaneUpgrade);
+        ViewManager.show({
+            node: nd,
+            maskOpacity: 200
+        });
+    }
+
+    /**
+     * 设施升级
+     */
+    showSettingUpgradePop() {
+        let nd = cc.instantiate(this.pfSettingUpgrade);
         ViewManager.show({
             node: nd,
             maskOpacity: 200
