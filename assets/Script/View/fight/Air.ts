@@ -156,6 +156,7 @@ export default class NewClass extends cc.Component {
         if(this._currentLifeValue<=0){
             if(this._isBoss){
                 GameCtr.getInstance().getFight().doUpLevel();
+                GameCtr.getInstance().getFight().initEnemys();
             }
             GameCtr.getInstance().getFight().removeAir(this.node);
             this.showDeadEft();
@@ -172,9 +173,11 @@ export default class NewClass extends cc.Component {
             bubbleHurt=cc.instantiate(this.bubbleHurts[Math.floor(Math.random()*2)]);
             console.log('log---------重新实例化bubbleHurt');
         }
-        bubbleHurt.parent=this.node;
+        bubbleHurt.parent=cc.find("Canvas");
         bubbleHurt.active=true;
-        bubbleHurt.y=0;
+        bubbleHurt.x=this.node.x;
+        bubbleHurt.y=this.node.y;
+        hurt=hurt>this._currentLifeValue?this._currentLifeValue:hurt;
         bubbleHurt.getComponent("BubbleHurt").showHurt(hurt);
         bubbleHurt.stopAllActions();
         bubbleHurt.runAction(cc.sequence(

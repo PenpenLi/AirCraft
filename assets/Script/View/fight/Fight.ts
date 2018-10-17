@@ -1,4 +1,5 @@
 import GameCtr from "../../Controller/GameCtr";
+import GameData from "../../Common/GameData";
 const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
@@ -17,7 +18,7 @@ export default class NewClass extends cc.Component {
     _interval=0;
     _airTag=0;
     _levelSmall=1;//小关卡
-    _levelBig=1;  //大关卡
+
     
     @property(cc.Prefab)
     airsPrefab:cc.Prefab[]=[];
@@ -29,6 +30,7 @@ export default class NewClass extends cc.Component {
     strike:cc.Prefab=null;
     
     onLoad(){
+        console.log('log------------selfAirInfo=:',GameCtr.selfPlanes);
         GameCtr.getInstance().setFight(this);
         this._strikePool=new cc.NodePool();
         this.initNode();
@@ -38,6 +40,8 @@ export default class NewClass extends cc.Component {
         this.initFightTouch();
         this.startBgRoll();
         this.setGameCount();
+        GameCtr.monsterHP=GameData.getEnemyHP();
+        console.log("log--------------HP=:",Math.floor(((3+2)/Math.pow(2,1.8)+1.02)*30)+9*(2-1)); 
     }
 
     initNode(){
@@ -70,9 +74,18 @@ export default class NewClass extends cc.Component {
 
 
     initAirs(){
-        for(let i=0;i<5;i++){
+       
+        for(let i=0;i<GameCtr.selfPlanes.length;i++){
+            if(GameCtr.selfPlanes[i]<=0){continue;}
             let air = cc.instantiate(this.airsPrefab[0]);
-            let infodata={lifeValue:3,bulletHurt:1,isEnemy:false,level:1}
+            let level=GameData.getPlaneLevel(GameCtr.selfPlanes[i]);
+
+            let infodata={
+                lifeValue:GameData.getPlaneLifeValue(level),
+                bulletHurt:GameData.planesConfig[GameCtr.selfPlanes[i]-1].baseAttack+(level-1)*GameData.planesConfig[GameCtr.selfPlanes[i]-1].attackIncrease,
+                isEnemy:false,
+                level:GameCtr.selfPlanes[i]
+            };
             air.parent=cc.find("Canvas");
             air.tag=this._airTag;
             air.getComponent("Air").init(infodata);
@@ -86,9 +99,16 @@ export default class NewClass extends cc.Component {
 
 
     initEnemys(){
-        for(let i=0; i<5; i++){
+        console.log("log------------GameCtr.monsterHP=:",GameCtr.monsterHP);
+        this.setGameCount();
+        for(let i=0; i<1; i++){
             let enemy = cc.instantiate(this.airsPrefab[0]);
-            let infodata={lifeValue:5,bulletHurt:1,isEnemy:true,level:this._levelSmall}
+            let infodata={
+                lifeValue:GameCtr.monsterHP,
+                bulletHurt:1,
+                isEnemy:true,
+                level:this._levelSmall
+            }
             enemy.parent=cc.find("Canvas");
             enemy.tag=this._airTag;
             enemy.x=-200+i*200;
@@ -104,7 +124,13 @@ export default class NewClass extends cc.Component {
 
     initBoss(){
         let boss=cc.instantiate(this.airsPrefab[0]);
-        let infoData={lifeValue:10,bulletHurt:3,isEnemy:true,level:Math.floor(Math.random()*6),isBoss:true};
+        let infoData={
+            lifeValue:1*GameCtr.monsterHP,
+            bulletHurt:3,
+            isEnemy:true,
+            level:Math.floor(Math.random()*5)+1,
+            isBoss:true
+        };
         boss.parent=cc.find("Canvas");
         boss.y=600;
         boss.getComponent("Air").init(infoData);
@@ -258,7 +284,6 @@ export default class NewClass extends cc.Component {
 
     showPass(){
         this._levelSmall++;
-        this.setGameCount();
         if(this._levelSmall<10){
             let pass01=this._otherNode.getChildByName("pass_01");
             let pass02=this._otherNode.getChildByName("pass_02");
@@ -317,12 +342,13 @@ export default class NewClass extends cc.Component {
     }
 
     setGameCount(){
-        this._lbGameCount.getComponent(cc.Label).string=this._levelBig+"/"+this._levelSmall;
+        this._lbGameCount.getComponent(cc.Label).string=GameCtr.level+"/"+this._levelSmall;
     }
 
     doUpLevel(){
-        this._levelSmall=0;
-        this._levelBig++;
+        this._levelSmall=1;
+        GameCtr.level++;
+        GameCtr.monsterHP=GameData.getEnemyHP();
     }
 
     resetGame(){

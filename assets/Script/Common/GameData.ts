@@ -79,6 +79,13 @@ export default class GameData {
         {name: "25 天神", baseAttack: 8000000000, attackIncrease: 16000000, basePrice: 129380000}
     ];
 
+    static baseEnemy={
+        monsterHP:30,
+        bossHP:900,
+        baseBonus:10,
+        bonus:40,
+    }
+
     // 设置回收技术等级
     static set recycleLevel(level) {
         if(level < 0) {
@@ -472,6 +479,34 @@ export default class GameData {
             level = GameData.planeData[key];
         }
         return level;
+    }
+
+
+    static getPlaneLifeValue(level){
+        for(let i=0;i<4;i++){
+            if(level>=(i+1)*25){
+                return 2+i+1
+            }
+        }
+        return 2;
+    }
+
+
+    static getEnemyHP(){
+        if(GameCtr.level==1){
+            GameCtr.monsterHP=30;
+            return GameCtr.monsterHP;
+        }
+        return Math.floor(((3+GameCtr.level)/Math.pow(GameCtr.level,1.8)+1.02)*GameCtr.monsterHP)+9*(GameCtr.level-1); 
+    }
+
+
+    static getBaseBonus(){
+        if(GameCtr.level==1){
+            GameCtr.baseBonus=10;
+            return GameCtr.baseBonus;
+        }
+        return Math.floor(Math.pow(Math.floor(GameCtr.level/3+1),1.5)+GameCtr.baseBonus*1.02);
     }
 
     // update (dt) {}
