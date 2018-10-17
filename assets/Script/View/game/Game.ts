@@ -198,7 +198,7 @@ export default class Game extends cc.Component {
             }
         }
 
-        this.showOffLineProfitPop();
+        // this.showOffLineProfitPop();
     }
 
     setPlaneOnLand(level, port) {
