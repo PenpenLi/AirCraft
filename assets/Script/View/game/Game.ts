@@ -547,6 +547,11 @@ export default class Game extends cc.Component {
         HttpCtr.clickStatistics(GameCtr.StatisticType.BANNER_SLIDER, data.appid);                               //今日新游点击统计
     }
 
+
+    onClickBtnFight(){
+        cc.director.loadScene("Fight");
+    }
+
     showGiftBtn() {
         let day = Util.getCurrTimeYYMMDD();
         let info = WXCtr.getStorageData("everydayDiamonds");
