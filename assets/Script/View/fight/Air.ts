@@ -32,12 +32,12 @@ export default class NewClass extends cc.Component {
 
     @property(cc.SpriteFrame)
     selfSkins:cc.SpriteFrame[]=[];
+
+    @property(cc.Prefab)
+    bubbleHurts:cc.Prefab[]=[];
    
     @property(cc.Prefab)
     bullet:cc.Prefab=null;
-
-    @property(cc.Prefab)
-    bubbleHurt:cc.Prefab=null;
 
     @property(cc.Prefab)
     deadEft:cc.Prefab=null;
@@ -92,8 +92,8 @@ export default class NewClass extends cc.Component {
     }
 
     initBubbleHurt(){
-        for(let i=0;i<3;i++){
-            let bubbleHurt=cc.instantiate(this.bubbleHurt);
+        for(let i=0;i<5;i++){
+            let bubbleHurt=cc.instantiate(this.bubbleHurts[Math.floor(Math.random()*2)]);
             this._bubbleHurtPool.put(bubbleHurt);
         }
     }
