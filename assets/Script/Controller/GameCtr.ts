@@ -51,6 +51,8 @@ export default class GameCtr {
     public static onLineLastTime = null;
     public static OnClickStat = false;                              //点击统计开关，appid不受限制
 
+    public static selfPlanes = [];                                   //个人飞机列表
+
     public static StatisticType = cc.Enum({                         //统计类型
         SPEED: 1,                                                   //加速分享
         INVITE: 2,                                                  //邀请
