@@ -113,6 +113,7 @@ export default class Game extends cc.Component {
     }
 
     gameStart() {
+        GameData.getAllLocalGameData();
         GameCtr.isStartGame = true;
         WXCtr.getSelfData();
         WXCtr.getFriendRankingData();
@@ -222,7 +223,7 @@ export default class Game extends cc.Component {
         comp.isUsed = true;
     }
 
-    addBasePlane() {
+    addPlane(level = 1) {
         for (let i = 0; i < this.allPort.length; i++) {
             let port = this.allPort[i];
             let comp = port.getComponent(Apron);
@@ -233,14 +234,26 @@ export default class Game extends cc.Component {
                 port.addChild(plane);
                 plane.position = cc.v2(0, 0);
                 let landPlane = plane.getComponent(LandPlane);
-                landPlane.setLevel(1);
+                landPlane.setLevel(level);
                 landPlane.apronTag = port.tag+10;
                 comp.plane = landPlane;
                 comp.isUsed = true;
-                GameData.setApronState(i, 1);
+                GameData.setApronState(i, level);
                 return;
             }
         }
+    }
+
+    getUnusedApronNum() {
+        let num = 0;
+        for (let i = 0; i < this.allPort.length; i++) {
+            let port = this.allPort[i];
+            let comp = port.getComponent(Apron);
+            if (!comp.isUsed) {
+                num++;
+            }
+        }
+        return num;
     }
 
     showTrash() {

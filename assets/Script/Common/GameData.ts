@@ -3,6 +3,7 @@ import WXCtr from "../Controller/WXCtr";
 import Guide from "../View/game/Guide";
 import UserManager from "./UserManager";
 import HttpCtr from "../Controller/HttpCtr";
+import Util from "./Util";
 
 
 const { ccclass, property } = cc._decorator;
@@ -43,6 +44,14 @@ export default class GameData {
     public static saveTime = null;                                      //保存数据时间戳
 
     public static offLineProfit: number = 0;
+
+    public static missionData = null;                                //今日任务数据
+    public static videoTimes = 0;                                   //今日广告次数
+    public static speedTimes = 0;                                   //今日加速次数
+    public static composeTimes = 0;                                 //今日合成次数
+    public static boxTimes = 0;                                     //今日开宝箱次数
+    public static turntableTimes = 0;                               //今日开启转盘次数
+    public static fightTimes = 0;                                   //今日战斗次数
 
     public static planeData = {};
     public static maxPlane = 25;                                        //飞机等级上限
@@ -273,6 +282,9 @@ export default class GameData {
                 GameData.planeData[key] = 1;
             }
         }
+
+        GameData.getMissionData();
+
     }
 
     static getOnlineGameData(data) {
@@ -294,6 +306,32 @@ export default class GameData {
         GameData.setUserData(GameData.planeData);
         HttpCtr.submitUserData({});
         GameCtr.ins.mGame.gameStart();
+    }
+
+    static getMissionData() {
+        let day = Util.getCurrTimeYYMMDD();
+        GameData.missionData = WXCtr.getStorageData("missionData");
+        if(!GameData.missionData || !GameData.missionData.day || GameData.missionData.day != day) {
+            GameData.missionData = {};
+            GameData.missionData.day = day;
+            GameData.missionData.videoTimes = 0;
+            GameData.missionData.speedTimes = 0;
+            GameData.missionData.composeTimes = 0;
+            GameData.missionData.boxTimes = 0;
+            GameData.missionData.turntableTimes = 0;
+            GameData.missionData.fightTimes = 0;
+            for(let i = 1; i<=8; i++) {
+                let key = "missionCollected_"+i;
+                GameData.missionData[key] = false;
+            }
+        }
+    }
+
+    static setMissonData(key, value) {
+        let day = Util.getCurrTimeYYMMDD();
+        GameData.missionData[key] = value;
+        GameData.missionData.day = day;
+        WXCtr.setStorageData("missionData", GameData.missionData);
     }
 
     //保存个人信息

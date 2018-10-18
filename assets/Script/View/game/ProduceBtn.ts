@@ -26,7 +26,7 @@ export default class ProduceBtn extends cc.Component {
     clickBtn() {
         if(GameData.repPlaneNum > 0) {
             GameData.repPlaneNum--;
-            GameCtr.ins.mGame.addBasePlane();
+            GameCtr.ins.mGame.addPlane();
             this.setPlaneNum();
             if(this.pgbProduce.progress >= 1){
                 this.pgbProduce.progress = 0;
