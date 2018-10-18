@@ -77,6 +77,13 @@ export default class Game extends cc.Component {
     pfMission:cc.Prefab = null;
     @property(cc.Prefab)
     pfMall: cc.Prefab = null;
+    @property(cc.Prefab)
+    pfTreatrueBox:cc.Prefab=null;
+    @property(cc.Prefab)
+    pfTurntable: cc.Prefab = null;
+    @property(cc.Prefab)
+    pfSpeedUP:cc.Prefab=null;
+   
 
     private landPlanePool;
     public goldParticlePool;
@@ -579,6 +586,30 @@ export default class Game extends cc.Component {
 
     onClickBtnFight(){
         cc.director.loadScene("Fight");
+    }
+
+    onClickBtnTreatureBox(){
+        if(cc.find("Canvas").getChildByName('pfTreatureBox')){
+            return;
+        }
+        let pfTreatureBox=cc.instantiate(this.pfTreatrueBox);
+        pfTreatureBox.parent=cc.find("Canvas");
+    }
+
+    onClickBtnPfturnble(){
+        if(cc.find("Canvas").getChildByName('pfTurntable')){
+            return;
+        }
+        let pfTurntable=cc.instantiate(this.pfTurntable);
+        pfTurntable.parent=cc.find("Canvas");
+    }
+
+    onClickBtnSpeedUP(){
+        if(cc.find("Canvas").getChildByName('pfSpeedUP')){
+            return;
+        }
+        let pfSpeedUP=cc.instantiate(this.pfSpeedUP);
+        pfSpeedUP.parent=cc.find("Canvas");
     }
 
     showGiftBtn() {

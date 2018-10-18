@@ -1280,7 +1280,10 @@
     },
     "pfMall": {
       "__uuid__": "f93c6274-fc68-45f0-a7ae-9f99928bd393"
-    }
+    },
+    "pfTreatrueBox": null,
+    "pfTurntable": null,
+    "pfSpeedUP": null
   },
   {
     "__type__": "cc.Node",
@@ -10415,7 +10418,7 @@
       "__id__": 24
     },
     "component": "Game",
-    "handler": "showPlaneUpgradePop",
+    "handler": "onClickBtnPfturnble",
     "customEventData": ""
   },
   {
@@ -10561,7 +10564,7 @@
       "__id__": 24
     },
     "component": "Game",
-    "handler": "showPlaneUpgradePop",
+    "handler": "onClickBtnTreatureBox",
     "customEventData": ""
   },
   {
@@ -10583,7 +10586,7 @@
       }
     ],
     "_prefab": null,
-    "_id": "22cp10nJlDN7yphDYs0drB",
+    "_id": "a92B3BFKJCh7vTeNMvjS5W",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -10601,7 +10604,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 118,
-      "height": 138
+      "height": 137
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -10610,7 +10613,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -456,
-      "y": 1017
+      "y": 1207
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -10628,7 +10631,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "3c380014-bab9-4683-9a40-d00a05eca8f1"
+      "__uuid__": "c8347130-0e52-42b7-9bd8-0ce72724ec5c"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -10707,7 +10710,7 @@
       "__id__": 24
     },
     "component": "Game",
-    "handler": "showPlaneUpgradePop",
+    "handler": "onClickBtnSpeedUP",
     "customEventData": ""
   },
   {
@@ -10729,7 +10732,7 @@
       }
     ],
     "_prefab": null,
-    "_id": "a92B3BFKJCh7vTeNMvjS5W",
+    "_id": "22cp10nJlDN7yphDYs0drB",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -10747,7 +10750,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 118,
-      "height": 138
+      "height": 137
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -10756,7 +10759,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -456,
-      "y": 1207
+      "y": 1017
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -10774,7 +10777,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "3c380014-bab9-4683-9a40-d00a05eca8f1"
+      "__uuid__": "c8347130-0e52-42b7-9bd8-0ce72724ec5c"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -10853,7 +10856,7 @@
       "__id__": 24
     },
     "component": "Game",
-    "handler": "showPlaneUpgradePop",
+    "handler": "onClickBtnSpeedUP",
     "customEventData": ""
   },
   {
