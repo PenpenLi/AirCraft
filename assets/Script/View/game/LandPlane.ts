@@ -275,6 +275,7 @@ export default class LandPlane extends cc.Component {
                 // GameCtr.ins.mGame.setPgbLevel();
                 GameCtr.ins.mGame.showPortLight(otherParent);
                 AudioManager.getInstance().playSound("audio/complex", false);
+                GameData.setMissonData("composeTimes", GameData.missionData.composeTimes+1);
             }),
         ));
     }

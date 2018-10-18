@@ -579,6 +579,7 @@ export default class Game extends cc.Component {
 
     onClickBtnFight(){
         cc.director.loadScene("Fight");
+        GameData.setMissonData("fightTimes", GameData.missionData.fightTimes+1);
     }
 
     showGiftBtn() {

@@ -1,5 +1,6 @@
 import PopupView from "./PopupView";
 import GameData from "../../Common/GameData";
+import ViewManager from "../../Common/ViewManager";
 
 
 const { ccclass, property } = cc._decorator;
@@ -77,30 +78,55 @@ export default class MissionPop extends cc.Component {
 
     getMissionGift(event, data) {
         let btn = event.target;
+        data = parseInt(data);
         switch (data) {
             case 1:
-
+                if (GameData.missionData.videoTimes < 1) {
+                    ViewManager.toast("不满足领取条件，领取失败");
+                    return;
+                }
                 break;
             case 2:
-
+                if (GameData.missionData.videoTimes < 3) {
+                    ViewManager.toast("不满足领取条件，领取失败");
+                    return;
+                }
                 break;
             case 3:
-
+                if (GameData.missionData.videoTimes < 5) {
+                    ViewManager.toast("不满足领取条件，领取失败");
+                    return;
+                }
                 break;
             case 4:
-
+                if (GameData.missionData.speedTimes < 5) {
+                    ViewManager.toast("不满足领取条件，领取失败");
+                    return;
+                }
                 break;
             case 5:
-
+                if (GameData.missionData.composeTimes < 128) {
+                    ViewManager.toast("不满足领取条件，领取失败");
+                    return;
+                }
                 break;
             case 6:
-
+                if (GameData.missionData.boxTimes < 10) {
+                    ViewManager.toast("不满足领取条件，领取失败");
+                    return;
+                }
                 break;
             case 7:
-
+                if (GameData.missionData.turntableTimes < 2) {
+                    ViewManager.toast("不满足领取条件，领取失败");
+                    return;
+                }
                 break;
             case 8:
-
+                if (GameData.missionData.fightTimes < 10) {
+                    ViewManager.toast("不满足领取条件，领取失败");
+                    return;
+                }
                 break;
         }
         btn.active = false;
