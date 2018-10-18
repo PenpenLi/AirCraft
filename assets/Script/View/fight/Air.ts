@@ -14,7 +14,7 @@ export default class NewClass extends cc.Component {
     _bulletHurt=null;
     _deadEft=null;
     _bulletSpeed=3;
-    _attackInterval=2;
+    _attackInterval=1;
     _bulletsArr=[];
     _skin=null;
     _lifeBar=null;
@@ -50,7 +50,7 @@ export default class NewClass extends cc.Component {
     }
 
     startAttack(){
-        this._attackInterval=this._isBoss?0.5:3
+        this._attackInterval=this._isBoss?1:2
         this.schedule(this.doAttacked, this._attackInterval);
     }
 
@@ -72,7 +72,6 @@ export default class NewClass extends cc.Component {
             this._lifeBar.active=true;
             this._lifeBar.getComponent(cc.ProgressBar).progress=1;
         }
-
         if(this._isBoss){
             this._lifeBar.y+=100;
         }
@@ -148,15 +147,25 @@ export default class NewClass extends cc.Component {
 
     //承受攻击
     onAttacked(hurt){
+        if(this._isBoss || this._isEnemy){
+            hurt=GameCtr.doubleAttack?hurt*2:hurt;
+        }
+
         this._currentLifeValue-=hurt;
         if(this._isEnemy){
             this._lifeBar.getComponent(cc.ProgressBar).progress=this._currentLifeValue/this._lifeValue;
             this.showHurt(hurt);
         }
         if(this._currentLifeValue<=0){
+            if(this._isEnemy){
+                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2:this._lifeValue;
+                GameCtr.getInstance().getFight().showGold(this._lifeValue,{x:this.node.x,y:this.node.y});
+            }
+
             if(this._isBoss){
                 GameCtr.getInstance().getFight().doUpLevel();
-                GameCtr.getInstance().getFight().initEnemys();
+                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2:this._lifeValue;
+                GameCtr.getInstance().getFight().showBossGold(this._lifeValue,{x:this.node.x,y:this.node.y});
             }
             GameCtr.getInstance().getFight().removeAir(this.node);
             this.showDeadEft();
@@ -165,6 +174,9 @@ export default class NewClass extends cc.Component {
 
 
     showHurt(hurt){
+        hurt=hurt>this._currentLifeValue?this._currentLifeValue:hurt;
+        if(hurt<=0){return}
+
         let bubbleHurt=null;
         if(this._bubbleHurtPool.size()>0){
             bubbleHurt=this._bubbleHurtPool.get();
@@ -177,14 +189,15 @@ export default class NewClass extends cc.Component {
         bubbleHurt.active=true;
         bubbleHurt.x=this.node.x;
         bubbleHurt.y=this.node.y;
-        hurt=hurt>this._currentLifeValue?this._currentLifeValue:hurt;
         bubbleHurt.getComponent("BubbleHurt").showHurt(hurt);
         bubbleHurt.stopAllActions();
         bubbleHurt.runAction(cc.sequence(
             cc.moveBy(2,cc.p(0,150)),
             cc.callFunc(()=>{
                 bubbleHurt.active=false;
-                this._bubbleHurtPool.put(bubbleHurt)
+                if(this._bubbleHurtPool){
+                    this._bubbleHurtPool.put(bubbleHurt)
+                }
             })
         ))
     }

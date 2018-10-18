@@ -52,7 +52,7 @@ export default class GameCtr {
     public static OnClickStat = false;                              //点击统计开关，appid不受限制
 
     public static selfPlanes = [];                                   //个人飞机列表
-
+    public static gold=0;
     public static level=1;
     public static monsterHP=0;
     public static baseBonus=0;
@@ -133,5 +133,39 @@ export default class GameCtr {
         if (GameCtr.ins) {
             GameCtr.score += num;
         }
+    }
+
+
+    static setLevel(){
+        localStorage.setItem("level",GameCtr.level+"");
+    }
+
+    static getLvel(){
+        return localStorage.getItem("level");
+    }
+
+    static setGold(){
+        localStorage.setItem("gold",GameCtr.gold+"");
+    }
+
+    static getGold(){
+        return localStorage.getItem("gold");
+    }
+
+    static setEnemyHP(){
+        localStorage.setItem("enemyHP",GameCtr.monsterHP+'');
+    }
+
+    static getEnemyHP(){
+        return localStorage.getItem("enemyHP");
+    }
+
+
+    static setBaseBonus(){
+        localStorage.setItem("baseBonus",GameCtr.baseBonus+'');
+    }
+
+    static getBaseBonus(){
+        return localStorage.getItem("baseBonus");
     }
 }

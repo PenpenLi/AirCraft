@@ -1,5 +1,6 @@
 import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
+import Util from "../../Common/Util";
 const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
@@ -9,17 +10,18 @@ export default class NewClass extends cc.Component {
     _lbGameCount=null;
     _otherNode=null;
     _strikePool=null;
+    _lbGoldPool=null;
+    _goldFrame=null;
+    _lbGold=null;
     _airs=[];
     _selfAirs=[];
     _enemyAirs=[];
     _selfAirsPos=[];
     _bullets=[];
-   
     _interval=0;
     _airTag=0;
     _levelSmall=1;//小关卡
 
-    
     @property(cc.Prefab)
     airsPrefab:cc.Prefab[]=[];
     
@@ -28,20 +30,25 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Prefab)
     strike:cc.Prefab=null;
+
+    @property(cc.Prefab)
+    lb_gold:cc.Prefab=null;
     
     onLoad(){
-        console.log('log------------selfAirInfo=:',GameCtr.selfPlanes);
+        GameCtr.gold=GameCtr.getGold()?Number(GameCtr.getGold()):0;
+        GameCtr.level=GameCtr.getLvel()?Number(GameCtr.getLvel()):1;
+        GameCtr.monsterHP=GameCtr.getEnemyHP()?Number(GameCtr.getEnemyHP()):GameData.getEnemyHP();
         GameCtr.getInstance().setFight(this);
         this._strikePool=new cc.NodePool();
+        this._lbGoldPool=new cc.NodePool();
         this.initNode();
         this.initEnemys();
         this.initAirs();
         this.initStrikes();
+        this.initLbGolds();
         this.initFightTouch();
         this.startBgRoll();
         this.setGameCount();
-        GameCtr.monsterHP=GameData.getEnemyHP();
-        console.log("log--------------HP=:",Math.floor(((3+2)/Math.pow(2,1.8)+1.02)*30)+9*(2-1)); 
     }
 
     initNode(){
@@ -49,7 +56,11 @@ export default class NewClass extends cc.Component {
         this._gameBg1=this.node.getChildByName("bg1");
         this._gameBg2=this.node.getChildByName("bg2");
         this._touchNode=this.node.getChildByName("touchNode");
-        this._lbGameCount=this.node.getChildByName("lb_gameCount");
+        this._lbGameCount=this._otherNode.getChildByName("lb_gameCount");
+        this._goldFrame=this._otherNode.getChildByName("goldFrame");
+        this._lbGold=this._goldFrame.getChildByName("lb_gold");
+
+        this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameCtr.gold);
     }
 
     startBgRoll(){
@@ -74,7 +85,7 @@ export default class NewClass extends cc.Component {
 
 
     initAirs(){
-       
+        console.log("log-------------selfAirs=:",GameCtr.selfPlanes);
         for(let i=0;i<GameCtr.selfPlanes.length;i++){
             if(GameCtr.selfPlanes[i]<=0){continue;}
             let air = cc.instantiate(this.airsPrefab[0]);
@@ -101,7 +112,7 @@ export default class NewClass extends cc.Component {
     initEnemys(){
         console.log("log------------GameCtr.monsterHP=:",GameCtr.monsterHP);
         this.setGameCount();
-        for(let i=0; i<1; i++){
+        for(let i=0; i<5; i++){
             let enemy = cc.instantiate(this.airsPrefab[0]);
             let infodata={
                 lifeValue:GameCtr.monsterHP,
@@ -144,6 +155,13 @@ export default class NewClass extends cc.Component {
         for(let i=0;i<30;i++){
             let strike=cc.instantiate(this.strike);
             this._strikePool.put(strike);
+        }
+    }
+
+    initLbGolds(){
+        for(let i=0;i<5;i++){
+            let lbGold=cc.instantiate(this.lb_gold);
+            this._lbGoldPool.put(lbGold);
         }
     }
 
@@ -265,10 +283,8 @@ export default class NewClass extends cc.Component {
         let strike=null;
         if(this._strikePool.size()>0){
             strike=this._strikePool.get();
-            console.log('log---------从对象池中获取strike-----');
         }else{
             strike=cc.instantiate(this.strike);
-            console.log('log---------重新实例化strike对象-----');
         }
         strike.parent=cc.find("Canvas");
         strike.x=pos.x;
@@ -280,6 +296,42 @@ export default class NewClass extends cc.Component {
                 this._strikePool.put(strike);
             })
         ))
+    }
+
+    showGold(gold,pos){
+        let lbGold=null;
+        if(this._lbGoldPool.size()>0){
+            lbGold=this._lbGoldPool.get();
+        }else{
+            lbGold=cc.instantiate(this.lb_gold);
+            this._lbGoldPool.put(lbGold);
+        }
+        lbGold.parent=cc.find("Canvas");
+        lbGold.getComponent("lbGold").setValue(gold);
+        lbGold.x=pos.x;
+        lbGold.y=pos.y;
+        let bezier = [cc.v2(pos.x,pos.y), cc.v2(-200, 400), cc.v2(-450, 900)];
+        lbGold.runAction(cc.sequence(
+            cc.bezierTo(1, bezier),
+            cc.callFunc(()=>{
+                this._lbGoldPool.put(lbGold);
+                this.addGold(gold);
+            })
+        ));
+    }
+
+    showBossGold(gold,pos){
+        for(let i=0;i<5;i++){
+            this.node.runAction(cc.sequence(
+                cc.delayTime(0.5*i),
+                cc.callFunc(()=>{
+                    this.showGold(Math.floor(gold/5),{x:pos.x+Math.random()*300-150,y:pos.y+Math.random()*50-25});
+                    if(i==4){
+                        this.initEnemys();
+                    }
+                })
+            ))
+        }
     }
 
     showPass(){
@@ -336,9 +388,9 @@ export default class NewClass extends cc.Component {
         if(cc.find("Canvas").getChildByName("gameOver")){
             return;
         }
-
         let gameOver=cc.instantiate(this.gameOver);
         gameOver.parent=cc.find("Canvas");
+        gameOver.getComponent("GameOver").setGold((this._levelSmall-1)*GameCtr.monsterHP);
     }
 
     setGameCount(){
@@ -349,6 +401,20 @@ export default class NewClass extends cc.Component {
         this._levelSmall=1;
         GameCtr.level++;
         GameCtr.monsterHP=GameData.getEnemyHP();
+        GameCtr.setLevel();
+        GameCtr.setEnemyHP();
+    }
+
+    addGold(gold){
+        this._goldFrame.runAction(cc.sequence(
+            cc.scaleTo(0.2,1.2),
+            cc.callFunc(()=>{
+                this._goldFrame.scale=1.0;
+            })
+        ))
+        GameCtr.gold+=gold;
+        GameCtr.setGold();
+        this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameCtr.gold);
     }
 
     resetGame(){
@@ -357,6 +423,11 @@ export default class NewClass extends cc.Component {
         this.initAirs();
         this.initFightTouch();
         this.setGameCount();
+    }
+
+    onBtnOver(){
+        cc.director.pause();
+        this.showGameOver();
     }
 
     clear(){
