@@ -1,15 +1,9 @@
 import Util from "../../Common/Util";
 
-
 const {ccclass, property} = cc._decorator;
-
 @ccclass
 export default class NewClass extends cc.Component {
-
-    @property(cc.Label)
-    lb_hurt:cc.Label=null;
-
-    showHurt(hurt){
-        this.lb_hurt.string=Util.formatNumber(hurt)+"";
+    setValue(value){
+        this.node.getComponent(cc.Label).string=Util.formatNumber(value)+"" 
     }
 }

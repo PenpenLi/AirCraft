@@ -1,4 +1,5 @@
 import GameCtr from "../../Controller/GameCtr";
+import Util from "../../Common/Util";
 
 const {ccclass, property} = cc._decorator;
 @ccclass
@@ -9,6 +10,7 @@ export default class NewClass extends cc.Component {
 
     onLoad(){
         this.initNode();
+        this.initLights();
     }
 
     initNode(){
@@ -32,8 +34,19 @@ export default class NewClass extends cc.Component {
         })
     }
 
+    initLights(){
+        let lights=this.node.getChildByName("lights");
+        for(let i=0;i<lights.children.length;i++){
+            lights.children[i].rotation=30*i;
+        }
+
+        for(let i=0;i<lights.children.length;i++){
+            lights.children[i].runAction(cc.repeatForever(cc.rotateBy(1,45)));
+        }
+    }
+
     setGold(_gold){
-        this._lb_gold=this.node.getChildByName("lb_gold");
+        this._lb_gold.getComponent(cc.Label).string=Util.formatNumber(_gold);
     }
 
     
