@@ -11,6 +11,8 @@ export default class NewClass extends cc.Component {
     onLoad(){
         this.initNode();
         this.initLights();
+        GameCtr.doubleAttack=false;
+        GameCtr.doubleGold=false;
     }
 
     initNode(){
@@ -25,12 +27,15 @@ export default class NewClass extends cc.Component {
 
     initBtnEvent(btn){
         btn.on(cc.Node.EventType.TOUCH_END,(e)=>{
+            cc.director.resume();
             if(e.target.getName()=="btn_playAgain"){
+                GameCtr.getInstance().getFight().clear();
                 GameCtr.getInstance().getFight().resetGame();
                 this.node.destroy();
             }else if(e.target.getName()=="btn_back"){
                 cc.director.loadScene("Game");
             }
+            
         })
     }
 

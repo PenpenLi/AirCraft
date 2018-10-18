@@ -18,7 +18,6 @@ export default class NewClass extends cc.Component {
     _enemyAirs=[];
     _selfAirsPos=[];
     _bullets=[];
-   
     _interval=0;
     _airTag=0;
     _levelSmall=1;//小关卡
@@ -86,6 +85,7 @@ export default class NewClass extends cc.Component {
 
 
     initAirs(){
+        console.log("log-------------selfAirs=:",GameCtr.selfPlanes);
         for(let i=0;i<GameCtr.selfPlanes.length;i++){
             if(GameCtr.selfPlanes[i]<=0){continue;}
             let air = cc.instantiate(this.airsPrefab[0]);
@@ -112,7 +112,7 @@ export default class NewClass extends cc.Component {
     initEnemys(){
         console.log("log------------GameCtr.monsterHP=:",GameCtr.monsterHP);
         this.setGameCount();
-        for(let i=0; i<1; i++){
+        for(let i=0; i<5; i++){
             let enemy = cc.instantiate(this.airsPrefab[0]);
             let infodata={
                 lifeValue:GameCtr.monsterHP,
@@ -423,6 +423,11 @@ export default class NewClass extends cc.Component {
         this.initAirs();
         this.initFightTouch();
         this.setGameCount();
+    }
+
+    onBtnOver(){
+        cc.director.pause();
+        this.showGameOver();
     }
 
     clear(){
