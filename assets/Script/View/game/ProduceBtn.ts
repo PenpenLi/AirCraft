@@ -37,6 +37,8 @@ export default class ProduceBtn extends cc.Component {
     }
 
     update (dt) {
+        let num = GameData.repPlaneNum;
+        let num1 = GameData.getRepositoryCapacity();
         if(GameData.repPlaneNum < GameData.getRepositoryCapacity()){
             if(this.pgbProduce.progress < 1) {
                 let ratio = dt / this.produceTime;

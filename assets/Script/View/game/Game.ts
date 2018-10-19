@@ -120,7 +120,6 @@ export default class Game extends cc.Component {
     }
 
     gameStart() {
-        GameData.getAllLocalGameData();
         GameCtr.isStartGame = true;
         WXCtr.getSelfData();
         WXCtr.getFriendRankingData();
