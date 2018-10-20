@@ -20,6 +20,7 @@ const dataKeyConfig = {
     highAttack: "",                                                     //高级攻击
     highCriticalStrike: "",                                             //高级暴击
     forceCriticalStrike: "",                                            //暴击暴伤
+    vipLevel: "",                                                       //VIP等级
     guideStep: "data_12",
 };
 
@@ -40,6 +41,7 @@ export default class GameData {
     private static _highAttack: number = 0;                             //高级攻击等级
     private static _highCriticalStrike: number = 0;                     //高级暴击等级
     private static _forceCriticalStrike: number = 0;                    //暴击暴伤等级
+    private static _vipLevel: number = 0;                               //vip等级
 
     private static _lotteryTimes: number = 0;                            //宝箱抽奖次数
 
@@ -48,12 +50,6 @@ export default class GameData {
     public static offLineProfit: number = 0;
 
     public static missionData = null;                                //今日任务数据
-    public static videoTimes = 0;                                   //今日广告次数
-    public static speedTimes = 0;                                   //今日加速次数
-    public static composeTimes = 0;                                 //今日合成次数
-    public static boxTimes = 0;                                     //今日开宝箱次数
-    public static turntableTimes = 0;                               //今日开启转盘次数
-    public static fightTimes = 0;                                   //今日战斗次数
 
     public static planeData = {};
     public static maxPlane = 25;                                        //飞机等级上限
@@ -61,6 +57,8 @@ export default class GameData {
 
     private static baseProduceTime = 10;                                //基础制造时间
     private static baseRepository = 8;                                  //基础仓库容量
+
+    public static basePlaneLevel = 1;                                   //基础飞机等级
 
     static planesConfig = [
         {name: "1 卡普", baseAttack: 2, attackIncrease: 1, basePrice: 2},
@@ -300,7 +298,6 @@ export default class GameData {
         }
 
         GameData.getMissionData();
-
     }
 
     static getOnlineGameData(data) {
@@ -477,12 +474,27 @@ export default class GameData {
 
     // 获取仓库等级
     static get repositoryLevel() {
+        let level = GameData._repositoryLevel;
         return GameData._repositoryLevel;
     }
 
     // 获取仓库容量
     static getRepositoryCapacity() {
         return GameData.baseRepository + (2 * GameData.repositoryLevel);
+    }
+
+    // 设置Vip等级
+    static set vipLevel(level) {
+        if(level < 0) {
+            level = 0;
+        }
+        GameData._vipLevel = level;
+        GameData.setUserData({vipLevel: GameData._vipLevel});
+    }
+
+    // 获取vip等级
+    static get vipLevel() {
+        return GameData._vipLevel;
     }
 
     //设置停机坪状态
