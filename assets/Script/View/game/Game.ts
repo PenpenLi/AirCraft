@@ -34,10 +34,6 @@ export default class Game extends cc.Component {
     pgbLoading: cc.ProgressBar = null;
     @property(cc.Node)
     ndDiamonds: cc.Node = null;
-    @property(cc.Node)
-    ndMoreGame: cc.Node = null;
-    @property(cc.Node)
-    ndCustom: cc.Node = null;
 
     @property(cc.Label)
     lbScore: cc.Label = null;
@@ -47,17 +43,8 @@ export default class Game extends cc.Component {
     pfLandPlane: cc.Prefab = null;
     @property(cc.Node)
     ndTrash: cc.Node = null;
-    @property(cc.Node)
-    ndExtend: cc.Node = null;
-    @property(cc.Node)
-    ndSignIn: cc.Node = null;
     @property(cc.Sprite)
     sprSlider: cc.Sprite = null;
-
-    @property(cc.Node)
-    ndBannerSlider: cc.Node = null;
-    @property(cc.Node)
-    ndFriendBtn: cc.Node = null;
 
     @property(cc.Prefab)
     pfUpgrade: cc.Prefab = null;
@@ -77,6 +64,8 @@ export default class Game extends cc.Component {
     pfMission:cc.Prefab = null;
     @property(cc.Prefab)
     pfMall: cc.Prefab = null;
+    @property(cc.Prefab)
+    pfVIP: cc.Prefab = null;
     @property(cc.Prefab)
     pfTreatrueBox:cc.Prefab=null;
     @property(cc.Prefab)
@@ -140,7 +129,6 @@ export default class Game extends cc.Component {
         //     this.ndLoading.active = false;
 
             this.initGame();
-            this.refreshGameBtns();
             WXCtr.createBannerAd(100, 300);
         // }
     }
@@ -148,33 +136,11 @@ export default class Game extends cc.Component {
     initGame() {
         this.setDiamonds();
         this.showLandPort();
-        this.showMoreGameBtn();
         setInterval(() => {
             if (WXCtr.isOnHide) return;
             GameData.submitGameData();
             WXCtr.createBannerAd(100, 300);
         }, 60000);
-    }
-
-    refreshGameBtns() {
-        this.ndMoreGame.active = GameCtr.reviewSwitch;
-        this.ndFriendBtn.active = GameCtr.reviewSwitch;
-        this.showSlider();
-        this.showBannerSlider();
-    }
-
-    showSignBtn() {
-        this.ndSignIn.runAction(cc.repeatForever(cc.sequence(
-            cc.scaleTo(0.3, 1.1),
-            cc.scaleTo(0.3, 1.0)
-        )));
-    }
-
-    showMoreGameBtn() {
-        this.ndMoreGame.runAction(cc.repeatForever(cc.sequence(
-            cc.scaleTo(0.5, 1.1),
-            cc.scaleTo(0.5, 1.0)
-        )));
     }
 
     setDiamonds() {
@@ -293,8 +259,9 @@ export default class Game extends cc.Component {
         ske.setAnimation(0, "animation", false);
     }
 
-    startProduce() {
-
+    removeLandPlane(node) {
+        let idx = this.landPlaneArr.indexOf(node);
+        this.landPlaneArr.splice(idx, 1);
     }
 
     update (dt) {
@@ -345,9 +312,15 @@ export default class Game extends cc.Component {
         });
     }
 
-    removeLandPlane(node) {
-        let idx = this.landPlaneArr.indexOf(node);
-        this.landPlaneArr.splice(idx, 1);
+    /**
+     * 显示VIP弹窗
+     */
+    showVipPop() {
+        let nd = cc.instantiate(this.pfVIP);
+        ViewManager.show({
+            node: nd,
+            maskOpacity: 200
+        });
     }
 
 
@@ -454,28 +427,6 @@ export default class Game extends cc.Component {
         WXCtr.customService();
     }
 
-    videoGift() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
-
-        let btn = this.ndCustom.getComponent(cc.Button);
-        btn.interactable = false;
-        HttpCtr.clickStatistics(GameCtr.StatisticType.UFO);                               //UFO视频点击统计
-        if (WXCtr.videoAd) {
-            AudioManager.getInstance().stopAll();
-            WXCtr.offCloseVideo();
-            WXCtr.showVideoAd();
-            WXCtr.onCloseVideo((res) => {
-                GameCtr.playBgm();
-                this.ndCustom.active = false;
-                GameData.diamonds += 60;
-                ViewManager.toast("恭喜获得60钻石奖励！");
-                this.setDiamonds();
-                WXCtr.setStorageData("everydayDiamonds", { day: Util.getCurrTimeYYMMDD() });
-            });
-        }
-    }
 
     /**
      * 排行榜
@@ -517,23 +468,6 @@ export default class Game extends cc.Component {
         });
     }
 
-    extendBtnChecked(toogle: cc.Toggle) {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
-        let moveX = -106;
-        if (toogle.isChecked) {
-            moveX = 106;
-        }
-        toogle.interactable = false;
-        this.ndExtend.runAction(cc.sequence(
-            cc.moveBy(0.5, cc.v2(moveX, 0)),
-            cc.callFunc(() => {
-                toogle.interactable = true;
-            })
-        ))
-    }
-
     audioChecked(toogle: cc.Toggle) {
         AudioManager.getInstance().musicOn = !toogle.isChecked;
         AudioManager.getInstance().soundOn = !toogle.isChecked;
@@ -563,17 +497,6 @@ export default class Game extends cc.Component {
         let data = GameCtr.sliderDatas[this.sliderIdx];
         WXCtr.gotoOther(data);
         HttpCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, data.appid);
-    }
-
-    showBannerSlider() {
-        if (!GameCtr.reviewSwitch || !GameCtr.bannerDatas) return;
-        this.ndBannerSlider.active = true;
-        let content = this.ndBannerSlider.getChildByName("content");
-        for (let i = 0; i < content.childrenCount; i++) {
-            let nd = content.children[i];
-            let spr = nd.getComponent(cc.Sprite);
-            Util.loadImg(spr, GameCtr.bannerDatas[i].img);
-        }
     }
 
     clickBannerSlider(event, idx) {
@@ -612,15 +535,4 @@ export default class Game extends cc.Component {
         pfSpeedUP.parent=cc.find("Canvas");
     }
 
-    showGiftBtn() {
-        let day = Util.getCurrTimeYYMMDD();
-        let info = WXCtr.getStorageData("everydayDiamonds");
-        if (GameData.maxPlaneLevel >= 7 && GameCtr.surplusVideoTimes > 0) {
-            if (info && info.day != day) {
-                this.ndCustom.active = GameCtr.reviewSwitch;
-            } else if (!info) {
-                this.ndCustom.active = GameCtr.reviewSwitch;
-            }
-        }
-    }
 }
