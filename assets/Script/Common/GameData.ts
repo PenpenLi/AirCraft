@@ -41,6 +41,8 @@ export default class GameData {
     private static _highCriticalStrike: number = 0;                     //高级暴击等级
     private static _forceCriticalStrike: number = 0;                    //暴击暴伤等级
 
+    private static _lotteryTimes: number = 0;                            //宝箱抽奖次数
+
     public static saveTime = null;                                      //保存数据时间戳
 
     public static offLineProfit: number = 0;
@@ -219,6 +221,20 @@ export default class GameData {
     // 获取暴击暴伤等级
     static get forceCriticalStrike() {
         return GameData._forceCriticalStrike;
+    }
+
+    // 设置宝箱抽奖次数
+    static set lotteryTimes(lotteryTimes){
+        if(lotteryTimes<0){
+            GameData._lotteryTimes=0;
+        }
+        GameData._lotteryTimes=lotteryTimes;
+        localStorage.setItem("lottery",JSON.stringify({day:Util.getCurrTimeYYMMDD(),times:GameData._lotteryTimes}))
+    }
+
+    // 获取宝箱抽奖次数
+    static get lotteryTimes(){
+        return GameData._lotteryTimes;
     }
 
     // 获取回收金币加成

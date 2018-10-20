@@ -598,7 +598,7 @@ export default class Game extends cc.Component {
     }
 
     onClickBtnPfturnble(){
-        if(cc.find("Canvas").getChildByName('pfTurntable')){
+        if(cc.find("Canvas").getChildByName('turntable')){
             return;
         }
         let pfTurntable=cc.instantiate(this.pfTurntable);
@@ -606,7 +606,7 @@ export default class Game extends cc.Component {
     }
 
     onClickBtnSpeedUP(){
-        if(cc.find("Canvas").getChildByName('pfSpeedUP')){
+        if(cc.find("Canvas").getChildByName('speedUP')){
             return;
         }
         let pfSpeedUP=cc.instantiate(this.pfSpeedUP);

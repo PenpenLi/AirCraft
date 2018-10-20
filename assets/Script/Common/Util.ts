@@ -220,6 +220,8 @@ export default class Util {
         }
     }
 
+    //static get
+
 
      //数值格式化
      static formatNumber(number:number){

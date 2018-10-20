@@ -59,6 +59,9 @@ export default class GameCtr {
 
     public static doubleAttack = false;                             //2倍攻击
     public static doubleGold = false;                               //2倍金币
+    public static lotteryTimes=10;                                  //抽奖次数
+    public static attactGoldRate=1;                                 //攻击倍率
+    public static attactGoldRateTime=0;                             //攻击倍率加倍时间
 
 
     public static StatisticType = cc.Enum({                         //统计类型

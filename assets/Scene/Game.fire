@@ -1281,9 +1281,15 @@
     "pfMall": {
       "__uuid__": "f93c6274-fc68-45f0-a7ae-9f99928bd393"
     },
-    "pfTreatrueBox": null,
-    "pfTurntable": null,
-    "pfSpeedUP": null
+    "pfTreatrueBox": {
+      "__uuid__": "88a74131-e2d2-4ff0-a55a-91ef19dd68f6"
+    },
+    "pfTurntable": {
+      "__uuid__": "b573b09d-8845-4d48-810d-9a820f825089"
+    },
+    "pfSpeedUP": {
+      "__uuid__": "87353f24-bd17-4c99-989a-a3ebfe252045"
+    }
   },
   {
     "__type__": "cc.Node",
