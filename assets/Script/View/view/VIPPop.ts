@@ -57,6 +57,7 @@ export default class VIPPop extends cc.Component {
     }
 
     setFriendInfo() {
+        if(!this.data) return;
         for(let i=0; i<this.ndContent.childrenCount; i++) {
             let item = this.ndContent.children[i];
             let data = this.data[i+(3*GameData.vipLevel)];
@@ -78,6 +79,10 @@ export default class VIPPop extends cc.Component {
     }
 
     getVipGift() {
+        if(!this.data) {
+            ViewManager.toast("不满足领取条件");
+            return;
+        }
         if(Math.floor(this.data.length/3) >= GameData.vipLevel+1) {
             GameData.vipLevel += 1;
             GameData.diamonds += vipConfigs[GameData.vipLevel].diamonds;
