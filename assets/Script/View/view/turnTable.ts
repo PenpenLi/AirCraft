@@ -25,6 +25,7 @@ export default class NewClass extends cc.Component {
     onLoad(){
         this.initNode();
         this.initLights();
+        this.initData();
     }
 
     initNode(){
@@ -47,10 +48,24 @@ export default class NewClass extends cc.Component {
         this.initBtnEvent(this._btn_watchVedio);
     }
 
+    initData(){
+        GameCtr.attactGoldRateTime=0;
+        let goldRate=localStorage.getItem("goldRate");
+        if(goldRate){
+            let goldRateObj=JSON.parse(goldRate);
+            if(goldRateObj.time>0){
+                GameCtr.attactGoldRate=goldRateObj.rate;
+                GameCtr.attactGoldRateTime=goldRateObj.time;
+                this.showDes();
+            }
+        }
+    }
+
 
     initBtnEvent(btn){
         btn.on(cc.Node.EventType.TOUCH_END,(e)=>{
             if(e.target.getName()=="btn_close"){
+                localStorage.setItem("goldRate",JSON.stringify({time:GameCtr.attactGoldRateTime,rate:GameCtr.attactGoldRate}));
                 this.node.destroy();
             }else if(e.target.getName()=="btn_buy"){
                 this._way=Way.BUY;
@@ -124,7 +139,7 @@ export default class NewClass extends cc.Component {
         }else if(this._way==Way.WATCH_VEDIO){
             GameCtr.attactGoldRateTime=7200;//2小时
         }
-
+        this.unscheduleAllCallbacks();
         this.showDes()
     }
 
@@ -133,8 +148,37 @@ export default class NewClass extends cc.Component {
         this._lb_timeCount.active=true;
 
         this._lb_rate.getComponent(cc.Label).string="战斗中金币获得总加倍："+GameCtr.attactGoldRate+"倍！！！"
-        //this._lb_timeCount.getComponent(cc.Label).string="剩余时间:"+ 01:48:57
+        this._lb_timeCount.getComponent(cc.Label).string="剩余时间:"+ this.getFormatTime()
+
+        this.timeCount();
     }
+
+    getFormatTime(){
+        let hour=Math.floor(GameCtr.attactGoldRateTime/3600);
+        let min=Math.floor(GameCtr.attactGoldRateTime%3600/60);
+        let sec=Math.floor(GameCtr.attactGoldRateTime%60);
+
+        let str_hour=hour<10?"0"+hour:hour+"";
+        let str_min=min<10?"0"+min:min+"";
+        let str_sec=sec<10?"0"+sec:sec+"";
+
+        return str_hour+":"+str_min+":"+str_sec;
+    }
+
+
+    timeCount(){
+        this._lb_timeCount.getComponent(cc.Label).string="剩余时间:"+ this.getFormatTime()
+        GameCtr.attactGoldRateTime--;
+        if(GameCtr.attactGoldRateTime<0){
+            GameCtr.attactGoldRateTime=0;
+            return;
+        }
+        this.scheduleOnce(()=>{
+            this.timeCount();
+        },1)
+    }
+
+
 
     update(dt){
         if(this._lottery){

@@ -158,13 +158,13 @@ export default class NewClass extends cc.Component {
         }
         if(this._currentLifeValue<=0){
             if(this._isEnemy){
-                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2:this._lifeValue;
+                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2*GameCtr.attactGoldRate:this._lifeValue*GameCtr.attactGoldRate;
                 GameCtr.getInstance().getFight().showGold(this._lifeValue,{x:this.node.x,y:this.node.y});
             }
 
             if(this._isBoss){
                 GameCtr.getInstance().getFight().doUpLevel();
-                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2:this._lifeValue;
+                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2*GameCtr.attactGoldRate:this._lifeValue*GameCtr.attactGoldRate;
                 GameCtr.getInstance().getFight().showBossGold(this._lifeValue,{x:this.node.x,y:this.node.y});
             }
             GameCtr.getInstance().getFight().removeAir(this.node);

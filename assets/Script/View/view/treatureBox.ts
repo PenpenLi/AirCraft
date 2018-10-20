@@ -214,9 +214,11 @@ export default class NewClass extends cc.Component {
         this._min=Math.floor(this._timeCount%3600/60);
         this._sec=Math.floor(this._timeCount%60);
 
-        this._lb_timeCount.getComponent(cc.Label).string=Math.floor(this._timeCount/3600)+":"
-                                                            +Math.floor(this._timeCount%3600/60)+":"
-                                                            +Math.floor(this._timeCount%60);
+        let str_hour=this._hour<10?"0"+this._hour:this._hour+"";
+        let str_min=this._min<10?"0"+this._min:this._min+"";
+        let str_sec=this._sec<10?"0"+this._sec:this._sec+"";
+
+        this._lb_timeCount.getComponent(cc.Label).string=str_hour+":"+str_min+":"+str_sec;
         this._timeCount--;
         this.scheduleOnce(()=>{
             this.timeCount()
