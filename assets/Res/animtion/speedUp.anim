@@ -1,0 +1,49 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "speedUp",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.08333333333333333,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "ca8270c8-2767-44ba-aec3-d33d0a2ddd33"
+            }
+          },
+          {
+            "frame": 0.016666666666666666,
+            "value": {
+              "__uuid__": "f6e3b252-b244-4ee1-a5bc-f00256fd547e"
+            }
+          },
+          {
+            "frame": 0.03333333333333333,
+            "value": {
+              "__uuid__": "7bf94c9f-e4b2-4f47-a471-221c34e8631f"
+            }
+          },
+          {
+            "frame": 0.05,
+            "value": {
+              "__uuid__": "20a3636e-52fd-48dd-bfc4-50b314873025"
+            }
+          },
+          {
+            "frame": 0.06666666666666667,
+            "value": {
+              "__uuid__": "b317b4a0-2a19-45ed-8621-0c7c6905a8b4"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

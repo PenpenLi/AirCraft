@@ -37,6 +37,9 @@ export default class ProduceBtn extends cc.Component {
     }
 
     update (dt) {
+        if(GameCtr.isSpeedUpModel) {
+            this.produceTime = 0.1;
+        }
         let num = GameData.repPlaneNum;
         let num1 = GameData.getRepositoryCapacity();
         if(GameData.repPlaneNum < GameData.getRepositoryCapacity()){

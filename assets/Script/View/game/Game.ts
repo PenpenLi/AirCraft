@@ -45,6 +45,8 @@ export default class Game extends cc.Component {
     ndTrash: cc.Node = null;
     @property(cc.Sprite)
     sprSlider: cc.Sprite = null;
+    @property(cc.Node)
+    ndSpeedAni: cc.Node = null;
 
     @property(cc.Prefab)
     pfUpgrade: cc.Prefab = null;
@@ -211,9 +213,38 @@ export default class Game extends cc.Component {
                 comp.plane = landPlane;
                 comp.isUsed = true;
                 GameData.setApronState(i, level);
+                this.autoComposePlane(port);
                 return;
             }
         }
+    }
+
+    autoComposePlane(tPort) {
+        this.showSpeedAni();
+        let tApron: Apron = tPort.getComponent(Apron); 
+        for (let i = 0; i < this.allPort.length; i++) {
+            let port = this.allPort[i];
+            let comp: Apron = port.getComponent(Apron); 
+            if(port == tPort || !comp.isUsed){
+                continue;
+            }
+            if(comp.plane.getLevel() == tApron.plane.getLevel()) {
+                comp.plane.setLevel(comp.plane.getLevel()+1);
+                this.removeLandPlane(tApron.plane.node);
+                tApron.plane.node.destroy();
+                tApron.reset();
+                this.autoComposePlane(port);
+                return;
+            }
+        }
+    }
+
+    showSpeedAni() {
+        this.ndSpeedAni.active = true;
+    }
+
+    stopSpeedAni() {
+        this.ndSpeedAni.active = false;
     }
 
     getUnusedApronNum() {
@@ -277,6 +308,7 @@ export default class Game extends cc.Component {
             node: nd,
             maskOpacity: 200
         });
+        this.stopSpeedAni();
     }
 
     /**
