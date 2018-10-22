@@ -62,6 +62,7 @@ export default class GameCtr {
     public static lotteryTimes=10;                                  //抽奖次数
     public static attactGoldRate=1;                                 //攻击倍率
     public static attactGoldRateTime=0;                             //攻击倍率加倍时间
+    public static isSpeedUpModel = false;                           //是否是加速模式
 
 
     public static StatisticType = cc.Enum({                         //统计类型

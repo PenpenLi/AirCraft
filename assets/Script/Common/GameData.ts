@@ -9,19 +9,19 @@ import Util from "./Util";
 const { ccclass, property } = cc._decorator;
 
 const dataKeyConfig = {
-    repPlaneNum: "",                                                   //仓库飞机数量
-    factoryLevel: "data_1",                                             //工厂等级
-    repositoryLevel: "",                                                //仓库等级
-    recycle: "",                                                        //回收技术
-    attack: "",                                                         //攻击技术
-    criticalStrike: "",                                                 //暴击技术
-    highRecycle: "",                                                    //高级回收
-    highAttackSpeed: "",                                                //高级攻速
-    highAttack: "",                                                     //高级攻击
-    highCriticalStrike: "",                                             //高级暴击
-    forceCriticalStrike: "",                                            //暴击暴伤
-    vipLevel: "",                                                       //VIP等级
-    guideStep: "data_12",
+    repPlaneNum: "data_1",                                                      //仓库飞机数量
+    factoryLevel: "data_2",                                                     //工厂等级
+    repositoryLevel: "data_3",                                                  //仓库等级
+    recycle: "data_4",                                                          //回收技术
+    attack: "data_5",                                                           //攻击技术
+    criticalStrike: "data_6",                                                   //暴击技术
+    highRecycle: "data_7",                                                      //高级回收
+    highAttackSpeed: "data_8",                                                  //高级攻速
+    highAttack: "data_9",                                                       //高级攻击
+    highCriticalStrike: "data_10",                                              //高级暴击
+    forceCriticalStrike: "data_11",                                             //暴击暴伤
+    vipLevel: "data_12",                                                        //VIP等级
+    guideStep: "data_13",
 };
 
 @ccclass
@@ -61,43 +61,43 @@ export default class GameData {
     public static basePlaneLevel = 1;                                   //基础飞机等级
 
     static planesConfig = [
-        {name: "1 卡普", baseAttack: 2, attackIncrease: 1, basePrice: 2},
-        {name: "2 喷火", baseAttack: 5, attackIncrease: 2, basePrice: 4},
-        {name: "3 米格-3", baseAttack: 12, attackIncrease:4, basePrice: 10},
-        {name: "4 雅克-1", baseAttack: 30, attackIncrease: 8, basePrice: 22},
-        {name: "5 未来", baseAttack: 75, attackIncrease: 16, basePrice: 48},
-        {name: "6 F2A-1", baseAttack: 200, attackIncrease: 32, basePrice: 104},
-        {name: "7 F2A-3", baseAttack: 500, attackIncrease: 64, basePrice: 224},
-        {name: "8 莱特-11", baseAttack: 1250, attackIncrease: 125, basePrice: 468},
-        {name: "9 海豚", baseAttack: 3200, attackIncrease: 250, basePrice: 1000},
-        {name: "10 迅雷", baseAttack: 8000, attackIncrease: 500, basePrice: 2125},
-        {name: "11 蝙蝠", baseAttack: 20000, attackIncrease: 1000, basePrice: 4500},
-        {name: "12 b5", baseAttack: 50000, attackIncrease: 2000, basePrice: 9500},
-        {name: "13 鲨鱼", baseAttack: 125000, attackIncrease: 4000, basePrice: 20000},
-        {name: "14 罪恶", baseAttack: 320000, attackIncrease: 8000, basePrice: 42000},
-        {name: "15 Y613", baseAttack: 800000, attackIncrease: 16000, basePrice: 88000},
-        {name: "16 宇宙", baseAttack: 2000000, attackIncrease: 32000, basePrice: 184000},
-        {name: "17 战甲", baseAttack: 5000000, attackIncrease: 64000, basePrice: 384000},
-        {name: "18 帝国", baseAttack: 12500000, attackIncrease: 125000, basePrice: 781250},
-        {name: "19 挑战", baseAttack: 32000000, attackIncrease: 250000, basePrice: 1625000},
-        {name: "20 Falco-3", baseAttack: 80000000, attackIncrease: 500000, basePrice: 3375000},
-        {name: "21 Falco-7", baseAttack: 200000000, attackIncrease: 1000000, basePrice: 7000000},
-        {name: "22 Falco-9", baseAttack: 500000000, attackIncrease: 2000000, basePrice: 14500000},
-        {name: "23 天启", baseAttack: 1250000000, attackIncrease: 4000000, basePrice: 29660000},
-        {name: "24 光棱", baseAttack: 3200000000, attackIncrease: 8000000, basePrice: 62720000},
-        {name: "25 天神", baseAttack: 8000000000, attackIncrease: 16000000, basePrice: 129380000}
+        { name: "1 卡普", baseAttack: 2, attackIncrease: 1, basePrice: 2 },
+        { name: "2 喷火", baseAttack: 5, attackIncrease: 2, basePrice: 4 },
+        { name: "3 米格-3", baseAttack: 12, attackIncrease: 4, basePrice: 10 },
+        { name: "4 雅克-1", baseAttack: 30, attackIncrease: 8, basePrice: 22 },
+        { name: "5 未来", baseAttack: 75, attackIncrease: 16, basePrice: 48 },
+        { name: "6 F2A-1", baseAttack: 200, attackIncrease: 32, basePrice: 104 },
+        { name: "7 F2A-3", baseAttack: 500, attackIncrease: 64, basePrice: 224 },
+        { name: "8 莱特-11", baseAttack: 1250, attackIncrease: 125, basePrice: 468 },
+        { name: "9 海豚", baseAttack: 3200, attackIncrease: 250, basePrice: 1000 },
+        { name: "10 迅雷", baseAttack: 8000, attackIncrease: 500, basePrice: 2125 },
+        { name: "11 蝙蝠", baseAttack: 20000, attackIncrease: 1000, basePrice: 4500 },
+        { name: "12 b5", baseAttack: 50000, attackIncrease: 2000, basePrice: 9500 },
+        { name: "13 鲨鱼", baseAttack: 125000, attackIncrease: 4000, basePrice: 20000 },
+        { name: "14 罪恶", baseAttack: 320000, attackIncrease: 8000, basePrice: 42000 },
+        { name: "15 Y613", baseAttack: 800000, attackIncrease: 16000, basePrice: 88000 },
+        { name: "16 宇宙", baseAttack: 2000000, attackIncrease: 32000, basePrice: 184000 },
+        { name: "17 战甲", baseAttack: 5000000, attackIncrease: 64000, basePrice: 384000 },
+        { name: "18 帝国", baseAttack: 12500000, attackIncrease: 125000, basePrice: 781250 },
+        { name: "19 挑战", baseAttack: 32000000, attackIncrease: 250000, basePrice: 1625000 },
+        { name: "20 Falco-3", baseAttack: 80000000, attackIncrease: 500000, basePrice: 3375000 },
+        { name: "21 Falco-7", baseAttack: 200000000, attackIncrease: 1000000, basePrice: 7000000 },
+        { name: "22 Falco-9", baseAttack: 500000000, attackIncrease: 2000000, basePrice: 14500000 },
+        { name: "23 天启", baseAttack: 1250000000, attackIncrease: 4000000, basePrice: 29660000 },
+        { name: "24 光棱", baseAttack: 3200000000, attackIncrease: 8000000, basePrice: 62720000 },
+        { name: "25 天神", baseAttack: 8000000000, attackIncrease: 16000000, basePrice: 129380000 }
     ];
 
-    static baseEnemy={
-        monsterHP:30,
-        bossHP:900,
-        baseBonus:10,
-        bonus:40,
+    static baseEnemy = {
+        monsterHP: 30,
+        bossHP: 900,
+        baseBonus: 10,
+        bonus: 40,
     }
 
     // 设置回收技术等级
     static set recycleLevel(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._recycleLevel = level;
@@ -111,11 +111,11 @@ export default class GameData {
 
     // 设置仓库飞机数量
     static set repPlaneNum(num) {
-        if(num < 0) {
+        if (num < 0) {
             num = 0;
         }
         GameData._repPlaneNum = num;
-        GameData.setUserData({repPlaneNum: GameData._repPlaneNum});
+        GameData.setUserData({ repPlaneNum: GameData._repPlaneNum });
     }
 
     // 获取仓库飞机数量
@@ -125,7 +125,7 @@ export default class GameData {
 
     // 设置攻击技术等级
     static set attackLevel(level) {
-        if(level < 0){
+        if (level < 0) {
             level = 0;
         }
         GameData._attack = level;
@@ -139,7 +139,7 @@ export default class GameData {
 
     // 设置暴击技术等级
     static set criticalStrikeLevel(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._criticalStrike = level;
@@ -153,7 +153,7 @@ export default class GameData {
 
     // 设置高级回收技术等级
     static set highRecycleLevel(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._highRecycle = level;
@@ -161,17 +161,17 @@ export default class GameData {
     }
 
     // 获取高级回收技术等级
-    static get highRecycleLevel () {
+    static get highRecycleLevel() {
         return GameData._highRecycle;
     }
 
     // 设置高级攻速等级
     static set highAttackSpeed(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._highAttackSpeed = level;
-        GameData.setUserData({highAttackSpeed: GameData._highAttackSpeed});
+        GameData.setUserData({ highAttackSpeed: GameData._highAttackSpeed });
     }
 
     // 获取高级攻速等级
@@ -181,11 +181,11 @@ export default class GameData {
 
     // 设置高级攻击等级
     static set highAttack(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._highAttack = level;
-        GameData.setUserData({highAttack: GameData._highAttack});
+        GameData.setUserData({ highAttack: GameData._highAttack });
     }
 
     // 获取高级攻击等级
@@ -195,11 +195,11 @@ export default class GameData {
 
     //设置高级暴击等级
     static set highCriticalStrike(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._highCriticalStrike = level;
-        GameData.setUserData({highCriticalStrike: GameData._highCriticalStrike});
+        GameData.setUserData({ highCriticalStrike: GameData._highCriticalStrike });
     }
 
     // 获取高级暴击等级
@@ -209,11 +209,11 @@ export default class GameData {
 
     // 设置暴击暴伤等级
     static set forceCriticalStrike(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._forceCriticalStrike = level;
-        GameData.setUserData({forceCriticalStrike: GameData._forceCriticalStrike});
+        GameData.setUserData({ forceCriticalStrike: GameData._forceCriticalStrike });
     }
 
     // 获取暴击暴伤等级
@@ -222,16 +222,16 @@ export default class GameData {
     }
 
     // 设置宝箱抽奖次数
-    static set lotteryTimes(lotteryTimes){
-        if(lotteryTimes<0){
-            GameData._lotteryTimes=0;
+    static set lotteryTimes(lotteryTimes) {
+        if (lotteryTimes < 0) {
+            GameData._lotteryTimes = 0;
         }
-        GameData._lotteryTimes=lotteryTimes;
-        localStorage.setItem("lottery",JSON.stringify({day:Util.getCurrTimeYYMMDD(),times:GameData._lotteryTimes}))
+        GameData._lotteryTimes = lotteryTimes;
+        localStorage.setItem("lottery", JSON.stringify({ day: Util.getCurrTimeYYMMDD(), times: GameData._lotteryTimes }))
     }
 
     // 获取宝箱抽奖次数
-    static get lotteryTimes(){
+    static get lotteryTimes() {
         return GameData._lotteryTimes;
     }
 
@@ -265,6 +265,7 @@ export default class GameData {
         GameData.gold = WXCtr.getStorageData("gold");
         GameData.diamonds = WXCtr.getStorageData("diamonds");
         GameData.maxPlaneLevel = WXCtr.getStorageData("maxPlaneLevel");
+        GameData.repPlaneNum = WXCtr.getStorageData("repPlaneNum");
         GameData.factoryLevel = WXCtr.getStorageData("factoryLevel");
         GameData.repositoryLevel = WXCtr.getStorageData("repositoryLevel");
         GameData.recycleLevel = WXCtr.getStorageData("recycle");
@@ -275,6 +276,7 @@ export default class GameData {
         GameData.highRecycleLevel = WXCtr.getStorageData("highRecycle");
         GameData.highCriticalStrike = WXCtr.getStorageData("highCriticalStrike");
         GameData.forceCriticalStrike = WXCtr.getStorageData("forceCriticalStrike");
+        GameData.vipLevel = WXCtr.getStorageData("vipLevel");
 
         Guide.guideStep = WXCtr.getStorageData("guideStep");
 
@@ -287,7 +289,7 @@ export default class GameData {
                 GameData.planeData[key] = 0;
             }
         }
-        for(let i = 1; i<= this.maxPlane; i++) {
+        for (let i = 1; i <= this.maxPlane; i++) {
             let key = "feijiLevel_" + i;
             let data = WXCtr.getStorageData(key);
             if (data) {
@@ -304,15 +306,27 @@ export default class GameData {
         GameData.gold = data.gold;
         GameData.diamonds = data.money;
         GameData.maxPlaneLevel = data.maxfeiji == "undefined" ? 1 : data.maxfeiji;
-        Guide.guideStep = data.data_1 == "null" ? 8 : data.data_1;
+        GameData.repPlaneNum = data.data_1;
+        GameData.factoryLevel = data.data_2;
+        GameData.repositoryLevel = data.data_3;
+        GameData.recycleLevel = data.data_4;
+        GameData.attackLevel = data.data_5;
+        GameData.criticalStrikeLevel = data.data_6;
+        GameData.highAttack = data.data_7;
+        GameData.highAttackSpeed = data.data_8;
+        GameData.highRecycleLevel = data.data_9;
+        GameData.highCriticalStrike = data.data_10;
+        GameData.forceCriticalStrike = data.data_11;
+        GameData.vipLevel = data.data_12;
+        Guide.guideStep = data.data_13 == "null" ? 8 : data.data_13;
         GameData.setUserData({ guideStep: Guide.guideStep });
-        GameData.setUserData({ lastTime: data.data_4 });
-        
+        GameData.setUserData({ lastTime: data.data_21 });
+
         for (let i = 1; i <= this.maxApron; i++) {
             let key1 = "feiji_" + i;
             GameData.planeData[key1] = data[key1] == "NaN" ? 0 : data[key1];
         }
-        for(let i = 1; i<= this.maxPlane; i++) {
+        for (let i = 1; i <= this.maxPlane; i++) {
             let key = "feijiLevel_" + i;
             GameData.planeData[key] = data[key];
         }
@@ -324,7 +338,7 @@ export default class GameData {
     static getMissionData() {
         let day = Util.getCurrTimeYYMMDD();
         GameData.missionData = WXCtr.getStorageData("missionData");
-        if(!GameData.missionData || !GameData.missionData.day || GameData.missionData.day != day) {
+        if (!GameData.missionData || !GameData.missionData.day || GameData.missionData.day != day) {
             GameData.missionData = {};
             GameData.missionData.day = day;
             GameData.missionData.videoTimes = 0;
@@ -333,8 +347,8 @@ export default class GameData {
             GameData.missionData.boxTimes = 0;
             GameData.missionData.turntableTimes = 0;
             GameData.missionData.fightTimes = 0;
-            for(let i = 1; i<=8; i++) {
-                let key = "missionCollected_"+i;
+            for (let i = 1; i <= 8; i++) {
+                let key = "missionCollected_" + i;
                 GameData.missionData[key] = false;
             }
         }
@@ -440,13 +454,13 @@ export default class GameData {
     //获取飞机价格
     static getPriceOfPlane(level) {
         let price
-       
+
         return price;
     }
 
     // 设置工厂等级
     static set factoryLevel(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._factoryLevel = level;
@@ -465,11 +479,11 @@ export default class GameData {
 
     // 设置仓库等级
     static set repositoryLevel(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._repositoryLevel = level;
-        GameData.setUserData({repositoryLevel: GameData._repositoryLevel});
+        GameData.setUserData({ repositoryLevel: GameData._repositoryLevel });
     }
 
     // 获取仓库等级
@@ -485,11 +499,11 @@ export default class GameData {
 
     // 设置Vip等级
     static set vipLevel(level) {
-        if(level < 0) {
+        if (level < 0) {
             level = 0;
         }
         GameData._vipLevel = level;
-        GameData.setUserData({vipLevel: GameData._vipLevel});
+        GameData.setUserData({ vipLevel: GameData._vipLevel });
     }
 
     // 获取vip等级
@@ -503,7 +517,7 @@ export default class GameData {
         if (GameData.planeData) {
             GameData.planeData[key] = level;
         }
-        GameCtr.selfPlanes[idx-1] = level;
+        GameCtr.selfPlanes[idx - 1] = level;
         let data = {};
         data[key] = level;
         GameData.setUserData(data);
@@ -528,7 +542,7 @@ export default class GameData {
     //设置飞机等级
     static setPlaneLevel(idx, level) {
         let key = "feijiLevel_" + idx;
-        if(GameData.planeData) {
+        if (GameData.planeData) {
             GameData.planeData[key] = level;
         }
         let data = {};
@@ -548,31 +562,31 @@ export default class GameData {
     }
 
 
-    static getPlaneLifeValue(level){
-        for(let i=0;i<4;i++){
-            if(level>=(i+1)*25){
-                return 2+i+1
+    static getPlaneLifeValue(level) {
+        for (let i = 0; i < 4; i++) {
+            if (level >= (i + 1) * 25) {
+                return 2 + i + 1
             }
         }
         return 2;
     }
 
 
-    static getEnemyHP(){
-        if(GameCtr.level==1){
-            GameCtr.monsterHP=30;
+    static getEnemyHP() {
+        if (GameCtr.level == 1) {
+            GameCtr.monsterHP = 30;
             return GameCtr.monsterHP;
         }
-        return Math.floor(((3+GameCtr.level)/Math.pow(GameCtr.level,1.8)+1.02)*GameCtr.monsterHP)+9*(GameCtr.level-1); 
+        return Math.floor(((3 + GameCtr.level) / Math.pow(GameCtr.level, 1.8) + 1.02) * GameCtr.monsterHP) + 9 * (GameCtr.level - 1);
     }
 
 
-    static getBaseBonus(){
-        if(GameCtr.level==1){
-            GameCtr.baseBonus=10;
+    static getBaseBonus() {
+        if (GameCtr.level == 1) {
+            GameCtr.baseBonus = 10;
             return GameCtr.baseBonus;
         }
-        return Math.floor(Math.pow(Math.floor(GameCtr.level/3+1),1.5)+GameCtr.baseBonus*1.02);
+        return Math.floor(Math.pow(Math.floor(GameCtr.level / 3 + 1), 1.5) + GameCtr.baseBonus * 1.02);
     }
 
     // update (dt) {}

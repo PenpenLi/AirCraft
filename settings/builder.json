@@ -26,12 +26,12 @@
     "orientation": "portrait"
   },
   "renderMode": "0",
-  "startScene": "bb5b00a5-8f96-459e-81b4-6d04a7d42443",
-  "title": "Plane",
+  "startScene": "60ceea1f-427b-473d-9cc3-bea924bb4fd6",
+  "title": "AirCraft",
   "webOrientation": "auto",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
-    "appid": "wx8ba54b10f7a02a5b",
+    "appid": "wx1b8a63802c9c94c4",
     "isSubdomain": false,
     "orientation": "portrait",
     "subContext": ""
