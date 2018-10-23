@@ -9,8 +9,6 @@ export default class NewClass extends cc.Component {
     _touchNode=null;
     _lbGameCount=null;
     _otherNode=null;
-    _strikePool=null;
-    _lbGoldPool=null;
     _goldFrame=null;
     _lbGold=null;
     _airs=[];
@@ -33,12 +31,17 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Prefab)
     lb_gold:cc.Prefab=null;
+
+    @property(cc.Prefab)
+    bubbleHurts:cc.Prefab[]=[];
     
     onLoad(){
         GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:GameData.getEnemyHP();
         GameCtr.getInstance().setFight(this);
-        this._strikePool=new cc.NodePool();
-        this._lbGoldPool=new cc.NodePool();
+        GameCtr.strikePool=new cc.NodePool();
+        GameCtr.lbGoldPool=new cc.NodePool();
+        GameCtr.lbHurtPool=new cc.NodePool();
+
         this.initNode();
         this.initEnemys();
         this.initAirs();
@@ -57,7 +60,6 @@ export default class NewClass extends cc.Component {
         this._lbGameCount=this._otherNode.getChildByName("lb_gameCount");
         this._goldFrame=this._otherNode.getChildByName("goldFrame");
         this._lbGold=this._goldFrame.getChildByName("lb_gold");
-
         this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameData.gold);
     }
 
@@ -83,17 +85,16 @@ export default class NewClass extends cc.Component {
 
 
     initAirs(){
-        console.log("log-------------selfAirs=:",GameCtr.selfPlanes);
-        for(let i=0;i<GameCtr.selfPlanes.length;i++){
-            if(GameCtr.selfPlanes[i]<=0){continue;}
+        for(let i=0;i<16;i++){//GameCtr.selfPlanes.length
+            //if(GameCtr.selfPlanes[i]<=0){continue;}
             let air = cc.instantiate(this.airsPrefab[0]);
             let level=GameData.getPlaneLevel(GameCtr.selfPlanes[i]);
 
             let infodata={
-                lifeValue:GameData.getPlaneLifeValue(level),
-                bulletHurt:GameData.planesConfig[GameCtr.selfPlanes[i]-1].baseAttack+(level-1)*GameData.planesConfig[GameCtr.selfPlanes[i]-1].attackIncrease,
+                lifeValue:10,//GameData.getPlaneLifeValue(level),
+                bulletHurt:30,//GameData.planesConfig[GameCtr.selfPlanes[i]-1].baseAttack+(level-1)*GameData.planesConfig[GameCtr.selfPlanes[i]-1].attackIncrease,
                 isEnemy:false,
-                level:GameCtr.selfPlanes[i]
+                level:10,//GameCtr.selfPlanes[i]
             };
 
             air.parent=cc.find("Canvas");
@@ -109,9 +110,8 @@ export default class NewClass extends cc.Component {
 
 
     initEnemys(){
-        console.log("log------------GameCtr.monsterHP=:",GameData.enemyHP);
         this.setGameCount();
-        for(let i=0; i<1; i++){
+        for(let i=0; i<5; i++){
             let enemy = cc.instantiate(this.airsPrefab[0]);
             let infodata={
                 lifeValue:GameData.enemyHP,
@@ -153,30 +153,61 @@ export default class NewClass extends cc.Component {
     initStrikes(){
         for(let i=0;i<30;i++){
             let strike=cc.instantiate(this.strike);
-            this._strikePool.put(strike);
+             GameCtr.strikePool.put(strike);
         }
     }
 
     initLbGolds(){
         for(let i=0;i<5;i++){
             let lbGold=cc.instantiate(this.lb_gold);
-            this._lbGoldPool.put(lbGold);
+            GameCtr.lbGoldPool.put(lbGold);
+        }
+    }
+
+    initLbHurts(){
+        for(let i=0;i<40;i++){
+            let bubbleHurt=cc.instantiate(this.bubbleHurts[Math.floor(Math.random()*2)]);
+            GameCtr.lbHurtPool.put(bubbleHurt);
         }
     }
 
     initFightTouch(){
+        let touchStep=-1;
         this._touchNode.on(cc.Node.EventType.TOUCH_START,(e)=>{
-
+            touchStep=0;
+            for(let i=0;i<this._selfAirs.length;i++){
+                this._selfAirs[i].node.stopAllActions();
+                this._selfAirs[i].node.rotation=0; 
+            }
         });
 
         this._touchNode.on(cc.Node.EventType.TOUCH_MOVE,(e)=>{
             for(let i=0;i<this._selfAirs.length;i++){
                 this._selfAirs[i].node.x+=e.touch._point.x - e.touch._prevPoint.x;
             }
+
+            if(touchStep==0){
+                if(e.touch._point.x - e.touch._prevPoint.x>0){//向左偏移
+                    for(let i=0;i<this._selfAirs.length;i++){
+                        this._selfAirs[i].node.runAction(cc.sequence(
+                            cc.rotateBy(0.3, 15),
+                            cc.rotateBy(0.3,-15)
+                        ))
+                    }
+                }else{
+                    for(let i=0;i<this._selfAirs.length;i++){
+                        this._selfAirs[i].node.runAction(cc.sequence(
+                            cc.rotateBy(0.3,-15),
+                            cc.rotateBy(0.3, 15)
+                        ))
+                    }
+                }
+                touchStep=1
+            }
         });
 
         this._touchNode.on(cc.Node.EventType.TOUCH_END,(e)=>{
-
+            touchStep=-1;
         })
     }
 
@@ -219,13 +250,17 @@ export default class NewClass extends cc.Component {
 
     removeEnemyAir(air){
         if(this._enemyAirs.length==0){return;}
+        let isBoss=false;
         for(let i=0;i<this._enemyAirs.length;i++){
+            if(this._enemyAirs[i].info.isBoss){
+                isBoss= this._enemyAirs[i].info.isBoss;
+            }
             if(air.tag==this._enemyAirs[i].node.tag){
                 this._enemyAirs.splice(i,1);
             }
         }
         //敌人战败
-        if(this._enemyAirs.length==0){
+        if(this._enemyAirs.length==0 && !isBoss){
            this.showPass();
         }
     }
@@ -281,8 +316,8 @@ export default class NewClass extends cc.Component {
 
     showStrike(pos){
         let strike=null;
-        if(this._strikePool.size()>0){
-            strike=this._strikePool.get();
+        if( GameCtr.strikePool.size()>0){
+            strike= GameCtr.strikePool.get();
         }else{
             strike=cc.instantiate(this.strike);
         }
@@ -293,18 +328,18 @@ export default class NewClass extends cc.Component {
         strike.runAction(cc.sequence(
             cc.delayTime(0.1),
             cc.callFunc(()=>{
-                this._strikePool.put(strike);
+                GameCtr.strikePool.put(strike);
             })
         ))
     }
 
     showGold(gold,pos){
         let lbGold=null;
-        if(this._lbGoldPool.size()>0){
-            lbGold=this._lbGoldPool.get();
+        if(GameCtr.lbGoldPool.size()>0){
+            lbGold=GameCtr.lbGoldPool.get();
         }else{
             lbGold=cc.instantiate(this.lb_gold);
-            this._lbGoldPool.put(lbGold);
+            GameCtr.lbGoldPool.put(lbGold);
         }
         lbGold.parent=cc.find("Canvas");
         lbGold.getComponent("lbGold").setValue(gold);
@@ -314,7 +349,7 @@ export default class NewClass extends cc.Component {
         lbGold.runAction(cc.sequence(
             cc.bezierTo(1, bezier),
             cc.callFunc(()=>{
-                this._lbGoldPool.put(lbGold);
+                GameCtr.lbGoldPool.put(lbGold);
                 this.addGold(gold);
             })
         ));
@@ -344,15 +379,15 @@ export default class NewClass extends cc.Component {
             pass01.x=-650;
             pass02.x= 650;
             pass01.runAction(cc.sequence(
-                cc.moveTo(0.5,cc.p(-80,450)),
-                cc.delayTime(0.5),
-                cc.fadeOut(0.5)
+                cc.moveTo(0.4,cc.p(-80,450)),
+                cc.delayTime(0.4),
+                cc.fadeOut(0.4)
             ));
     
             pass02.runAction(cc.sequence(
-                cc.moveTo(0.5,cc.p(80,450)),
-                cc.delayTime(0.5),
-                cc.fadeOut(0.5),
+                cc.moveTo(0.4,cc.p(80,450)),
+                cc.delayTime(0.4),
+                cc.fadeOut(0.4),
                 cc.callFunc(()=>{
                     this.initEnemys();
                 })
@@ -370,9 +405,9 @@ export default class NewClass extends cc.Component {
             word.x=-935;
             word.runAction(cc.sequence(
                 cc.delayTime(i*0.2),
-                cc.moveTo(0.3,cc.p(200-150*i,0)).easing(cc.easeSineInOut()),
-                cc.delayTime(1),
-                cc.moveTo(0.3,cc.p(1600-200*i,0)).easing(cc.easeSineInOut()),
+                cc.moveTo(0.2,cc.p(200-150*i,0)).easing(cc.easeSineInOut()),
+                cc.delayTime(0.8),
+                cc.moveTo(0.2,cc.p(1600-200*i,0)).easing(cc.easeSineInOut()),
             ))
         }
 

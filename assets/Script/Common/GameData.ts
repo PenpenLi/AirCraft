@@ -348,7 +348,6 @@ export default class GameData {
         GameData.fightLevel= WXCtr.getStorageData("fightLevel");
         GameData.enemyHP= WXCtr.getStorageData("enemyHP");
         GameData.baseBonus= WXCtr.getStorageData("baseBonus");
-
         Guide.guideStep = WXCtr.getStorageData("guideStep");
 
         for (let i = 1; i <= this.maxApron; i++) {
@@ -369,8 +368,8 @@ export default class GameData {
                 GameData.planeData[key] = 1;
             }
         }
-        GameData.setUserData(GameData.planeData);
 
+        GameData.setUserData(GameData.planeData);
         GameData.getMissionData();
         GameCtr.ins.mGame.gameStart();
     }
@@ -653,11 +652,11 @@ export default class GameData {
 
 
     static getEnemyHP() {
-        if ( GameData.fightLevel == 1) {
-            GameCtr.monsterHP = 30;
-            return GameCtr.monsterHP;
+        if (GameData.fightLevel == 1) {
+            GameData.enemyHP = 30;
+            return  GameData.enemyHP;
         }
-        return Math.floor(((3 +  GameData.fightLevel) / Math.pow( GameData.fightLevel, 1.8) + 1.02) * GameCtr.monsterHP) + 9 * ( GameData.fightLevel - 1);
+        return Math.floor(((3 + GameData.fightLevel) / Math.pow( GameData.fightLevel, 1.8) + 1.02) * GameData.enemyHP) + 9 * ( GameData.fightLevel - 1);
     }
 
 

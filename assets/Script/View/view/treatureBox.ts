@@ -1,6 +1,7 @@
 import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
 import Util from "../../Common/Util";
+import ViewManager from "../../Common/ViewManager";
 
 
 const {ccclass, property} = cc._decorator;
@@ -142,7 +143,7 @@ export default class NewClass extends cc.Component {
                     this._lottery.y=this._bonusArr[currentIndex].y;
                     if(index==random){
                         this.getBonus(currentIndex)
-                        GameData.setMissonData("composeTimes", GameData.missionData.boxTimes+1);
+                        GameData.setMissonData("boxTimes", GameData.missionData.boxTimes+1);
                     }
                 })
             ))
@@ -165,8 +166,7 @@ export default class NewClass extends cc.Component {
             this.setLotteryTimes();
             GameData.diamonds-=50
         }else{
-            /*显示玩家钻石不足*/
-            /*弹出免费钻石界面（邀请好友）*/
+            ViewManager.toast("钻石不足");
         }
     }
 
@@ -176,16 +176,16 @@ export default class NewClass extends cc.Component {
             for(let i=0;i<GameCtr.selfPlanes.length;i++){
                 if(GameCtr.selfPlanes[i]==0){
                     GameCtr.selfPlanes[i]=bonus.airLevel;
-                    /*showToast("获得"+bonus.airLevel+"级飞机")*/
+                    ViewManager.toast("获得"+bonus.airLevel+"级飞机");
                     return;
                 }
             }
-            /*showToast("没有空的机位")*/
+            ViewManager.toast("没有空的机位");
         }
 
         if(bonus.diamond>0){
-            GameData.lotteryTimes+=bonus.diamond;
-            /*showToast("获得"+bonus.diamond+"钻石")*/
+            GameData.diamonds+=bonus.diamond;
+            ViewManager.toast("获得"+bonus.diamond+"钻石"); 
         }
     }
 

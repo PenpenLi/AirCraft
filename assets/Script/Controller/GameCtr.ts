@@ -62,7 +62,12 @@ export default class GameCtr {
     public static attactGoldRateTime=0;                             //攻击倍率加倍时间
     public static isSpeedUpModel = false;                           //是否是加速模式
     public static speedUpTime=0;                                    //加速时间
-    public static musicSwitch=1;                                    //音乐、音效开关  1：开  -1:关               
+    public static musicSwitch=1;                                    //音乐、音效开关  1：开  -1:关    
+    
+    public static strikePool=null;                                  
+    public static lbGoldPool=null;                
+    public static lbHurtPool=null;
+
 
     public static StatisticType = cc.Enum({                         //统计类型
         SPEED: 1,                                                   //加速分享

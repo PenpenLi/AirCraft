@@ -1,5 +1,6 @@
 import GameData from "../../Common/GameData";
 import GameCtr from "../../Controller/GameCtr";
+import ViewManager from "../../Common/ViewManager";
 
 const {ccclass, property} = cc._decorator;
 
@@ -34,20 +35,22 @@ export default class NewClass extends cc.Component {
                 this.node.destroy();
             }else if(e.target.getName()=="btn_watchVedio"){
                 let callFunc=()=>{
-                    GameCtr.speedUpTime=120
+                    GameCtr.speedUpTime=120;
+                    GameData.setMissonData("speedTimes", GameData.missionData.speedTimes+1);
                 }
             }
         })
     }
 
     buy(){
-        //if(GameData.gold>=50){
+        if(GameData.diamonds>=50){
             GameCtr.speedUpTime=60;
-            GameData.gold-=50;
+            GameData.diamonds-=50;
             GameCtr.getInstance().getGame().showSpeedAni();
             GameCtr.getInstance().getGame().showSpeedUpTimer();
-        // }else {
-        //     //showToast("金币不足")；
-        // }
+            GameData.setMissonData("speedTimes", GameData.missionData.speedTimes+1);
+        }else {
+            ViewManager.toast("钻石不足");
+        }
     }
 }
