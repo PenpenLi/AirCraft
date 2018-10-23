@@ -1,5 +1,6 @@
 import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
+import ViewManager from "../../Common/ViewManager";
 
 const {ccclass, property} = cc._decorator;
 enum Way{
@@ -69,11 +70,18 @@ export default class NewClass extends cc.Component {
                 localStorage.setItem("goldRate",JSON.stringify({time:GameCtr.attactGoldRateTime,rate:GameCtr.attactGoldRate}));
                 this.node.destroy();
             }else if(e.target.getName()=="btn_buy"){
-                this._way=Way.BUY;
-                this.doLottery();
+                if(GameData.diamonds>=50){
+                    GameData.diamonds-=50;
+                    this._way=Way.BUY;
+                    this.doLottery();
+                }else{
+                    ViewManager.toast("钻石不足");
+                }
             }else if(e.target.getName()=="btn_watchVedio"){
-                this._way=Way.WATCH_VEDIO;
-                this.doLottery();
+                let callFunc=()=>{
+                    this._way=Way.WATCH_VEDIO;
+                    this.doLottery();
+                }
             }
         })
     }
@@ -140,7 +148,7 @@ export default class NewClass extends cc.Component {
         }else if(this._way==Way.WATCH_VEDIO){
             GameCtr.attactGoldRateTime=7200;//2小时
         }
-        GameData.setMissonData("composeTimes", GameData.missionData.turntableTimes+1);
+        GameData.setMissonData("turntableTimes", GameData.missionData.turntableTimes+1);
         this.unscheduleAllCallbacks();
         this.showDes()
     }

@@ -347,8 +347,29 @@ export default class GameData {
         GameData.fightLevel= WXCtr.getStorageData("fightLevel");
         GameData.enemyHP= WXCtr.getStorageData("enemyHP");
         GameData.baseBonus= WXCtr.getStorageData("baseBonus");
-
         Guide.guideStep = WXCtr.getStorageData("guideStep");
+
+        GameData.gold=GameData.gold?GameData.gold:0;
+        GameData.diamonds=GameData.diamonds?GameData.diamonds:0;
+        GameData.maxPlaneLevel=GameData.maxPlaneLevel?GameData.maxPlaneLevel:1;
+        GameData.repPlaneNum=GameData.repPlaneNum?GameData.repPlaneNum:0;
+        GameData.factoryLevel=GameData.factoryLevel?GameData.factoryLevel:0;
+        GameData.repositoryLevel=GameData.repositoryLevel?GameData.repositoryLevel:0;
+        GameData.recycleLevel=GameData.recycleLevel?GameData.recycleLevel:0;
+        GameData.attackLevel=GameData.attackLevel?GameData.attackLevel:0;
+        GameData.criticalStrikeLevel=GameData.criticalStrikeLevel?GameData.criticalStrikeLevel:0;
+        GameData.highAttack=GameData.highAttack?GameData.highAttack:0;
+        GameData.highAttackSpeed=GameData.highAttackSpeed?GameData.highAttackSpeed:0;
+        GameData.highRecycleLevel=GameData.highRecycleLevel?GameData.highRecycleLevel:0;
+        GameData.highCriticalStrike=GameData.highCriticalStrike?GameData.highCriticalStrike:0;
+        GameData.forceCriticalStrike=GameData.forceCriticalStrike?GameData.forceCriticalStrike:0;
+        GameData.vipLevel=GameData.vipLevel?GameData.vipLevel:0;
+        GameData.freeDiamondCount=GameData.freeDiamondCount?GameData.freeDiamondCount:0;
+        GameData.fightLevel=GameData.fightLevel?GameData.fightLevel:1;
+        GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:30;
+        GameData.baseBonus=GameData.baseBonus?GameData.baseBonus:10;
+        GameData.forceCriticalStrike=GameData.forceCriticalStrike?GameData.forceCriticalStrike:0;
+        Guide.guideStep = Guide.guideStep?Guide.guideStep:0;
 
         for (let i = 1; i <= this.maxApron; i++) {
             let key = "feiji_" + i;
@@ -368,7 +389,6 @@ export default class GameData {
                 GameData.planeData[key] = 1;
             }
         }
-
         GameData.getMissionData();
     }
 
@@ -649,11 +669,11 @@ export default class GameData {
 
 
     static getEnemyHP() {
-        if ( GameData.fightLevel == 1) {
-            GameCtr.monsterHP = 30;
-            return GameCtr.monsterHP;
+        if (GameData.fightLevel == 1) {
+            GameData.enemyHP = 30;
+            return  GameData.enemyHP;
         }
-        return Math.floor(((3 +  GameData.fightLevel) / Math.pow( GameData.fightLevel, 1.8) + 1.02) * GameCtr.monsterHP) + 9 * ( GameData.fightLevel - 1);
+        return Math.floor(((3 + GameData.fightLevel) / Math.pow( GameData.fightLevel, 1.8) + 1.02) * GameData.enemyHP) + 9 * ( GameData.fightLevel - 1);
     }
 
 

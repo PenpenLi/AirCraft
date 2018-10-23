@@ -50,7 +50,7 @@ export default class NewClass extends cc.Component {
     }
 
     startAttack(){
-        this._attackInterval=this._isBoss?1:2
+        this._attackInterval=this._isBoss?0.5:2
         this.schedule(this.doAttacked, this._attackInterval);
     }
 
@@ -192,7 +192,7 @@ export default class NewClass extends cc.Component {
         bubbleHurt.getComponent("BubbleHurt").showHurt(hurt);
         bubbleHurt.stopAllActions();
         bubbleHurt.runAction(cc.sequence(
-            cc.moveBy(2,cc.p(0,150)),
+            cc.moveBy(1,cc.p(0,80)),
             cc.callFunc(()=>{
                 bubbleHurt.active=false;
                 if(this._bubbleHurtPool){
