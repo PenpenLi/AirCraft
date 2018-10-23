@@ -41,13 +41,13 @@ export default class NewClass extends cc.Component {
     }
 
     buy(){
-        if(GameData.gold>=50){
+        //if(GameData.gold>=50){
             GameCtr.speedUpTime=60;
             GameData.gold-=50;
             GameCtr.getInstance().getGame().showSpeedAni();
             GameCtr.getInstance().getGame().showSpeedUpTimer();
-        }else {
-            //showToast("金币不足")；
-        }
+        // }else {
+        //     //showToast("金币不足")；
+        // }
     }
 }
