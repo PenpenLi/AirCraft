@@ -47,7 +47,8 @@ export default class Game extends cc.Component {
     sprSlider: cc.Sprite = null;
     @property(cc.Node)
     ndSpeedAni: cc.Node = null;
-
+    @property(cc.Node)
+    musicBtnMask: cc.Node = null;
     @property(cc.Prefab)
     pfUpgrade: cc.Prefab = null;
     @property(cc.Prefab)
@@ -84,9 +85,7 @@ export default class Game extends cc.Component {
 
     @property(cc.Prefab)
     pfRanking: cc.Prefab = null;
-    
 
-   
     private landPlanePool;
     public goldParticlePool;
 
@@ -99,6 +98,7 @@ export default class Game extends cc.Component {
         GameData.getAllLocalGameData();
         GameCtr.getInstance().setGame(this);
         this.initPools();
+        this.initMusicState();
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
@@ -117,6 +117,20 @@ export default class Game extends cc.Component {
 
     initPools() {
         this.landPlanePool = NodePoolManager.create(this.pfLandPlane);
+    }
+
+    initMusicState(){
+        let musicSwitch =localStorage.getItem("musicSwitch");
+        if(musicSwitch){
+            GameCtr.musicSwitch=Number(musicSwitch);
+            if(GameCtr.musicSwitch>0){
+                this.musicBtnMask.active=false;
+            }else{
+                this.musicBtnMask.active=true;
+            }
+        }else{
+            this.musicBtnMask.active=false;
+        }
     }
 
     gameStart() {
@@ -584,6 +598,17 @@ export default class Game extends cc.Component {
         let pfFreeDiamond=cc.instantiate(this.pfFreeDiamond);
         pfFreeDiamond.parent=cc.find("Canvas");
     }
+
+    onClickBtnMusic(){
+        GameCtr.musicSwitch=-1*GameCtr.musicSwitch;
+        localStorage.setItem("musicSwitch",GameCtr.musicSwitch+"");
+        if(GameCtr.musicSwitch>0){//打开开关
+            this.musicBtnMask.active=false;
+        }else{                    //关闭开关
+            this.musicBtnMask.active=true;
+        }
+    }
+
 
     showSpeedUpTimer(){
         console.log("log---------showSpeedUpTimer-----------");
