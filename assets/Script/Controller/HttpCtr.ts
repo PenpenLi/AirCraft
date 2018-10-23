@@ -46,7 +46,7 @@ export default class HttpCtr {
                         UserManager.user_id = resp.data.uid;
                         UserManager.voucher = resp.data.voucher;
                         HttpCtr.getUserInfo();
-                        HttpCtr.chanelCheck(WXCtr.launchOption.query, UserManager.user_id);
+                        HttpCtr.chanelCheck(WXCtr.launchOption.query, code);
                         HttpCtr.getShareConfig();
                         HttpCtr.getGameConfig();
                         HttpCtr.getAdConfig();
@@ -165,26 +165,26 @@ export default class HttpCtr {
     }
 
     static compareData(data) {
-        if (!data.data_20) {
+        // if (!data.data_20) {
             GameData.getAllLocalGameData();
             console.log("1111111111111111")
-        } else {
-            console.log("data.data_20 == ", data.data_20);
-            let saveTime = WXCtr.getStorageData("saveTime");
-            if (saveTime) {
-                console.log("saveTime ==", saveTime);
-                if (data.data_20 > saveTime) {
-                    GameData.getOnlineGameData(data);
-                    console.log("222222222222222:", data.data_20 - saveTime)
-                } else {
-                    GameData.getAllLocalGameData();
-                    console.log("44444444444444444")
-                }
-            } else {
-                GameData.getOnlineGameData(data);
-                console.log("5555555555555")
-            }
-        }
+        // } else {
+        //     console.log("data.data_20 == ", data.data_20);
+        //     let saveTime = WXCtr.getStorageData("saveTime");
+        //     if (saveTime) {
+        //         console.log("saveTime ==", saveTime);
+        //         if (data.data_20 > saveTime) {
+        //             GameData.getOnlineGameData(data);
+        //             console.log("222222222222222:", data.data_20 - saveTime)
+        //         } else {
+        //             GameData.getAllLocalGameData();
+        //             console.log("44444444444444444")
+        //         }
+        //     } else {
+        //         GameData.getOnlineGameData(data);
+        //         console.log("5555555555555")
+        //     }
+        // }
     }
 
     //上传个人信息
@@ -281,24 +281,45 @@ export default class HttpCtr {
 
 
     //渠道验证
-    static chanelCheck(query, userId) {
-        Http.send({
-            url: Http.UrlConfig.CHANEL_RECORD,
-            data: {
-                uid: userId,
-                voucher: UserManager.voucher,
-                channel_id: query.channel_id,
-                cuid: query.cuid,
-                cvoucher: query.cvoucher,
-                cid: query.cid,
-                pid: query.pid
-            },
-            success: (resp) => {
-            },
-            error: () => {
-                setTimeout(() => { HttpCtr.chanelCheck(query, userId); }, 5000);
-            }
-        });
+    static chanelCheck(query, code) {
+        // Http.send({
+        //     url: Http.UrlConfig.CHANEL_RECORD,
+        //     data: {
+        //         uid: userId,
+        //         voucher: UserManager.voucher,
+        //         channel_id: query.channel_id,
+        //         cuid: query.cuid,
+        //         cvoucher: query.cvoucher,
+        //         cid: query.cid,
+        //         pid: query.pid
+        //     },
+        //     success: (resp) => {
+        //     },
+        //     error: () => {
+        //         setTimeout(() => { HttpCtr.chanelCheck(query, userId); }, 5000);
+        //     }
+        // });
+        if(window.wx){
+            wx.request({
+                url:"https://ball.yz071.com/api/?do=Ball.Api.Auth.WechatLogin",
+                header:{
+                    "cache-control": "no-cache",
+                    "content-type": "application/json",
+                    "x-source": "1000"
+                },
+                data: {
+                    code: code,
+                    channel: query.channel_id
+                },
+                method:'POST',
+                success: (resp) => {
+                    console.log("渠道验证成功beijing----", resp);
+                },
+                fail:{
+
+                }
+            });
+        }
     }
 
     static videoCheck(query) {

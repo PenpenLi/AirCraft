@@ -519,9 +519,12 @@ export default class WXCtr {
         }
     }
 
-    static getStorageData(key) {
+    static getStorageData(key, defaultValue = 0) {
         if (window.wx != undefined) {
-            return wx.getStorageSync(key);
+            let value = wx.getStorageSync(key);
+            if(!value) value = defaultValue;
+            console.log("key == "+key+"  value == ", value);
+            return value;
         }
     }
 

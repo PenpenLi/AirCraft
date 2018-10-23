@@ -328,6 +328,7 @@ export default class GameData {
 
     //获取本地所有游戏数据
     static getAllLocalGameData() {
+        console.log("获取本地数据！！！！！！！！！！！！");
         GameData.gold = WXCtr.getStorageData("gold");
         GameData.diamonds = WXCtr.getStorageData("diamonds");
         GameData.maxPlaneLevel = WXCtr.getStorageData("maxPlaneLevel");
@@ -361,15 +362,17 @@ export default class GameData {
         }
         for (let i = 1; i <= this.maxPlane; i++) {
             let key = "feijiLevel_" + i;
-            let data = WXCtr.getStorageData(key);
+            let data = WXCtr.getStorageData(key, 1);
             if (data) {
                 GameData.planeData[key] = data;
             } else {
                 GameData.planeData[key] = 1;
             }
         }
+        GameData.setUserData(GameData.planeData);
 
         GameData.getMissionData();
+        GameCtr.ins.mGame.gameStart();
     }
 
     static getOnlineGameData(data) {
@@ -407,6 +410,7 @@ export default class GameData {
             GameData.planeData[key] = data[key];
         }
         GameData.setUserData(GameData.planeData);
+        GameData.getMissionData();
         HttpCtr.submitUserData({});
         GameCtr.ins.mGame.gameStart();
     }
