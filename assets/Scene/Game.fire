@@ -1231,6 +1231,8 @@
     "pfRanking": {
       "__uuid__": "483a84f0-7ff3-4131-8c13-dc9af734eb11"
     }
+
+    "pfFreeDiamond": null
   },
   {
     "__type__": "cc.Node",
@@ -10026,7 +10028,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "btnSpeedUp",
+    "_name": "btnFreeDiamond",
     "_objFlags": 0,
     "_parent": {
       "__id__": 20
@@ -10167,7 +10169,7 @@
       "__id__": 25
     },
     "component": "Game",
-    "handler": "onClickBtnSpeedUP",
+    "handler": "onClickBtnFreeDiamond",
     "customEventData": ""
   },
   {

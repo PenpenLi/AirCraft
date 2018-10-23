@@ -72,12 +72,16 @@ export default class Game extends cc.Component {
     pfTreatrueBox:cc.Prefab=null;
     @property(cc.Prefab)
     pfTurntable: cc.Prefab = null;
+
     @property(cc.Prefab)
-    pfSpeedUP:cc.Prefab=null;
+    pfSpeedUP: cc.Prefab = null;
+    
+    @property(cc.Prefab)
+    pfFreeDiamond:cc.Prefab=null;
     @property(cc.Prefab)
     pfRanking: cc.Prefab = null;
+    
    
-
     private landPlanePool;
     public goldParticlePool;
 
@@ -569,6 +573,14 @@ export default class Game extends cc.Component {
         }
         let pfSpeedUP=cc.instantiate(this.pfSpeedUP);
         pfSpeedUP.parent=cc.find("Canvas");
+    }
+
+    onClickBtnFreeDiamond(){
+        if(cc.find("Canvas").getChildByName('freeDiamond')){
+            return;
+        }
+        let pfFreeDiamond=cc.instantiate(this.pfFreeDiamond);
+        pfFreeDiamond.parent=cc.find("Canvas");
     }
 
 }
