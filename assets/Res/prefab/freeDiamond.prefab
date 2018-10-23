@@ -307,9 +307,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -320,8 +320,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
-      "height": 40
+      "width": 242.4,
+      "height": 48
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -330,7 +330,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 287
+      "y": 304
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -348,12 +348,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
+    "_actualFontSize": 60,
+    "_fontSize": 60,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "5cddc67d-401c-4992-b821-714320174b58"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "免费钻石",
     "_N$horizontalAlign": 1,
