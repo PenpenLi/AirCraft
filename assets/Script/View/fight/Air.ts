@@ -20,7 +20,6 @@ export default class NewClass extends cc.Component {
     _lifeBar=null;
     _isEnemy=false;
     _isBoss=false;
-    _bubbleHurtPool=null;
     _attackDirection=null;
     _bulletCount=0;
 
@@ -46,7 +45,6 @@ export default class NewClass extends cc.Component {
         this._skin=this.node.getComponent(cc.Sprite);
         this._lifeBar=this.node.getChildByName("lifeBar");
         this._lifeBar.active=false;
-        this._bubbleHurtPool=new cc.NodePool();
     }
 
     startAttack(){
@@ -65,7 +63,6 @@ export default class NewClass extends cc.Component {
         this._bulletCount=this._isBoss?10:3;
 
         this.initBullets();
-        this.initBubbleHurt();
         this.initDeadEft();
         this.setSkin();
         if(this._isEnemy){
@@ -87,13 +84,6 @@ export default class NewClass extends cc.Component {
 
             bullet.getComponent("Bullet").init({hurt:this._bulletHurt,isEnemy:this._isEnemy,level:this._level,isBoss:this._isBoss})
             this._bulletsArr.push(bullet);
-        }
-    }
-
-    initBubbleHurt(){
-        for(let i=0;i<5;i++){
-            let bubbleHurt=cc.instantiate(this.bubbleHurts[Math.floor(Math.random()*2)]);
-            this._bubbleHurtPool.put(bubbleHurt);
         }
     }
 
@@ -175,28 +165,55 @@ export default class NewClass extends cc.Component {
 
     showHurt(hurt){
         hurt=hurt>this._currentLifeValue?this._currentLifeValue:hurt;
-        if(hurt<=0){return}
+        if(hurt<=0){return;}
 
         let bubbleHurt=null;
-        if(this._bubbleHurtPool.size()>0){
-            bubbleHurt=this._bubbleHurtPool.get();
-            console.log('log---------从对象池中获取bubbleHurt');
+        let randnum=Math.random();
+        if(GameCtr.lbHurtPool.size()>0){
+            bubbleHurt=GameCtr.lbHurtPool.get();
+            console.log("log--------------对象池中获取bubbleHurt-------");
         }else{
+            console.log("log--------------重新实例化bubbleHurt---------");
             bubbleHurt=cc.instantiate(this.bubbleHurts[Math.floor(Math.random()*2)]);
-            console.log('log---------重新实例化bubbleHurt');
+            GameCtr.lbHurtPool.put(bubbleHurt)
         }
         bubbleHurt.parent=cc.find("Canvas");
         bubbleHurt.active=true;
+        bubbleHurt.scale=1.0;
         bubbleHurt.x=this.node.x;
         bubbleHurt.y=this.node.y;
         bubbleHurt.getComponent("BubbleHurt").showHurt(hurt);
         bubbleHurt.stopAllActions();
+        if(randnum>0 && randnum<0.2){
+            this.bubbleHertAction2(bubbleHurt)
+        }else{
+            this.bubbleHertAction1(bubbleHurt);
+        }
+    }
+
+
+    bubbleHertAction1(bubbleHurt){
         bubbleHurt.runAction(cc.sequence(
             cc.moveBy(1,cc.p(0,80)),
             cc.callFunc(()=>{
                 bubbleHurt.active=false;
-                if(this._bubbleHurtPool){
-                    this._bubbleHurtPool.put(bubbleHurt)
+                if(GameCtr.lbHurtPool){
+                    GameCtr.lbHurtPool.put(bubbleHurt);
+                }
+            })
+        ))
+    }
+
+    bubbleHertAction2(bubbleHurt){
+        bubbleHurt.runAction(cc.sequence(
+            cc.spawn(
+                cc.moveBy(1,cc.p(0,80)),
+                cc.scaleTo(1,1.5),
+            ),
+            cc.callFunc(()=>{
+                bubbleHurt.active=false;
+                if(GameCtr.lbHurtPool){
+                    GameCtr.lbHurtPool.put(bubbleHurt);
                 }
             })
         ))

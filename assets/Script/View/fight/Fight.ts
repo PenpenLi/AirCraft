@@ -9,8 +9,6 @@ export default class NewClass extends cc.Component {
     _touchNode=null;
     _lbGameCount=null;
     _otherNode=null;
-    _strikePool=null;
-    _lbGoldPool=null;
     _goldFrame=null;
     _lbGold=null;
     _airs=[];
@@ -33,12 +31,17 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Prefab)
     lb_gold:cc.Prefab=null;
+
+    @property(cc.Prefab)
+    bubbleHurts:cc.Prefab[]=[];
     
     onLoad(){
         GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:GameData.getEnemyHP();
         GameCtr.getInstance().setFight(this);
-        this._strikePool=new cc.NodePool();
-        this._lbGoldPool=new cc.NodePool();
+        GameCtr.strikePool=new cc.NodePool();
+        GameCtr.lbGoldPool=new cc.NodePool();
+        GameCtr.lbHurtPool=new cc.NodePool();
+
         this.initNode();
         this.initEnemys();
         this.initAirs();
@@ -150,14 +153,21 @@ export default class NewClass extends cc.Component {
     initStrikes(){
         for(let i=0;i<30;i++){
             let strike=cc.instantiate(this.strike);
-            this._strikePool.put(strike);
+             GameCtr.strikePool.put(strike);
         }
     }
 
     initLbGolds(){
         for(let i=0;i<5;i++){
             let lbGold=cc.instantiate(this.lb_gold);
-            this._lbGoldPool.put(lbGold);
+            GameCtr.lbGoldPool.put(lbGold);
+        }
+    }
+
+    initLbHurts(){
+        for(let i=0;i<40;i++){
+            let bubbleHurt=cc.instantiate(this.bubbleHurts[Math.floor(Math.random()*2)]);
+            GameCtr.lbHurtPool.put(bubbleHurt);
         }
     }
 
@@ -306,8 +316,8 @@ export default class NewClass extends cc.Component {
 
     showStrike(pos){
         let strike=null;
-        if(this._strikePool.size()>0){
-            strike=this._strikePool.get();
+        if( GameCtr.strikePool.size()>0){
+            strike= GameCtr.strikePool.get();
         }else{
             strike=cc.instantiate(this.strike);
         }
@@ -318,18 +328,18 @@ export default class NewClass extends cc.Component {
         strike.runAction(cc.sequence(
             cc.delayTime(0.1),
             cc.callFunc(()=>{
-                this._strikePool.put(strike);
+                GameCtr.strikePool.put(strike);
             })
         ))
     }
 
     showGold(gold,pos){
         let lbGold=null;
-        if(this._lbGoldPool.size()>0){
-            lbGold=this._lbGoldPool.get();
+        if(GameCtr.lbGoldPool.size()>0){
+            lbGold=GameCtr.lbGoldPool.get();
         }else{
             lbGold=cc.instantiate(this.lb_gold);
-            this._lbGoldPool.put(lbGold);
+            GameCtr.lbGoldPool.put(lbGold);
         }
         lbGold.parent=cc.find("Canvas");
         lbGold.getComponent("lbGold").setValue(gold);
@@ -339,7 +349,7 @@ export default class NewClass extends cc.Component {
         lbGold.runAction(cc.sequence(
             cc.bezierTo(1, bezier),
             cc.callFunc(()=>{
-                this._lbGoldPool.put(lbGold);
+                GameCtr.lbGoldPool.put(lbGold);
                 this.addGold(gold);
             })
         ));
