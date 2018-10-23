@@ -4,6 +4,9 @@ import WXCtr from "../../Controller/WXCtr";
 import UserManager from "../../Common/UserManager";
 import HttpCtr from "../../Controller/HttpCtr";
 import Util from "../../Common/Util";
+import ListView, { AbsAdapter } from "./ListView";
+import PopupView from "./PopupView";
+import GrayEffect from "../../Common/GrayEffect";
 
 
 const { ccclass, property } = cc._decorator;
@@ -15,6 +18,8 @@ export default class RankingView extends cc.Component {
     ndWorld: cc.Node = null;
     @property(cc.Node)
     ndWorldScr: cc.Node = null;
+    @property(ListView)
+    mListView: ListView = null;
     @property(cc.Node)
     ndContent: cc.Node = null;
     @property(cc.Node)
@@ -25,8 +30,6 @@ export default class RankingView extends cc.Component {
     friendToggle: cc.Toggle = null;
     @property(cc.Toggle)
     worldToggle: cc.Toggle = null;
-    @property(cc.Node)
-    ndShareBtn: cc.Node = null;
     @property(cc.Prefab)
     pfRankingCell: cc.Prefab = null;
 
@@ -36,17 +39,18 @@ export default class RankingView extends cc.Component {
     private cellHeight = 182;
     private contentOrigin = 500;
 
-    private dataList = {};
+    private dataList = null;
 
     private tex: cc.Texture2D = null;
     private curPage = 1;
+
+    private adapter: ListAdapter;
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
         this.itemPages = 1;
         // this.tex = new cc.Texture2D();
         WXCtr.initSharedCanvas();
-        this.reigsterTouch();
     }
 
     onDestroy() {
@@ -57,44 +61,15 @@ export default class RankingView extends cc.Component {
     }
 
     start() {
+        this.adapter = new ListAdapter();
         this.showWorld();
-        this.showSelf();
         // this.schedule(() => { this._updateSubDomainCanvas(); }, 1);
         HttpCtr.getWorldRankingList((resp) => {
             this.dataList = resp.data;
-            this.addItems();
+            this.adapter.setDataSet(this.dataList);
+            this.mListView.setAdapter(this.adapter);
         });
     }
-
-    reigsterTouch() {
-        // this.ndWorldScr.on(cc.Node.EventType.TOUCH_MOVE, this.onScrTouchMoved, this);
-    }
-
-    onScrTouchMoved(event) {
-        if (this.ndContent.y > this.contentOrigin + (this.itemPages * this.pageSize - 6) * this.cellHeight) {
-            if (this.itemPages < 5) {
-                this.itemPages++;
-                this.addItems();
-            }
-        }
-    }
-
-    addItems() {
-        this.ndContent.removeAllChildren();
-        let nd = cc.instantiate(this.pfRankingCell);
-        for (let i = (this.curPage - 1) * this.pageSize+1; i <= this.curPage * this.pageSize; i++) {
-            let data = this.dataList[i];
-            if (!data) return;
-            if (i > 50) return;
-            let item = cc.instantiate(nd);
-            item.active = true;
-            this.ndContent.addChild(item);
-            let comp = item.getComponent(RankingCell);
-            comp.setData(data);
-        }
-    }
-
-    
 
     showSelf() {
         let ndSelf = this.ndWorld.getChildByName("ndSelf");
@@ -102,41 +77,35 @@ export default class RankingView extends cc.Component {
         Util.loadImg(sprHead, UserManager.user.icon);
         let lbName = ndSelf.getChildByName("lbName").getComponent(cc.Label);
         lbName.string = UserManager.user.nick;
-        let lbLocation = ndSelf.getChildByName("lbLocation").getComponent(cc.Label);
-        lbLocation.string = UserManager.user.city;
+        // let lbLocation = ndSelf.getChildByName("lbLocation").getComponent(cc.Label);
+        // lbLocation.string = UserManager.user.city;
         let lbGold = ndSelf.getChildByName("lbGold").getComponent(cc.Label);
         lbGold.string = Util.formatNum(UserManager.user.gold);
     }
 
     showWorld() {
         this.ndWorld.active = true;
-        if (!WXCtr.authed) {
-            this.ndShareBtn.active = false;
-            WXCtr.createUserInfoBtn();
-            WXCtr.onUserInfoBtnTap((res) => {
-                if (res) {
-                    this.ndShareBtn.active = true;
-                }
-            });
-        } else {
-            this.ndShareBtn.active = true;
-        }
+        // if (!WXCtr.authed) {
+        //     WXCtr.createUserInfoBtn();
+        //     WXCtr.onUserInfoBtnTap((res) => {
+        //         if (res) {
+        //             this.ndShareBtn.active = true;
+        //         }
+        //     });
+        // } 
     }
 
     clickToggle() {
+        let gray;
         this.ndFirend.active = this.friendToggle.isChecked;
-        let sprFirendChoosed = this.friendToggle.node.getChildByName("friend_choosed");
-        sprFirendChoosed.active = this.friendToggle.isChecked;
-        let sprFirendUnchoosed = this.friendToggle.node.getChildByName("friend_unchoosed");
-        sprFirendUnchoosed.active = !this.friendToggle.isChecked;
-
+        gray = this.friendToggle.node.getChildByName("Background").getComponent(GrayEffect);
+        if(!this.friendToggle.isChecked) gray.grayShader();
         this.ndWorld.active = this.worldToggle.isChecked;
-        let sprWorldChoosed = this.worldToggle.node.getChildByName("world_choosed");
-        sprWorldChoosed.active = this.worldToggle.isChecked;
-        let sprWorldUnchoosed = this.worldToggle.node.getChildByName("world_unchoosed");
-        sprWorldUnchoosed.active = !this.worldToggle.isChecked;
+        gray = this.worldToggle.node.getChildByName("Background").getComponent(GrayEffect);
+        if(!this.worldToggle.isChecked) gray.grayShader();
 
-        if (this.friendToggle.isChecked) {
+
+        if (!this.friendToggle.isChecked) {
             this.showFriendRanking();
             if (WXCtr.userInfoBtn && WXCtr.userInfoBtn.destroy) WXCtr.userInfoBtn.destroy();
         } else {
@@ -163,15 +132,26 @@ export default class RankingView extends cc.Component {
                 return;
             }
         } else if (type == "next") {
-            if(this.curPage < 10){
+            if (this.curPage < 10) {
                 this.curPage++;
-            }else{
+            } else {
                 return;
             }
         }
-        this.addItems();
         // this.showFriendRanking();
         // this._updateSubDomainCanvas();
+    }
+
+    close() {
+        if (!this.node.parent) {
+            return;
+        }
+        let popupView = this.node.parent.getComponent(PopupView);
+        if (!!popupView) {
+            popupView.dismiss();
+        } else {
+            this.node.destroy();
+        }
     }
 
     // 刷新子域的纹理
@@ -181,5 +161,14 @@ export default class RankingView extends cc.Component {
         //     this.tex.handleLoadedTexture();
         //     this.sprFirend.spriteFrame = new cc.SpriteFrame(this.tex);
         // }
+    }
+}
+
+class ListAdapter extends AbsAdapter<RankingCell> {
+    constructor() {
+        super(RankingCell);
+    }
+    updateView(comp: RankingCell, data: any) {
+        comp.setData(this.getItem(data));
     }
 }
