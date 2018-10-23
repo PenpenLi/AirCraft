@@ -49,12 +49,12 @@ export default class RankingView extends cc.Component {
 
     onLoad() {
         this.itemPages = 1;
-        // this.tex = new cc.Texture2D();
+        this.tex = new cc.Texture2D();
         WXCtr.initSharedCanvas();
     }
 
     onDestroy() {
-        // this.tex.releaseTexture();
+        this.tex.releaseTexture();
         if (WXCtr.userInfoBtn && WXCtr.userInfoBtn.destroy) {
             WXCtr.userInfoBtn.destroy();
         }
@@ -98,11 +98,7 @@ export default class RankingView extends cc.Component {
     clickToggle() {
         let gray;
         this.ndFirend.active = this.friendToggle.isChecked;
-        gray = this.friendToggle.node.getChildByName("Background").getComponent(GrayEffect);
-        if(!this.friendToggle.isChecked) gray.grayShader();
         this.ndWorld.active = this.worldToggle.isChecked;
-        gray = this.worldToggle.node.getChildByName("Background").getComponent(GrayEffect);
-        if(!this.worldToggle.isChecked) gray.grayShader();
 
 
         if (!this.friendToggle.isChecked) {
@@ -154,13 +150,17 @@ export default class RankingView extends cc.Component {
         }
     }
 
+    update() {
+        this._updateSubDomainCanvas();
+    }
+
     // 刷新子域的纹理
     _updateSubDomainCanvas() {
-        // if (window.sharedCanvas != undefined && this.tex != null && this.ndFirend.active && this.sprFirend.node.active) {
-        //     this.tex.initWithElement(window.sharedCanvas);
-        //     this.tex.handleLoadedTexture();
-        //     this.sprFirend.spriteFrame = new cc.SpriteFrame(this.tex);
-        // }
+        if (window.sharedCanvas != undefined && this.tex != null && this.ndFirend.active && this.sprFirend.node.active) {
+            this.tex.initWithElement(window.sharedCanvas);
+            this.tex.handleLoadedTexture();
+            this.sprFirend.spriteFrame = new cc.SpriteFrame(this.tex);
+        }
     }
 }
 

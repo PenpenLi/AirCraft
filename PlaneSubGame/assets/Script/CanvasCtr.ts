@@ -98,7 +98,6 @@ export default class CanvasCtr extends cc.Component {
                         return b.KVDataList[0].value - a.KVDataList[0].value;
                     });
                     this.mFriendRankData = data;
-                    this.getSelfRank();
                     if (showFriend) {
                         this.showFriendRanking();
                     }
@@ -199,7 +198,8 @@ export default class CanvasCtr extends cc.Component {
         }
         this.closeFriendRanking();
         console.log("page == ", page);
-        this.mRanking.loadRanking(this.mFriendRankData, page);
+        this.getSelfRank();
+        this.mRanking.loadRanking(this.mFriendRankData);
     }
 
     getSelfRank() {
@@ -210,6 +210,7 @@ export default class CanvasCtr extends cc.Component {
                 if (data.avatarUrl == this.mSelfData.avatarUrl) {
                     rank = i;
                     this.mSelfData = data;
+                    this.mRanking.showSelf(data, i);
                 }
             }
         }
