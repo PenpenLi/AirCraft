@@ -10,18 +10,13 @@ export default class Ranking extends cc.Component {
     ndContent: cc.Node = null;
     @property(cc.Prefab)
     pfCell: cc.Prefab = null;
+    @property(cc.Node)
+    ndSelf: cc.Node = null;
 
     // LIFE-CYCLE CALLBACKS:
 
-    private pageSize = 5;
-    private lastPage = 1;
-
-    loadRanking(data, page) {
-        let pageCount = Math.ceil(data.length / this.pageSize);
-        if(page > pageCount) {
-            page = this.lastPage;
-        }
-        for (let i = this.pageSize*(page-1); i < page * this.pageSize; i++) {
+    loadRanking(data) {
+        for (let i = 0; i < data.length; i++) {
             let info = data[i];
             if (info && info.KVDataList.length > 0) {
                 let cell = cc.instantiate(this.pfCell);
@@ -30,7 +25,11 @@ export default class Ranking extends cc.Component {
                 comp.setData(i, info);
             }
         }
-        this.lastPage = page;
+    }
+
+    showSelf(data, rank) {
+        let comp = this.ndSelf.getComponent(RankingCell);
+        comp.setData(rank, data);
     }
 
     clear() {

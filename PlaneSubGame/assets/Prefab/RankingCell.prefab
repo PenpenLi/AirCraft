@@ -66,8 +66,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 869,
-      "height": 162
+      "width": 750,
+      "height": 150
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -76,7 +76,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 60
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -123,8 +123,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 869,
-      "height": 162
+      "width": 750,
+      "height": 150
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -240,8 +240,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 28,
-      "height": 71
+      "width": 82,
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -249,7 +249,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -378,
+      "x": -312,
       "y": 0
     },
     "_skewX": 0,
@@ -340,7 +340,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -261,
+      "x": -179,
       "y": 0
     },
     "_skewX": 0,
@@ -431,7 +431,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -374,
+      "x": -312,
       "y": 0
     },
     "_skewX": 0,
@@ -496,9 +496,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 134,
-      "g": 123,
-      "b": 104,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -518,7 +518,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -52,
+      "x": 24,
       "y": 31
     },
     "_skewX": 0,
@@ -583,9 +583,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 134,
-      "g": 123,
-      "b": 104,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -605,7 +605,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -52,
+      "x": 24,
       "y": -20
     },
     "_skewX": 0,
@@ -670,9 +670,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 243,
-      "g": 177,
-      "b": 84,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -790,7 +790,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": -21,
+    "_bottom": -75,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,

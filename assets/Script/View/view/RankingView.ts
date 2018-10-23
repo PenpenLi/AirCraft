@@ -98,11 +98,11 @@ export default class RankingView extends cc.Component {
     clickToggle() {
         let gray;
         this.ndFirend.active = this.friendToggle.isChecked;
-        gray = this.friendToggle.node.getChildByName("Background").getComponent(GrayEffect);
-        if(!this.friendToggle.isChecked) gray.grayShader();
+        // gray = this.friendToggle.node.getChildByName("Background").getComponent(GrayEffect);
+        // if(!this.friendToggle.isChecked) gray.grayShader();
         this.ndWorld.active = this.worldToggle.isChecked;
-        gray = this.worldToggle.node.getChildByName("Background").getComponent(GrayEffect);
-        if(!this.worldToggle.isChecked) gray.grayShader();
+        // gray = this.worldToggle.node.getChildByName("Background").getComponent(GrayEffect);
+        // if(!this.worldToggle.isChecked) gray.grayShader();
 
 
         if (!this.friendToggle.isChecked) {

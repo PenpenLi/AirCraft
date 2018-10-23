@@ -199,7 +199,7 @@ export default class CanvasCtr extends cc.Component {
         }
         this.closeFriendRanking();
         console.log("page == ", page);
-        this.mRanking.loadRanking(this.mFriendRankData, page);
+        this.mRanking.loadRanking(this.mFriendRankData);
     }
 
     getSelfRank() {

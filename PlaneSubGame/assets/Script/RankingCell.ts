@@ -36,8 +36,8 @@ export default class RankingCell extends cc.Component {
         let score = data.KVDataList.length != 0 ? data.KVDataList[1].value : 0;
         score = parseInt(score)
         this.lbScore.string = this.formatNum(score);
-        let location = data.KVDataList.length > 1 ? data.KVDataList[0].value : "未知";
-        this.lbLocation.string = location;
+        // let location = data.KVDataList.length > 1 ? data.KVDataList[0].value : "未知";
+        // this.lbLocation.string = location;
     }
 
     
