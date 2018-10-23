@@ -1,0 +1,16 @@
+info face="HYLiLiangHeiJ" size=50 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=2,2
+common lineHeight=62 base=46 scaleW=256 scaleH=256 pages=1 packed=0
+page id=0 file="blueBtn.png"
+chars count=12
+char id=24191 x=2 y=2 width=51 height=57 xoffset=2 yoffset=6 xadvance=50 page=0 chnl=0 letter="广"
+char id=21319 x=55 y=2 width=50 height=57 xoffset=2 yoffset=6 xadvance=50 page=0 chnl=0 letter="升"
+char id=32423 x=107 y=2 width=52 height=56 xoffset=2 yoffset=6 xadvance=50 page=0 chnl=0 letter="级"
+char id=21169 x=161 y=2 width=51 height=56 xoffset=2 yoffset=7 xadvance=50 page=0 chnl=0 letter="励"
+char id=26435 x=2 y=61 width=51 height=56 xoffset=2 yoffset=7 xadvance=50 page=0 chnl=0 letter="权"
+char id=22870 x=55 y=61 width=50 height=56 xoffset=2 yoffset=6 xadvance=50 page=0 chnl=0 letter="奖"
+char id=29305 x=107 y=61 width=50 height=56 xoffset=2 yoffset=7 xadvance=50 page=0 chnl=0 letter="特"
+char id=39046 x=159 y=61 width=52 height=55 xoffset=2 yoffset=7 xadvance=50 page=0 chnl=0 letter="领"
+char id=21462 x=2 y=119 width=51 height=55 xoffset=2 yoffset=8 xadvance=50 page=0 chnl=0 letter="取"
+char id=30475 x=55 y=119 width=51 height=55 xoffset=2 yoffset=7 xadvance=50 page=0 chnl=0 letter="看"
+char id=21578 x=108 y=119 width=50 height=55 xoffset=2 yoffset=7 xadvance=50 page=0 chnl=0 letter="告"
+char id=32 x=160 y=119 width=0 height=0 xoffset=12 yoffset=66 xadvance=12 page=0 chnl=0 letter="space"
