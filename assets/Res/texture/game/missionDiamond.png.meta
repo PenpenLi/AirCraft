@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "b1d14e7f-ee63-410a-bc7b-f1c4ef535603",
+  "uuid": "9fcb561b-aa51-4e44-a69e-c5a332179e6d",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "btn_page": {
+    "missionDiamond": {
       "ver": "1.0.3",
-      "uuid": "5ff1af1d-25a9-4165-92b5-151464dc39b3",
-      "rawTextureUuid": "b1d14e7f-ee63-410a-bc7b-f1c4ef535603",
+      "uuid": "11ab2909-0542-4797-88a6-16c14fe0557c",
+      "rawTextureUuid": "9fcb561b-aa51-4e44-a69e-c5a332179e6d",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 332,
-      "height": 98,
-      "rawWidth": 332,
-      "rawHeight": 98,
+      "width": 88,
+      "height": 94,
+      "rawWidth": 88,
+      "rawHeight": 94,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,

@@ -76,10 +76,16 @@ export default class Game extends cc.Component {
     pfSpeedUP: cc.Prefab = null;
     @property(cc.Prefab)
     pfFreeDiamond:cc.Prefab=null;
+
     @property(cc.Node)
     speedUpFrame: cc.Node = null;
     @property(cc.Label)
     lb_speedUp:cc.Label=null;
+
+    @property(cc.Prefab)
+    pfRanking: cc.Prefab = null;
+    
+
    
     private landPlanePool;
     public goldParticlePool;
@@ -90,6 +96,7 @@ export default class Game extends cc.Component {
     private sliderIdx = 0;
 
     onLoad() {
+        GameData.getAllLocalGameData();
         GameCtr.getInstance().setGame(this);
         this.initPools();
         WXCtr.onShow(() => {
@@ -466,10 +473,11 @@ export default class Game extends cc.Component {
      * 排行榜
      */
     showRanking() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
-        ViewManager.showRanking();
+        let nd = cc.instantiate(this.pfRanking);
+        ViewManager.show({
+            node: nd,
+            maskOpacity: 200,
+        });
         HttpCtr.clickStatistics(GameCtr.StatisticType.RANKING);                               //排行榜点击统计
     }
 

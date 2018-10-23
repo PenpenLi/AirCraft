@@ -3536,7 +3536,11 @@ declare module cc {
 	!#zh
 	Cocos Creator 场景中的所有节点类。节点也继承了 {{#crossLink "EventTarget"}}EventTarget{{/crossLink}}，它允许节点发送事件。<br/>
 	支持的节点事件，请参阅 {{#crossLink "Node.EventType"}}{{/crossLink}}。 */
-	export class Node extends _BaseNode {		
+	export class Node extends _BaseNode {	
+		/**
+		 * 渲染节点，所有的渲染节点的根节点
+		 */
+		_sgNode:SGNode;	
 		/** !#en
 		Group index of node.<br/>
 		Which Group this node belongs to will resolve that this node's collision components can collide with which other collision componentns.<br/>
@@ -7640,6 +7644,10 @@ declare module cc {
 		``` 
 		*/
 		getInsetBottom(): number;	
+		/**
+		 * 渲染节点，所有的渲染节点的根节点
+		 */
+		_sgNode:SGNode;
 	}	
 	/** !#en A distortion used to change the rendering of simple sprite.If will take effect after sprite component is added.
 	!#zh 扭曲效果组件,用于改变SIMPLE类型sprite的渲染,只有当sprite组件已经添加后,才能起作用. */
