@@ -72,21 +72,20 @@ export default class Game extends cc.Component {
     pfTreatrueBox:cc.Prefab=null;
     @property(cc.Prefab)
     pfTurntable: cc.Prefab = null;
-
     @property(cc.Prefab)
     pfSpeedUP: cc.Prefab = null;
-    
     @property(cc.Prefab)
     pfFreeDiamond:cc.Prefab=null;
+    @property(cc.Node)
+    speedUpFrame: cc.Node = null;
+    @property(cc.Label)
+    lb_speedUp:cc.Label=null;
    
     private landPlanePool;
     public goldParticlePool;
 
     public landPlaneArr = [];
-
     public allPort = [];
-
-
     private ufoShowTimes = 0;
     private sliderIdx = 0;
 
@@ -576,6 +575,35 @@ export default class Game extends cc.Component {
         }
         let pfFreeDiamond=cc.instantiate(this.pfFreeDiamond);
         pfFreeDiamond.parent=cc.find("Canvas");
+    }
+
+    showSpeedUpTimer(){
+        console.log("log---------showSpeedUpTimer-----------");
+        this.speedUpFrame.active=true;
+        this.lb_speedUp.string=GameCtr.speedUpTime+'';
+
+        this.speedUpTimeCount();
+    }
+
+    speedUpTimeCount(){
+        if(GameCtr.speedUpTime<0){
+            this.speedUpFrame.active=false;
+            this.lb_speedUp.string="";
+            this.stopSpeedAni();
+            return;
+        }
+        let min=Math.floor(GameCtr.speedUpTime/60);
+        let sec=Math.floor(GameCtr.speedUpTime%60);
+
+        let str_min=min<10?"0"+min:min+"";
+        let str_sec=sec<10?"0"+sec:sec+"";
+
+        this.lb_speedUp.string=str_min+":"+str_sec;
+        GameCtr.speedUpTime--;
+
+        this.scheduleOnce(()=>{
+            this.speedUpTimeCount();
+        },1)
     }
 
 }

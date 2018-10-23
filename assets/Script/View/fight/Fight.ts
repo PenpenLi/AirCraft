@@ -35,9 +35,7 @@ export default class NewClass extends cc.Component {
     lb_gold:cc.Prefab=null;
     
     onLoad(){
-        GameCtr.gold=GameCtr.getGold()?Number(GameCtr.getGold()):0;
-        GameCtr.level=GameCtr.getLvel()?Number(GameCtr.getLvel()):1;
-        GameCtr.monsterHP=GameCtr.getEnemyHP()?Number(GameCtr.getEnemyHP()):GameData.getEnemyHP();
+        GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:GameData.getEnemyHP();
         GameCtr.getInstance().setFight(this);
         this._strikePool=new cc.NodePool();
         this._lbGoldPool=new cc.NodePool();
@@ -60,7 +58,7 @@ export default class NewClass extends cc.Component {
         this._goldFrame=this._otherNode.getChildByName("goldFrame");
         this._lbGold=this._goldFrame.getChildByName("lb_gold");
 
-        this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameCtr.gold);
+        this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameData.gold);
     }
 
     startBgRoll(){
@@ -97,6 +95,7 @@ export default class NewClass extends cc.Component {
                 isEnemy:false,
                 level:GameCtr.selfPlanes[i]
             };
+
             air.parent=cc.find("Canvas");
             air.tag=this._airTag;
             air.getComponent("Air").init(infodata);
@@ -110,12 +109,12 @@ export default class NewClass extends cc.Component {
 
 
     initEnemys(){
-        console.log("log------------GameCtr.monsterHP=:",GameCtr.monsterHP);
+        console.log("log------------GameCtr.monsterHP=:",GameData.enemyHP);
         this.setGameCount();
-        for(let i=0; i<5; i++){
+        for(let i=0; i<1; i++){
             let enemy = cc.instantiate(this.airsPrefab[0]);
             let infodata={
-                lifeValue:GameCtr.monsterHP,
+                lifeValue:GameData.enemyHP,
                 bulletHurt:1,
                 isEnemy:true,
                 level:this._levelSmall
@@ -136,7 +135,7 @@ export default class NewClass extends cc.Component {
     initBoss(){
         let boss=cc.instantiate(this.airsPrefab[0]);
         let infoData={
-            lifeValue:1*GameCtr.monsterHP,
+            lifeValue:1*GameData.enemyHP,
             bulletHurt:3,
             isEnemy:true,
             level:Math.floor(Math.random()*5)+1,
@@ -167,6 +166,7 @@ export default class NewClass extends cc.Component {
 
     initFightTouch(){
         this._touchNode.on(cc.Node.EventType.TOUCH_START,(e)=>{
+
         });
 
         this._touchNode.on(cc.Node.EventType.TOUCH_MOVE,(e)=>{
@@ -390,19 +390,17 @@ export default class NewClass extends cc.Component {
         }
         let gameOver=cc.instantiate(this.gameOver);
         gameOver.parent=cc.find("Canvas");
-        gameOver.getComponent("GameOver").setGold((this._levelSmall-1)*GameCtr.monsterHP);
+        gameOver.getComponent("GameOver").setGold((this._levelSmall-1)*GameData.enemyHP);
     }
 
     setGameCount(){
-        this._lbGameCount.getComponent(cc.Label).string=GameCtr.level+"/"+this._levelSmall;
+        this._lbGameCount.getComponent(cc.Label).string= GameData.fightLevel+"/"+this._levelSmall;
     }
 
     doUpLevel(){
         this._levelSmall=1;
-        GameCtr.level++;
-        GameCtr.monsterHP=GameData.getEnemyHP();
-        GameCtr.setLevel();
-        GameCtr.setEnemyHP();
+        GameData.fightLevel+=1;
+        GameData.enemyHP=GameData.getEnemyHP();
     }
 
     addGold(gold){
@@ -412,9 +410,8 @@ export default class NewClass extends cc.Component {
                 this._goldFrame.scale=1.0;
             })
         ))
-        GameCtr.gold+=gold;
-        GameCtr.setGold();
-        this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameCtr.gold);
+        GameData.gold+=gold;
+        this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameData.gold);
     }
 
     resetGame(){
@@ -443,13 +440,11 @@ export default class NewClass extends cc.Component {
         this._selfAirs.splice(0,this._selfAirs.length);
         this._airs.splice(0,this._airs.length);
         this._bullets.splice(0,this._bullets.length);
-        
     }
 
 
     update(dt){
         this._interval+=dt;
-        
         if(this._interval>=0.1){
             this.getCurrentBullets();
             for(let i=0;i<this._airs.length;i++){

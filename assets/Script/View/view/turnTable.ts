@@ -1,4 +1,5 @@
 import GameCtr from "../../Controller/GameCtr";
+import GameData from "../../Common/GameData";
 
 const {ccclass, property} = cc._decorator;
 enum Way{
@@ -139,6 +140,7 @@ export default class NewClass extends cc.Component {
         }else if(this._way==Way.WATCH_VEDIO){
             GameCtr.attactGoldRateTime=7200;//2小时
         }
+        GameData.setMissonData("composeTimes", GameData.missionData.turntableTimes+1);
         this.unscheduleAllCallbacks();
         this.showDes()
     }

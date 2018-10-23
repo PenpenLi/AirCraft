@@ -52,8 +52,6 @@ export default class GameCtr {
     public static OnClickStat = false;                              //点击统计开关，appid不受限制
 
     public static selfPlanes = [];                                   //个人飞机列表
-    public static gold=0;
-    public static level=1;
     public static monsterHP=0;
     public static baseBonus=0;
 
@@ -63,7 +61,7 @@ export default class GameCtr {
     public static attactGoldRate=1;                                 //攻击倍率
     public static attactGoldRateTime=0;                             //攻击倍率加倍时间
     public static isSpeedUpModel = false;                           //是否是加速模式
-
+    public static speedUpTime=0;                                    //加速时间
 
     public static StatisticType = cc.Enum({                         //统计类型
         SPEED: 1,                                                   //加速分享
@@ -99,6 +97,10 @@ export default class GameCtr {
     //设置game实例(游戏)
     setGame(game: Game) {
         this.mGame = game;
+    }
+
+    getGame(){
+        return this.mGame;
     }
 
     //设置start实例（开始界面）
@@ -140,36 +142,4 @@ export default class GameCtr {
     }
 
 
-    static setLevel(){
-        localStorage.setItem("level",GameCtr.level+"");
-    }
-
-    static getLvel(){
-        return localStorage.getItem("level");
-    }
-
-    static setGold(){
-        localStorage.setItem("gold",GameCtr.gold+"");
-    }
-
-    static getGold(){
-        return localStorage.getItem("gold");
-    }
-
-    static setEnemyHP(){
-        localStorage.setItem("enemyHP",GameCtr.monsterHP+'');
-    }
-
-    static getEnemyHP(){
-        return localStorage.getItem("enemyHP");
-    }
-
-
-    static setBaseBonus(){
-        localStorage.setItem("baseBonus",GameCtr.baseBonus+'');
-    }
-
-    static getBaseBonus(){
-        return localStorage.getItem("baseBonus");
-    }
 }

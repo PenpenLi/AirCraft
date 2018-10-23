@@ -141,8 +141,8 @@ export default class NewClass extends cc.Component {
                     this._lottery.x=this._bonusArr[currentIndex].x;
                     this._lottery.y=this._bonusArr[currentIndex].y;
                     if(index==random){
-                        //console.log("log------------抽宝箱完成----------bonus:=",this._bonusData[currentIndex]);
                         this.getBonus(currentIndex)
+                        GameData.setMissonData("composeTimes", GameData.missionData.boxTimes+1);
                     }
                 })
             ))

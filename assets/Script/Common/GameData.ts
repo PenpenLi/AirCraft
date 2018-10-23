@@ -22,15 +22,20 @@ const dataKeyConfig = {
     forceCriticalStrike: "data_11",                                             //暴击暴伤
     vipLevel: "data_12",                                                        //VIP等级
     guideStep: "data_13",
+    freeDiamondCount:"data_14",                                                 //领取免费钻石奖励次数
+    fightLevel:"data_15",                                                       //战斗等级
+    enemyHP:"data_16",                                                          //当前关卡敌人血量  
+    baseBonus:"data_17",                                                        //当前关卡基础奖励
 };
+
 
 @ccclass
 export default class GameData {
 
-    private static _gold: number = 20000;                               //金币数量
+    private static _gold: number = 0;                               //金币数量
     private static _diamond: number = 0;                                //钻石数量
     private static _maxPlaneLevel: number = 1;                          //个人拥有的飞机最高等级   
-    private static _repPlaneNum: number = 0;                           //仓库飞机数量
+    private static _repPlaneNum: number = 0;                            //仓库飞机数量
     private static _factoryLevel: number = 0;                           //工厂等级
     private static _repositoryLevel: number = 0;                        //仓库等级
     private static _recycleLevel: number = 0;                           //回收技术等级
@@ -42,8 +47,11 @@ export default class GameData {
     private static _highCriticalStrike: number = 0;                     //高级暴击等级
     private static _forceCriticalStrike: number = 0;                    //暴击暴伤等级
     private static _vipLevel: number = 0;                               //vip等级
-
-    private static _lotteryTimes: number = 0;                            //宝箱抽奖次数
+    private static _lotteryTimes: number = 0;                           //宝箱抽奖次数
+    private static _freeDiamondCount: number =0;                        //领取免费钻石奖励次数  
+    private static _fightLevel: number =1;                              //战斗等级  
+    private static _enemyHP: number =0;                                 //当前关卡敌人血量  
+    private static _baseBonus: number =0;                               //当前关卡基础奖励         
 
     public static saveTime = null;                                      //保存数据时间戳
 
@@ -221,6 +229,64 @@ export default class GameData {
         return GameData._forceCriticalStrike;
     }
 
+    //设置已领取免费领取钻石次数
+    static set freeDiamondCount(count){
+        if(count<0){
+            count=0;
+        }
+        GameData._freeDiamondCount=count;
+        GameData.setUserData({ freeDiamondCount: GameData._freeDiamondCount });
+    }
+
+    //获取已领取免费领取钻石次数
+    static get freeDiamondCount(){
+        return GameData._freeDiamondCount;
+    }
+
+    //设置游戏战斗等级
+    static set fightLevel(level){
+        if(level<0){
+            level=0;
+        }
+
+        GameData._fightLevel=level;
+        GameData.setUserData({fightLevel:GameData._fightLevel})
+    }
+
+    //获取游戏战斗等级
+    static get fightLevel(){
+        return GameData._fightLevel;
+    }
+
+    //设置当前关卡敌人血量
+    static set enemyHP(HP){
+        if(HP<0){
+            HP=0;
+        }
+        GameData._enemyHP=HP;
+        GameData.setUserData({enemyHP:GameData._enemyHP});
+
+    }
+
+    //获取当前关卡敌人血量
+    static get enemyHP(){
+        return GameData._enemyHP;
+    }
+
+    //设置当前关卡基础血量
+    static set baseBonus(baseBonus){
+        if(baseBonus<0){
+            baseBonus=0;
+        }
+        GameData._baseBonus=baseBonus;
+        GameData.setUserData({baseBonus:GameData._baseBonus})
+    }
+
+    //获取当前关卡基础奖励
+    static get baseBonus(){
+        return GameData._baseBonus;
+    }
+
     // 设置宝箱抽奖次数
     static set lotteryTimes(lotteryTimes) {
         if (lotteryTimes < 0) {
@@ -277,6 +343,10 @@ export default class GameData {
         GameData.highCriticalStrike = WXCtr.getStorageData("highCriticalStrike");
         GameData.forceCriticalStrike = WXCtr.getStorageData("forceCriticalStrike");
         GameData.vipLevel = WXCtr.getStorageData("vipLevel");
+        GameData.freeDiamondCount= WXCtr.getStorageData("freeDiamondCount");
+        GameData.fightLevel= WXCtr.getStorageData("fightLevel");
+        GameData.enemyHP= WXCtr.getStorageData("enemyHP");
+        GameData.baseBonus= WXCtr.getStorageData("baseBonus");
 
         Guide.guideStep = WXCtr.getStorageData("guideStep");
 
@@ -318,6 +388,12 @@ export default class GameData {
         GameData.highCriticalStrike = data.data_10;
         GameData.forceCriticalStrike = data.data_11;
         GameData.vipLevel = data.data_12;
+        GameData.freeDiamondCount= data.data_14;
+        GameData.fightLevel= data.data_15;
+
+        GameData.enemyHP= data.data_16;
+        GameData.baseBonus= data.data_17;
+
         Guide.guideStep = data.data_13 == "null" ? 8 : data.data_13;
         GameData.setUserData({ guideStep: Guide.guideStep });
         GameData.setUserData({ lastTime: data.data_21 });
@@ -573,20 +649,20 @@ export default class GameData {
 
 
     static getEnemyHP() {
-        if (GameCtr.level == 1) {
+        if ( GameData.fightLevel == 1) {
             GameCtr.monsterHP = 30;
             return GameCtr.monsterHP;
         }
-        return Math.floor(((3 + GameCtr.level) / Math.pow(GameCtr.level, 1.8) + 1.02) * GameCtr.monsterHP) + 9 * (GameCtr.level - 1);
+        return Math.floor(((3 +  GameData.fightLevel) / Math.pow( GameData.fightLevel, 1.8) + 1.02) * GameCtr.monsterHP) + 9 * ( GameData.fightLevel - 1);
     }
 
 
     static getBaseBonus() {
-        if (GameCtr.level == 1) {
+        if ( GameData.fightLevel == 1) {
             GameCtr.baseBonus = 10;
             return GameCtr.baseBonus;
         }
-        return Math.floor(Math.pow(Math.floor(GameCtr.level / 3 + 1), 1.5) + GameCtr.baseBonus * 1.02);
+        return Math.floor(Math.pow(Math.floor( GameData.fightLevel / 3 + 1), 1.5) + GameCtr.baseBonus * 1.02);
     }
 
     // update (dt) {}
