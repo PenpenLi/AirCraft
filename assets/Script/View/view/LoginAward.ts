@@ -1,5 +1,4 @@
 import PopupView from "../view/PopupView";
-import LoginAwardCell from "./LoginAwardCell";
 import ViewManager from "../../Common/ViewManager";
 import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
@@ -9,9 +8,16 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LoginAward extends cc.Component {
-
+    @property(cc.Label)
+    lbDays: cc.Label = null;
+    @property(cc.Label)
+    lbFriends: cc.Label = null;
+    @property(cc.Label)
+    lbTotal: cc.Label = null;
     @property(cc.Node)
-    ndContent: cc.Node = null;
+    ndDiamond: cc.Node = null;
+    @property(cc.Node)
+    ndGold: cc.Node = null;
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -23,15 +29,6 @@ export default class LoginAward extends cc.Component {
         HttpCtr.getLoginAwardList((res) => {
             let idx = 0;
             let data = res.data;
-            let signedSum = res.todaySum;
-            for (let key in data) {
-                let info = data[key];
-                let cell = this.ndContent.children[idx];
-                let comp = cell.getComponent(LoginAwardCell);
-                comp.setData(info);
-                if (idx < signedSum) comp.signed();
-                idx++;
-            }
         });
     }
 
@@ -49,13 +46,6 @@ export default class LoginAward extends cc.Component {
                     ViewManager.toast("恭喜获得"+res.data.money+"钻石！");
                 }else{
                     ViewManager.toast(res.msg);
-                }
-                for (let i = 0; i < this.ndContent.childrenCount; i++) {
-                    if (i < signedSum) {
-                        let cell = this.ndContent.children[i];
-                        let comp = cell.getComponent(LoginAwardCell);
-                        comp.signed();
-                    }
                 }
             }
         });
