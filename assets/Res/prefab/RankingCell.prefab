@@ -533,7 +533,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 18
@@ -806,6 +806,9 @@
     "sprHead": {
       "__id__": 21
     },
+    "sprMedal": {
+      "__id__": 18
+    },
     "lbLocation": {
       "__id__": 9
     },
@@ -817,7 +820,18 @@
     },
     "lbRanking": {
       "__id__": 6
-    }
+    },
+    "medalsFrames": [
+      {
+        "__uuid__": "aaef93c1-a7b1-41bc-a97b-ae210d0f1199"
+      },
+      {
+        "__uuid__": "6de591fe-0822-40c3-8aaa-4e7da3a39e32"
+      },
+      {
+        "__uuid__": "486084ed-f35a-4ca1-aff0-c50a0e4f83f5"
+      }
+    ]
   },
   {
     "__type__": "cc.PrefabInfo",

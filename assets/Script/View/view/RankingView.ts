@@ -7,6 +7,7 @@ import Util from "../../Common/Util";
 import ListView, { AbsAdapter } from "./ListView";
 import PopupView from "./PopupView";
 import GrayEffect from "../../Common/GrayEffect";
+import GameData from "../../Common/GameData";
 
 
 const { ccclass, property } = cc._decorator;
@@ -75,16 +76,21 @@ export default class RankingView extends cc.Component {
         });
     }
 
-    showSelf() {
+    showSelf(top) {
         let ndSelf = this.ndWorld.getChildByName("ndSelf");
-        let sprHead = ndSelf.getChildByName("sprSelf").getComponent(cc.Sprite);
-        Util.loadImg(sprHead, UserManager.user.icon);
-        let lbName = ndSelf.getChildByName("lbName").getComponent(cc.Label);
-        lbName.string = UserManager.user.nick;
+        let comp = ndSelf.getComponent(RankingCell);
+        Util.loadImg(comp.sprHead, UserManager.user.icon);
+        comp.lbName.string = UserManager.user.nick;
         // let lbLocation = ndSelf.getChildByName("lbLocation").getComponent(cc.Label);
         // lbLocation.string = UserManager.user.city;
-        let lbGold = ndSelf.getChildByName("lbGold").getComponent(cc.Label);
-        lbGold.string = Util.formatNum(UserManager.user.gold);
+        comp.lbGold.string = Util.formatNum(GameData.fightLevel);
+        if(top < 3) {
+            comp.lbRanking.node.active = false;
+            comp.sprMedal.node.active = true;
+            comp.sprMedal.spriteFrame = comp.medalsFrames[top];
+        }else{
+            comp.lbRanking.string = top + "";
+        }
     }
 
     showWorld() {
@@ -100,12 +106,11 @@ export default class RankingView extends cc.Component {
     }
 
     clickToggle() {
-        let gray;
+        console.log("click Toggle!!!!!!!!!!!!!!!"); 
         this.ndFirend.active = this.friendToggle.isChecked;
         this.ndWorld.active = this.worldToggle.isChecked;
 
-
-        if (!this.friendToggle.isChecked) {
+        if (this.friendToggle.isChecked) {
             this.showFriendRanking();
             if (WXCtr.userInfoBtn && WXCtr.userInfoBtn.destroy) WXCtr.userInfoBtn.destroy();
         } else {

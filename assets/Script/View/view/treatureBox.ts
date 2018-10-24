@@ -109,7 +109,7 @@ export default class NewClass extends cc.Component {
     }
 
     setLotteryTimes(){
-        this._lb_surplusTimes.getComponent(cc.Label).string=GameData.lotteryTimes;
+        this._lb_surplusTimes.getComponent(cc.Label).string="("+10+"/"+GameData.lotteryTimes+")";
     }
 
 

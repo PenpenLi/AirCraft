@@ -5050,7 +5050,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 51.56,
+      "width": 85.31,
       "height": 28.13
     },
     "_rotationX": 0,
@@ -5083,11 +5083,11 @@
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "d88180cc-19fd-41c4-8710-3914be514234"
+      "__uuid__": "37c5d0af-7eb0-4a17-82c7-4eeec20dcaf2"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "8/10",
+    "_N$string": "(8/10)",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
