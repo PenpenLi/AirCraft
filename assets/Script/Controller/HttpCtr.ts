@@ -348,7 +348,7 @@ export default class HttpCtr {
             data: {
                 uid: UserManager.user_id,
                 voucher: UserManager.voucher,
-                type: "data_2"
+                type: "gold"
             }
         });
     }

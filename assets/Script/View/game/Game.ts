@@ -50,6 +50,8 @@ export default class Game extends cc.Component {
     musicBtnMask: cc.Node = null;
     @property(ProduceBtn)
     produceBtn: ProduceBtn = null;
+    @property(cc.Node)
+    ndGold: cc.Node = null;
 
     @property(cc.Prefab)
     pfUpgrade: cc.Prefab = null;
@@ -84,14 +86,9 @@ export default class Game extends cc.Component {
     speedUpFrame: cc.Node = null;
     @property(cc.Label)
     lb_speedUp:cc.Label=null;
+
     @property(cc.Prefab)
     pfRanking: cc.Prefab = null;
-
-    @property(cc.Label)
-    lb_gold:cc.Label=null;
-    
-    @property(cc.Label)
-    lb_diamond:cc.Label=null;
 
     private landPlanePool;
     public goldParticlePool;
@@ -176,8 +173,10 @@ export default class Game extends cc.Component {
     }
 
     setDiamonds() {
-        // let lbDiamonds = this.ndDiamonds.getChildByName("lbDiamonds").getComponent(cc.Label);
-        // lbDiamonds.string = GameData.diamonds + "";
+        let lbDiamonds = Util.findChildByName("lbDiamonds", this.ndGold).getComponent(cc.Label);
+        lbDiamonds.string = Util.formatNum(GameData.diamonds);
+        let lbGold = Util.findChildByName("lbGold", this.ndGold).getComponent(cc.Label);
+        lbGold.string = Util.formatNum(GameData.gold);
     }
 
     //增加游戏分数

@@ -20,8 +20,6 @@ export default class RankingCell extends cc.Component {
 
     // onLoad () {}
 
-    private colorConfig = ["#FFB01A", "#FF70B6", "#C9EB3D"];
-
     start () {
 
     }
@@ -39,9 +37,7 @@ export default class RankingCell extends cc.Component {
         if(data.top && this.lbRanking){
             this.lbRanking.string = data.top;
             if(data.top <= 3) {
-                this.lbRanking.fontSize = 120;
-                this.lbRanking.lineHeight = 125;
-                this.lbRanking.node.color = cc.hexToColor(this.colorConfig[data.top - 1]);
+                
             }
         }
         if(data.City){
