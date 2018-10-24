@@ -39,7 +39,7 @@ export default class RankingView extends cc.Component {
     private cellHeight = 182;
     private contentOrigin = 500;
 
-    private dataList = null;
+    private dataList = [];
 
     private tex: cc.Texture2D = null;
     private curPage = 1;
@@ -65,7 +65,11 @@ export default class RankingView extends cc.Component {
         this.showWorld();
         // this.schedule(() => { this._updateSubDomainCanvas(); }, 1);
         HttpCtr.getWorldRankingList((resp) => {
-            this.dataList = resp.data;
+            for(let key in resp.data) {
+                let info = {};
+                info[key] = resp.data[key];
+                this.dataList.push(info);
+            }
             this.adapter.setDataSet(this.dataList);
             this.mListView.setAdapter(this.adapter);
         });
