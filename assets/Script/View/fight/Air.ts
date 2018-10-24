@@ -15,6 +15,7 @@ export default class NewClass extends cc.Component {
     _deadEft=null;
     _bulletSpeed=3;
     _attackInterval=1;
+    _attackDelay=1;
     _bulletsArr=[];
     _skin=null;
     _lifeBar=null;
@@ -48,8 +49,9 @@ export default class NewClass extends cc.Component {
     }
 
     startAttack(){
-        this._attackInterval=this._isBoss?0.5:2
-        this.schedule(this.doAttacked, this._attackInterval);
+        this._attackInterval=this._isBoss?0.5:2;
+        this._attackDelay=this._isEnemy?2:0.5;
+        this.schedule(this.doAttack, this._attackInterval,cc.macro.REPEAT_FOREVER,this._attackDelay);
     }
 
     init(data){
@@ -117,7 +119,7 @@ export default class NewClass extends cc.Component {
     }
 
     //发送子弹 攻击对方
-    doAttacked(){
+    doAttack(){
         let bullet=this.getFreeBullet();
         let targetPosX=this._isBoss?Math.random()*1400-700:0
         GameCtr.getInstance().getFight().addBullet(bullet);
@@ -134,6 +136,10 @@ export default class NewClass extends cc.Component {
                 })
             ))
         }
+    }
+
+    stopAttack(){
+        this.unscheduleAllCallbacks();
     }
 
     //承受攻击
@@ -224,6 +230,11 @@ export default class NewClass extends cc.Component {
         this._deadEft.x=this.node.x;
         this._deadEft.y=this.node.y;
         this._deadEft.getComponent(cc.Animation).play();
+
+        /*将子弹tag值置为-1，后续清理掉*/
+        for(let i=0;i<this._bulletsArr.length;i++){
+            this._bulletsArr[i].tag=-1000;
+        }
         this.node.destroy();
     }
 
