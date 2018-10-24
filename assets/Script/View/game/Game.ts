@@ -68,24 +68,24 @@ export default class Game extends cc.Component {
     @property(cc.Prefab)
     pfSettingUpgrade: cc.Prefab = null;
     @property(cc.Prefab)
-    pfMission:cc.Prefab = null;
+    pfMission: cc.Prefab = null;
     @property(cc.Prefab)
     pfMall: cc.Prefab = null;
     @property(cc.Prefab)
     pfVIP: cc.Prefab = null;
     @property(cc.Prefab)
-    pfTreatrueBox:cc.Prefab=null;
+    pfTreatrueBox: cc.Prefab = null;
     @property(cc.Prefab)
     pfTurntable: cc.Prefab = null;
     @property(cc.Prefab)
     pfSpeedUP: cc.Prefab = null;
     @property(cc.Prefab)
-    pfFreeDiamond:cc.Prefab=null;
+    pfFreeDiamond: cc.Prefab = null;
 
     @property(cc.Node)
     speedUpFrame: cc.Node = null;
     @property(cc.Label)
-    lb_speedUp:cc.Label=null;
+    lb_speedUp: cc.Label = null;
 
     @property(cc.Prefab)
     pfRanking: cc.Prefab = null;
@@ -116,27 +116,27 @@ export default class Game extends cc.Component {
 
     start() {
         // this.gameStart();
-        if(GameCtr.isFight){
+        if (GameCtr.isFight) {
             this.gameStart();
         }
-        GameCtr.isFight=false;
+        GameCtr.isFight = false;
     }
 
     initPools() {
         this.landPlanePool = NodePoolManager.create(this.pfLandPlane);
     }
 
-    initMusicState(){
-        let musicSwitch =localStorage.getItem("musicSwitch");
-        if(musicSwitch){
-            GameCtr.musicSwitch=Number(musicSwitch);
-            if(GameCtr.musicSwitch>0){
-                this.musicBtnMask.active=false;
-            }else{
-                this.musicBtnMask.active=true;
+    initMusicState() {
+        let musicSwitch = localStorage.getItem("musicSwitch");
+        if (musicSwitch) {
+            GameCtr.musicSwitch = Number(musicSwitch);
+            if (GameCtr.musicSwitch > 0) {
+                this.musicBtnMask.active = false;
+            } else {
+                this.musicBtnMask.active = true;
             }
-        }else{
-            this.musicBtnMask.active=false;
+        } else {
+            this.musicBtnMask.active = false;
         }
     }
 
@@ -161,8 +161,8 @@ export default class Game extends cc.Component {
         // } else {
         //     this.ndLoading.active = false;
 
-            this.initGame();
-            WXCtr.createBannerAd(100, 300);
+        this.initGame();
+        WXCtr.createBannerAd(100, 300);
         // }
     }
 
@@ -179,7 +179,7 @@ export default class Game extends cc.Component {
     setDiamonds() {
         let lbDiamonds = Util.findChildByName("lbDiamonds", this.ndGold).getComponent(cc.Label);
         lbDiamonds.string = Util.formatNum(GameData.diamonds);
-        
+
         let lbGold = Util.findChildByName("lbGold", this.ndGold).getComponent(cc.Label);
         lbGold.string = Util.formatNum(GameData.gold);
     }
@@ -241,7 +241,7 @@ export default class Game extends cc.Component {
                 plane.position = cc.v2(0, 0);
                 let landPlane = plane.getComponent(LandPlane);
                 landPlane.setLevel(level);
-                landPlane.apronTag = port.tag+10;
+                landPlane.apronTag = port.tag + 10;
                 comp.plane = landPlane;
                 comp.isUsed = true;
                 GameData.setApronState(i, level);
@@ -253,15 +253,15 @@ export default class Game extends cc.Component {
 
     autoComposePlane(tPort) {
         this.showSpeedAni();
-        let tApron: Apron = tPort.getComponent(Apron); 
+        let tApron: Apron = tPort.getComponent(Apron);
         for (let i = 0; i < this.allPort.length; i++) {
             let port = this.allPort[i];
-            let comp: Apron = port.getComponent(Apron); 
-            if(port == tPort || !comp.isUsed){
+            let comp: Apron = port.getComponent(Apron);
+            if (port == tPort || !comp.isUsed) {
                 continue;
             }
-            if(comp.plane.getLevel() == tApron.plane.getLevel()) {
-                comp.plane.setLevel(comp.plane.getLevel()+1);
+            if (comp.plane.getLevel() == tApron.plane.getLevel()) {
+                comp.plane.setLevel(comp.plane.getLevel() + 1);
                 this.removeLandPlane(tApron.plane.node);
                 tApron.plane.node.destroy();
                 tApron.reset();
@@ -327,7 +327,7 @@ export default class Game extends cc.Component {
         this.landPlaneArr.splice(idx, 1);
     }
 
-    update (dt) {
+    update(dt) {
 
     }
 
@@ -496,12 +496,16 @@ export default class Game extends cc.Component {
      * 排行榜
      */
     showRanking() {
-        let nd = cc.instantiate(this.pfRanking);
-        ViewManager.show({
-            node: nd,
-            maskOpacity: 200,
-        });
-        HttpCtr.clickStatistics(GameCtr.StatisticType.RANKING);                               //排行榜点击统计
+        if (WXCtr.authed) {
+            let nd = cc.instantiate(this.pfRanking);
+            ViewManager.show({
+                node: nd,
+                maskOpacity: 200,
+            });
+            HttpCtr.clickStatistics(GameCtr.StatisticType.RANKING);                               //排行榜点击统计
+        }else {
+            ViewManager.showAuthPop();
+        }
     }
 
     //自动弹出登录奖励
@@ -571,81 +575,81 @@ export default class Game extends cc.Component {
     }
 
 
-    onClickBtnFight(){
+    onClickBtnFight() {
         cc.director.loadScene("Fight");
-        GameData.setMissonData("fightTimes", GameData.missionData.fightTimes+1);
+        GameData.setMissonData("fightTimes", GameData.missionData.fightTimes + 1);
     }
 
-    onClickBtnTreatureBox(){
-        if(cc.find("Canvas").getChildByName('pfTreatureBox')){
+    onClickBtnTreatureBox() {
+        if (cc.find("Canvas").getChildByName('pfTreatureBox')) {
             return;
         }
-        let pfTreatureBox=cc.instantiate(this.pfTreatrueBox);
-        pfTreatureBox.parent=cc.find("Canvas");
+        let pfTreatureBox = cc.instantiate(this.pfTreatrueBox);
+        pfTreatureBox.parent = cc.find("Canvas");
     }
 
-    onClickBtnPfturnble(){
-        if(cc.find("Canvas").getChildByName('turntable')){
+    onClickBtnPfturnble() {
+        if (cc.find("Canvas").getChildByName('turntable')) {
             return;
         }
-        let pfTurntable=cc.instantiate(this.pfTurntable);
-        pfTurntable.parent=cc.find("Canvas");
+        let pfTurntable = cc.instantiate(this.pfTurntable);
+        pfTurntable.parent = cc.find("Canvas");
     }
 
-    onClickBtnSpeedUP(){
-        if(cc.find("Canvas").getChildByName('speedUP')){
+    onClickBtnSpeedUP() {
+        if (cc.find("Canvas").getChildByName('speedUP')) {
             return;
         }
-        let pfSpeedUP=cc.instantiate(this.pfSpeedUP);
-        pfSpeedUP.parent=cc.find("Canvas");
+        let pfSpeedUP = cc.instantiate(this.pfSpeedUP);
+        pfSpeedUP.parent = cc.find("Canvas");
     }
 
-    onClickBtnFreeDiamond(){
-        if(cc.find("Canvas").getChildByName('freeDiamond')){
+    onClickBtnFreeDiamond() {
+        if (cc.find("Canvas").getChildByName('freeDiamond')) {
             return;
         }
-        let pfFreeDiamond=cc.instantiate(this.pfFreeDiamond);
-        pfFreeDiamond.parent=cc.find("Canvas");
+        let pfFreeDiamond = cc.instantiate(this.pfFreeDiamond);
+        pfFreeDiamond.parent = cc.find("Canvas");
     }
 
-    onClickBtnMusic(){
-        GameCtr.musicSwitch=-1*GameCtr.musicSwitch;
-        localStorage.setItem("musicSwitch",GameCtr.musicSwitch+"");
-        if(GameCtr.musicSwitch>0){//打开开关
-            this.musicBtnMask.active=false;
-        }else{                    //关闭开关
-            this.musicBtnMask.active=true;
+    onClickBtnMusic() {
+        GameCtr.musicSwitch = -1 * GameCtr.musicSwitch;
+        localStorage.setItem("musicSwitch", GameCtr.musicSwitch + "");
+        if (GameCtr.musicSwitch > 0) {//打开开关
+            this.musicBtnMask.active = false;
+        } else {                    //关闭开关
+            this.musicBtnMask.active = true;
         }
     }
 
 
-    showSpeedUpTimer(){
+    showSpeedUpTimer() {
         console.log("log---------showSpeedUpTimer-----------");
-        this.speedUpFrame.active=true;
-        this.lb_speedUp.string=GameCtr.speedUpTime+'';
+        this.speedUpFrame.active = true;
+        this.lb_speedUp.string = GameCtr.speedUpTime + '';
 
         this.speedUpTimeCount();
     }
 
-    speedUpTimeCount(){
-        if(GameCtr.speedUpTime<0){
-            this.speedUpFrame.active=false;
-            this.lb_speedUp.string="";
+    speedUpTimeCount() {
+        if (GameCtr.speedUpTime < 0) {
+            this.speedUpFrame.active = false;
+            this.lb_speedUp.string = "";
             this.stopSpeedAni();
             return;
         }
-        let min=Math.floor(GameCtr.speedUpTime/60);
-        let sec=Math.floor(GameCtr.speedUpTime%60);
+        let min = Math.floor(GameCtr.speedUpTime / 60);
+        let sec = Math.floor(GameCtr.speedUpTime % 60);
 
-        let str_min=min<10?"0"+min:min+"";
-        let str_sec=sec<10?"0"+sec:sec+"";
+        let str_min = min < 10 ? "0" + min : min + "";
+        let str_sec = sec < 10 ? "0" + sec : sec + "";
 
-        this.lb_speedUp.string=str_min+":"+str_sec;
+        this.lb_speedUp.string = str_min + ":" + str_sec;
         GameCtr.speedUpTime--;
 
-        this.scheduleOnce(()=>{
+        this.scheduleOnce(() => {
             this.speedUpTimeCount();
-        },1)
+        }, 1)
     }
 
 }

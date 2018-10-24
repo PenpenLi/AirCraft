@@ -48,8 +48,8 @@ export default class VIPPop extends cc.Component {
     }
 
     setVipInfo() {
-        this.lbVipLevel.string = "VIP"+GameData.vipLevel;
-        this.lbTitle.string = "VIP"+GameData.vipLevel+"奖励";
+        this.lbVipLevel.string = "贵宾"+GameData.vipLevel;
+        this.lbTitle.string = "贵宾"+GameData.vipLevel+"奖励";
         this.lbDiamonds.string = vipConfigs[GameData.vipLevel].diamonds+"钻石";
         this.lbFactoryLevel.string = "升至"+vipConfigs[GameData.vipLevel].plane+"级工厂";
         PlaneFrameMG.setPlaneFrame(this.sprPlane, vipConfigs[GameData.vipLevel].plane);

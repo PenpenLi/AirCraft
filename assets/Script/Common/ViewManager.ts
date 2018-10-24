@@ -362,8 +362,6 @@ export default class ViewManager extends cc.Component {
 
     static showAuthPop() {
         let nd = cc.instantiate(ViewManager.mViewManager.authPop);
-        // let comp = nd.getComponent(AuthPop);
-        // comp.setData({node: nd});
         ViewManager.show({
             node: nd,
             name: "authPop",

@@ -34,22 +34,14 @@ export default class RankingView extends cc.Component {
     @property(cc.Prefab)
     pfRankingCell: cc.Prefab = null;
 
-
-    private itemPages = 1;
-    private pageSize = 5;
-    private cellHeight = 182;
-    private contentOrigin = 500;
-
     private dataList = [];
 
     private tex: cc.Texture2D = null;
-    private curPage = 1;
 
     private adapter: ListAdapter;
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        this.itemPages = 1;
         this.tex = new cc.Texture2D();
         WXCtr.initSharedCanvas();
     }
@@ -66,7 +58,7 @@ export default class RankingView extends cc.Component {
         this.showWorld();
         HttpCtr.getWorldRankingList((resp) => {
             this.showSelf(resp.metop);
-            for(let key in resp.data) {
+            for (let key in resp.data) {
                 this.dataList.push(resp.data[key]);
             }
             console.log("this.dataList == ", this.dataList);
@@ -78,18 +70,23 @@ export default class RankingView extends cc.Component {
     showSelf(top) {
         let ndSelf = this.ndWorld.getChildByName("ndSelf");
         let comp = ndSelf.getComponent(RankingCell);
-        Util.loadImg(comp.sprHead, UserManager.user.icon);
-        comp.lbName.string = UserManager.user.nick;
+        WXCtr.wxGetUsrInfo((data) => {
+            Util.loadImg(comp.sprHead, data.avatarUrl);
+            comp.lbName.string = data.nickName;
+            comp.lbGold.string = Util.formatNum(GameData.fightLevel);
+            if (top < 3) {
+                comp.lbRanking.node.active = false;
+                comp.sprMedal.node.active = true;
+                comp.sprMedal.spriteFrame = comp.medalsFrames[top];
+            } else {
+                comp.lbRanking.string = (top + 1) + "";
+            }
+        });
+
+
         // let lbLocation = ndSelf.getChildByName("lbLocation").getComponent(cc.Label);
         // lbLocation.string = UserManager.user.city;
-        comp.lbGold.string = Util.formatNum(GameData.fightLevel);
-        if(top < 3) {
-            comp.lbRanking.node.active = false;
-            comp.sprMedal.node.active = true;
-            comp.sprMedal.spriteFrame = comp.medalsFrames[top];
-        }else{
-            comp.lbRanking.string = (top+1) + "";
-        }
+
     }
 
     showWorld() {
@@ -105,7 +102,7 @@ export default class RankingView extends cc.Component {
     }
 
     clickToggle() {
-        console.log("click Toggle!!!!!!!!!!!!!!!"); 
+        console.log("click Toggle!!!!!!!!!!!!!!!");
         this.ndFirend.active = this.friendToggle.isChecked;
         this.ndWorld.active = this.worldToggle.isChecked;
 
@@ -123,27 +120,7 @@ export default class RankingView extends cc.Component {
     }
 
     showFriendRanking() {
-        if (this.curPage > 0) {
-            WXCtr.showFriendRanking(this.curPage);
-        }
-    }
-
-    clickPageBtn(event, type) {
-        if (type == "last") {
-            if (this.curPage > 1) {
-                this.curPage--;
-            } else {
-                return;
-            }
-        } else if (type == "next") {
-            if (this.curPage < 10) {
-                this.curPage++;
-            } else {
-                return;
-            }
-        }
-        // this.showFriendRanking();
-        // this._updateSubDomainCanvas();
+        WXCtr.showFriendRanking();
     }
 
     close() {
