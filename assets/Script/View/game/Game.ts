@@ -19,6 +19,7 @@ import WXCtr from "../../Controller/WXCtr";
 import AudioManager from "../../Common/AudioManager";
 import HttpCtr from "../../Controller/HttpCtr";
 import Util from "../../Common/Util";
+import ProduceBtn from "./ProduceBtn";
 
 
 const { ccclass, property } = cc._decorator;
@@ -32,8 +33,6 @@ export default class Game extends cc.Component {
     ndLoading: cc.Node = null;
     @property(cc.ProgressBar)
     pgbLoading: cc.ProgressBar = null;
-    @property(cc.Node)
-    ndDiamonds: cc.Node = null;
 
     @property(cc.Label)
     lbScore: cc.Label = null;
@@ -49,6 +48,9 @@ export default class Game extends cc.Component {
     ndSpeedAni: cc.Node = null;
     @property(cc.Node)
     musicBtnMask: cc.Node = null;
+    @property(ProduceBtn)
+    produceBtn: ProduceBtn = null;
+
     @property(cc.Prefab)
     pfUpgrade: cc.Prefab = null;
     @property(cc.Prefab)
@@ -95,7 +97,6 @@ export default class Game extends cc.Component {
     private sliderIdx = 0;
 
     onLoad() {
-        GameData.getAllLocalGameData();
         GameCtr.getInstance().setGame(this);
         this.initPools();
         this.initMusicState();
@@ -112,7 +113,7 @@ export default class Game extends cc.Component {
     }
 
     start() {
-        this.gameStart();
+        // this.gameStart();
     }
 
     initPools() {
@@ -138,6 +139,7 @@ export default class Game extends cc.Component {
         WXCtr.getSelfData();
         WXCtr.getFriendRankingData();
         this.showLoading();
+        this.produceBtn.setPlaneNum();
     }
 
     showLoading() {
@@ -183,8 +185,6 @@ export default class Game extends cc.Component {
         this.allPort = [];
         for (let i = 1; i <= this.ndPlanePos.childrenCount; i++) {
             let node = this.ndPlanePos.getChildByName(i + "");
-            let ndSke = node.getChildByName("banzi")
-            ndSke.active = false;
             node.active = true;
             node.tag = i;
             this.allPort.push(node);
@@ -203,7 +203,7 @@ export default class Game extends cc.Component {
             GameCtr.selfPlanes.push(level);
         }
 
-        // this.showOffLineProfitPop();
+        this.showOffLineProfitPop();
     }
 
     setPlaneOnLand(level, port) {

@@ -7,7 +7,7 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class UrlConfig {
-  static rootUrl = "https://bazi.2-00.cn/feijiplus";                           //接口域名地址根目录
+  static rootUrl = "https://bazi.2-00.cn/api_game_feijiplus";              //接口域名地址根目录
   static LOGIN = "/publicapi.php?method=getuid";                                    //登录
   static SAVE_INFO = "/publicapi.php?method=setUserData";                           //存储微信信息
   static GET_USERINFO = "/publicapi.php?method=getUserInfo";                        //获得用户信息

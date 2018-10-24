@@ -328,6 +328,7 @@ export default class GameData {
 
     //获取本地所有游戏数据
     static getAllLocalGameData() {
+        console.log("获取本地数据！！！！！！！！！！！！");
         GameData.gold = WXCtr.getStorageData("gold");
         GameData.diamonds = WXCtr.getStorageData("diamonds");
         GameData.maxPlaneLevel = WXCtr.getStorageData("maxPlaneLevel");
@@ -349,28 +350,6 @@ export default class GameData {
         GameData.baseBonus= WXCtr.getStorageData("baseBonus");
         Guide.guideStep = WXCtr.getStorageData("guideStep");
 
-        GameData.gold=GameData.gold?GameData.gold:0;
-        GameData.diamonds=GameData.diamonds?GameData.diamonds:0;
-        GameData.maxPlaneLevel=GameData.maxPlaneLevel?GameData.maxPlaneLevel:1;
-        GameData.repPlaneNum=GameData.repPlaneNum?GameData.repPlaneNum:0;
-        GameData.factoryLevel=GameData.factoryLevel?GameData.factoryLevel:0;
-        GameData.repositoryLevel=GameData.repositoryLevel?GameData.repositoryLevel:0;
-        GameData.recycleLevel=GameData.recycleLevel?GameData.recycleLevel:0;
-        GameData.attackLevel=GameData.attackLevel?GameData.attackLevel:0;
-        GameData.criticalStrikeLevel=GameData.criticalStrikeLevel?GameData.criticalStrikeLevel:0;
-        GameData.highAttack=GameData.highAttack?GameData.highAttack:0;
-        GameData.highAttackSpeed=GameData.highAttackSpeed?GameData.highAttackSpeed:0;
-        GameData.highRecycleLevel=GameData.highRecycleLevel?GameData.highRecycleLevel:0;
-        GameData.highCriticalStrike=GameData.highCriticalStrike?GameData.highCriticalStrike:0;
-        GameData.forceCriticalStrike=GameData.forceCriticalStrike?GameData.forceCriticalStrike:0;
-        GameData.vipLevel=GameData.vipLevel?GameData.vipLevel:0;
-        GameData.freeDiamondCount=GameData.freeDiamondCount?GameData.freeDiamondCount:0;
-        GameData.fightLevel=GameData.fightLevel?GameData.fightLevel:1;
-        GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:30;
-        GameData.baseBonus=GameData.baseBonus?GameData.baseBonus:10;
-        GameData.forceCriticalStrike=GameData.forceCriticalStrike?GameData.forceCriticalStrike:0;
-        Guide.guideStep = Guide.guideStep?Guide.guideStep:0;
-
         for (let i = 1; i <= this.maxApron; i++) {
             let key = "feiji_" + i;
             let data = WXCtr.getStorageData(key);
@@ -382,14 +361,17 @@ export default class GameData {
         }
         for (let i = 1; i <= this.maxPlane; i++) {
             let key = "feijiLevel_" + i;
-            let data = WXCtr.getStorageData(key);
+            let data = WXCtr.getStorageData(key, 1);
             if (data) {
                 GameData.planeData[key] = data;
             } else {
                 GameData.planeData[key] = 1;
             }
         }
+
+        GameData.setUserData(GameData.planeData);
         GameData.getMissionData();
+        GameCtr.ins.mGame.gameStart();
     }
 
     static getOnlineGameData(data) {
@@ -427,6 +409,7 @@ export default class GameData {
             GameData.planeData[key] = data[key];
         }
         GameData.setUserData(GameData.planeData);
+        GameData.getMissionData();
         HttpCtr.submitUserData({});
         GameCtr.ins.mGame.gameStart();
     }

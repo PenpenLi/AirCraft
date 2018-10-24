@@ -15,12 +15,12 @@ export default class ProduceBtn extends cc.Component {
     private produceTime;
 
     setPlaneNum() {
+        this.produceTime = GameData.getProduceTime();
         this.lbPlanes.string = GameData.repPlaneNum + "/" + GameData.getRepositoryCapacity();
     }
 
     start () {
-        this.produceTime = GameData.getProduceTime();
-        this.setPlaneNum();
+        
     }
 
     clickBtn() {
