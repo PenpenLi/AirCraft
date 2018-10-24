@@ -11,10 +11,12 @@ export default class NewClass extends cc.Component {
     _btn_open=null;
     _btn_buy=null;
     _btn_watchVedio=null;
+    _tipNode=null;
     _bonusNode=null;
     _lb_surplusTimes=null;
     _lb_timeCount=null;
     _lottery=null;
+    _progress=null;
     _bonusArr=[];
     _bonusData=[];
     _bonusTimesArr=[];
@@ -64,6 +66,7 @@ export default class NewClass extends cc.Component {
     }
 
     initNode(){
+        this._tipNode=this.node.getChildByName("tipNode");
         this._bonusNode=this.node.getChildByName("bonusNode");
         this._btn_close=this.node.getChildByName('btn_close');
         this._btn_open=this.node.getChildByName('btn_open');
@@ -73,6 +76,7 @@ export default class NewClass extends cc.Component {
         this._lb_surplusTimes=this.node.getChildByName("lb_surplusTimes");
         this._lb_timeCount=this.node.getChildByName("lb_timeCount");
         this._lottery=this.node.getChildByName("lottery");
+        this._progress=this._tipNode.getChildByName("progress")
 
         this.initBtnEvent(this._btn_close);
         this.initBtnEvent(this._btn_open);
@@ -94,6 +98,7 @@ export default class NewClass extends cc.Component {
                 /*看视频 送两次奖励*/
                 let callFunc=()=>{
                     GameData.lotteryTimes+=2;
+                    GameData.lotteryTimes=GameData.lotteryTimes>10?10:GameData.lotteryTimes;
                     this.setLotteryTimes();
                 }
             }
@@ -110,6 +115,7 @@ export default class NewClass extends cc.Component {
 
     setLotteryTimes(){
         this._lb_surplusTimes.getComponent(cc.Label).string="("+10+"/"+GameData.lotteryTimes+")";
+        this._progress.getComponent(cc.ProgressBar).progress=GameData.lotteryTimes/10;
     }
 
 
@@ -163,6 +169,7 @@ export default class NewClass extends cc.Component {
     buyLotteryTimes(){
         if(GameData.diamonds>=50){
             GameData.lotteryTimes++;
+            GameData.lotteryTimes=GameData.lotteryTimes>10?10:GameData.lotteryTimes;
             this.setLotteryTimes();
             GameData.diamonds-=50
             GameCtr.getInstance().getGame().setDiamonds();

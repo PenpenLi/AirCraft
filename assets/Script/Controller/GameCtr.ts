@@ -67,6 +67,7 @@ export default class GameCtr {
     public static strikePool=null;                                  
     public static lbGoldPool=null;                
     public static lbHurtPool=null;
+    public static enemyPoolArr=[];
 
     public static isFight=false;
 

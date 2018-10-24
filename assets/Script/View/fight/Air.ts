@@ -74,6 +74,7 @@ export default class NewClass extends cc.Component {
         }
     }
 
+
     initBullets(){
         for(let i=0;i<this._bulletCount;i++){
             let bullet =cc.instantiate(this.bullet);
@@ -119,17 +120,17 @@ export default class NewClass extends cc.Component {
     doAttacked(){
         let bullet=this.getFreeBullet();
         let targetPosX=this._isBoss?Math.random()*1400-700:0
-
+        GameCtr.getInstance().getFight().addBullet(bullet);
         if(bullet){
             bullet.stopAllActions();
             bullet.active=true;
-            bullet.tag=10086;
             bullet.x=this.node.x;
             bullet.y=this.node.y+150*this._attackDirection;
             bullet.runAction(cc.sequence(
                 cc.moveBy(this._bulletSpeed,cc.p(targetPosX,1500*this._attackDirection)),
                 cc.callFunc(()=>{
                     bullet.active=false;
+                    GameCtr.getInstance().getFight().removeBullet(bullet);
                 })
             ))
         }
@@ -157,6 +158,7 @@ export default class NewClass extends cc.Component {
                 this._lifeValue=GameCtr.doubleGold?this._lifeValue*2*GameCtr.attactGoldRate:this._lifeValue*GameCtr.attactGoldRate;
                 GameCtr.getInstance().getFight().showBossGold(this._lifeValue,{x:this.node.x,y:this.node.y});
             }
+
             GameCtr.getInstance().getFight().removeAir(this.node);
             this.showDeadEft();
         }
@@ -224,6 +226,8 @@ export default class NewClass extends cc.Component {
         this._deadEft.getComponent(cc.Animation).play();
         this.node.destroy();
     }
+
+
 
     //敌人随机移动
     doRandomMove(){

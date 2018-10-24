@@ -18,6 +18,7 @@ export default class NewClass extends cc.Component {
     _bullets=[];
     _interval=0;
     _airTag=0;
+    _bulletTag=0;
     _levelSmall=1;//小关卡
 
     @property(cc.Prefab)
@@ -39,10 +40,7 @@ export default class NewClass extends cc.Component {
         GameCtr.isFight=true;
         GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:GameData.getEnemyHP();
         GameCtr.getInstance().setFight(this);
-        GameCtr.strikePool=new cc.NodePool();
-        GameCtr.lbGoldPool=new cc.NodePool();
-        GameCtr.lbHurtPool=new cc.NodePool();
-
+        this.initPools();
         this.initNode();
         this.initEnemys();
         this.initAirs();
@@ -51,6 +49,16 @@ export default class NewClass extends cc.Component {
         this.initFightTouch();
         this.startBgRoll();
         this.setGameCount();
+    }
+
+    initPools(){
+        GameCtr.strikePool=new cc.NodePool();
+        GameCtr.lbGoldPool=new cc.NodePool();
+        GameCtr.lbHurtPool=new cc.NodePool();
+        // for(let i=0;i<9;i++){
+        //     let enemyPool =new cc.NodePool;
+        //     GameCtr.enemyPoolArr.push(enemyPool);
+        // }
     }
 
     initNode(){
@@ -112,14 +120,21 @@ export default class NewClass extends cc.Component {
 
     initEnemys(){
         this.setGameCount();
-        for(let i=0; i<5; i++){
-            let enemy = cc.instantiate(this.airsPrefab[0]);
+        for(let i=0;i<5;i++){
+            let enemy=null;
+            // if(GameCtr.enemyPoolArr[this._levelSmall-1].size()>0){
+            //     enemy=GameCtr.enemyPoolArr[this._levelSmall-1].get();
+            // }else{
+                enemy= cc.instantiate(this.airsPrefab[0]);
+                //GameCtr.enemyPoolArr[this._levelSmall-1].put(enemy)
+            //}
             let infodata={
                 lifeValue:GameData.enemyHP,
                 bulletHurt:1,
                 isEnemy:true,
                 level:this._levelSmall
             }
+            enemy.active=true;
             enemy.parent=cc.find("Canvas");
             enemy.tag=this._airTag;
             enemy.x=-200+i*200;
@@ -262,7 +277,8 @@ export default class NewClass extends cc.Component {
         }
         //敌人战败
         if(this._enemyAirs.length==0 && !isBoss){
-           this.showPass();
+            this.clearBullets();
+            this.showPass();
         }
     }
 
@@ -308,6 +324,7 @@ export default class NewClass extends cc.Component {
     }
 
     getCurrentBullets(){
+        this._bullets.splice(0,this._bullets.length);
         while(cc.find("Canvas").getChildByTag(10086)){
             let buttet=cc.find("Canvas").getChildByTag(10086);
             buttet.tag=10;
@@ -463,34 +480,54 @@ export default class NewClass extends cc.Component {
         this.showGameOver();
     }
 
+    recycleEnemy(enemy){
+        GameCtr.enemyPoolArr[this._levelSmall-2].put(enemy);
+    }
+
     clear(){
         for(let i=0;i<this._airs.length;i++){
             this._airs[i].node.destroy();
         }
         
-        while(cc.find("Canvas").getChildByTag(10086)){
-            cc.find("Canvas").removeChildByTag(10086);
-        }
-
         this._enemyAirs.splice(0,this._enemyAirs.length);
         this._selfAirs.splice(0,this._selfAirs.length);
         this._airs.splice(0,this._airs.length);
-        this._bullets.splice(0,this._bullets.length);
+
+        this.clearBullets();
     }
 
+
+    clearBullets(){
+        for(let i=0;i<this._bullets.length;i++){
+            this._bullets[i].active=false;
+        }
+        this._bullets.splice(0,this._bullets.length)
+    }
+
+    addBullet(bullet){
+        bullet.tag=this._bulletTag;
+        this._bullets.push(bullet);
+        this._bulletTag++;
+    }
+
+    removeBullet(bullet){
+        for(let i =0;i<this._bullets.length;i++){
+            if(bullet.tag==this._bullets[i].tag){
+                this._bullets.splice(i,1);
+            }
+        }
+    }
 
     update(dt){
         this._interval+=dt;
         if(this._interval>=0.1){
-            this.getCurrentBullets();
-            console.log("log----------this._airs.length=:",this._airs.length);
+            // this.getCurrentBullets();
             console.log("log----------this._bullets.length=:",this._bullets.length);
-
             for(let i=0;i<this._airs.length;i++){
                 for(let j=0;j<this._bullets.length;j++){
                     if( this._airs[i] && this._bullets[j] && this._bullets[j].active && this._bullets[j].getComponent("Bullet").getIsEmeny()!=this._airs[i].info.isEnemy &&cc.rectContainsPoint(this._airs[i].node.getBoundingBox(),cc.p(this._bullets[j].x,this._bullets[j].y))){
                         this._bullets[j].active=false;
-                        this._bullets[j].tag=-10;
+                        this.removeBullet(this._bullets[j]);
                         this.showStrike({x:this._bullets[j].x,y:this._bullets[j].y});
                         this._airs[i].node.getComponent("Air").onAttacked(this._bullets[j].getComponent("Bullet").getHurt());
                     }
