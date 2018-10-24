@@ -171,9 +171,7 @@ export default class NewClass extends cc.Component {
         let randnum=Math.random();
         if(GameCtr.lbHurtPool.size()>0){
             bubbleHurt=GameCtr.lbHurtPool.get();
-            console.log("log--------------对象池中获取bubbleHurt-------");
         }else{
-            console.log("log--------------重新实例化bubbleHurt---------");
             bubbleHurt=cc.instantiate(this.bubbleHurts[Math.floor(Math.random()*2)]);
             GameCtr.lbHurtPool.put(bubbleHurt)
         }

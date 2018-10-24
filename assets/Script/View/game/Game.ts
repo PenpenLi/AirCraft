@@ -236,7 +236,7 @@ export default class Game extends cc.Component {
                 comp.plane = landPlane;
                 comp.isUsed = true;
                 GameData.setApronState(i, level);
-                this.autoComposePlane(port);
+                //this.autoComposePlane(port);
                 return;
             }
         }

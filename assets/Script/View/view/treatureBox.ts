@@ -177,6 +177,7 @@ export default class NewClass extends cc.Component {
                 if(GameCtr.selfPlanes[i]==0){
                     GameCtr.selfPlanes[i]=bonus.airLevel;
                     ViewManager.toast("获得"+bonus.airLevel+"级飞机");
+                    GameCtr.getInstance().getGame().addPlane(bonus.airLevel);
                     return;
                 }
             }
