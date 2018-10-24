@@ -30,6 +30,7 @@ export default class RankingCell extends cc.Component {
     }
 
     setData(data) {
+        console.log("rankingCellData == ", data);
         if(data.Icon){
             Util.loadImg(this.sprHead, data.Icon);
         }

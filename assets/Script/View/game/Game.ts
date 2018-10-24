@@ -115,7 +115,7 @@ export default class Game extends cc.Component {
     }
 
     start() {
-        // this.gameStart();
+        
     }
 
     initPools() {

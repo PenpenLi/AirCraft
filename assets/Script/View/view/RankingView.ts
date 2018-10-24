@@ -64,13 +64,12 @@ export default class RankingView extends cc.Component {
     start() {
         this.adapter = new ListAdapter();
         this.showWorld();
-        // this.schedule(() => { this._updateSubDomainCanvas(); }, 1);
         HttpCtr.getWorldRankingList((resp) => {
+            this.showSelf(resp.metop);
             for(let key in resp.data) {
-                let info = {};
-                info[key] = resp.data[key];
-                this.dataList.push(info);
+                this.dataList.push(resp.data[key]);
             }
+            console.log("this.dataList == ", this.dataList);
             this.adapter.setDataSet(this.dataList);
             this.mListView.setAdapter(this.adapter);
         });
@@ -89,7 +88,7 @@ export default class RankingView extends cc.Component {
             comp.sprMedal.node.active = true;
             comp.sprMedal.spriteFrame = comp.medalsFrames[top];
         }else{
-            comp.lbRanking.string = top + "";
+            comp.lbRanking.string = (top+1) + "";
         }
     }
 
