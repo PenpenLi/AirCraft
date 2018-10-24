@@ -84,9 +84,14 @@ export default class Game extends cc.Component {
     speedUpFrame: cc.Node = null;
     @property(cc.Label)
     lb_speedUp:cc.Label=null;
-
     @property(cc.Prefab)
     pfRanking: cc.Prefab = null;
+
+    @property(cc.Label)
+    lb_gold:cc.Label=null;
+    
+    @property(cc.Label)
+    lb_diamond:cc.Label=null;
 
     private landPlanePool;
     public goldParticlePool;
@@ -171,8 +176,8 @@ export default class Game extends cc.Component {
     }
 
     setDiamonds() {
-        let lbDiamonds = this.ndDiamonds.getChildByName("lbDiamonds").getComponent(cc.Label);
-        lbDiamonds.string = GameData.diamonds + "";
+        // let lbDiamonds = this.ndDiamonds.getChildByName("lbDiamonds").getComponent(cc.Label);
+        // lbDiamonds.string = GameData.diamonds + "";
     }
 
     //增加游戏分数
