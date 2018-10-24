@@ -23,7 +23,7 @@ const dataKeyConfig = {
     vipLevel: "data_12",                                                        //VIP等级
     guideStep: "data_13",
     freeDiamondCount:"data_14",                                                 //领取免费钻石奖励次数
-    fightLevel:"data_15",                                                       //战斗等级
+    fightLevel:"level",                                                       //战斗等级
     enemyHP:"data_16",                                                          //当前关卡敌人血量  
     baseBonus:"data_17",                                                        //当前关卡基础奖励
 };
@@ -391,7 +391,7 @@ export default class GameData {
         GameData.forceCriticalStrike = data.data_11;
         GameData.vipLevel = data.data_12;
         GameData.freeDiamondCount= data.data_14;
-        GameData.fightLevel= data.data_15;
+        GameData.fightLevel= data.level;
 
         GameData.enemyHP= data.data_16;
         GameData.baseBonus= data.data_17;
@@ -473,7 +473,7 @@ export default class GameData {
         });
         let city = "未知";
         if (UserManager.user.city) city = UserManager.user.city;
-        WXCtr.submitScoreToWx(GameData._gold, city);
+        WXCtr.submitScoreToWx(GameData.fightLevel, city);
     }
 
     //增加金币

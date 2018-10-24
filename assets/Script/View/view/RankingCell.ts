@@ -8,6 +8,8 @@ export default class RankingCell extends cc.Component {
 
     @property(cc.Sprite)
     sprHead: cc.Sprite = null;
+    @property(cc.Sprite)
+    sprMedal: cc.Sprite = null;
     @property(cc.Label)
     lbLocation: cc.Label = null;
     @property(cc.Label)
@@ -16,6 +18,9 @@ export default class RankingCell extends cc.Component {
     lbGold: cc.Label = null;
     @property(cc.Label)
     lbRanking: cc.Label = null;
+    @property([cc.SpriteFrame])
+    medalsFrames: cc.SpriteFrame[] = [];
+
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
@@ -37,7 +42,9 @@ export default class RankingCell extends cc.Component {
         if(data.top && this.lbRanking){
             this.lbRanking.string = data.top;
             if(data.top <= 3) {
-                
+                this.lbRanking.node.active = false;
+                this.sprMedal.node.active = true;
+                this.sprMedal.spriteFrame = this.medalsFrames[data.top-1];
             }
         }
         if(data.City){

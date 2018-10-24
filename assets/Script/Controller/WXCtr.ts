@@ -577,7 +577,7 @@ export default class WXCtr {
     static initSharedCanvas() {
         if (window.wx != undefined) {
             window.sharedCanvas.width = 880;
-            window.sharedCanvas.height = 1000;
+            window.sharedCanvas.height = 1200;
         }
     }
 
