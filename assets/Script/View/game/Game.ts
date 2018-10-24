@@ -116,6 +116,10 @@ export default class Game extends cc.Component {
 
     start() {
         // this.gameStart();
+        if(GameCtr.isFight){
+            this.gameStart();
+        }
+        GameCtr.isFight=false;
     }
 
     initPools() {

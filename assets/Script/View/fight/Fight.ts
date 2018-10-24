@@ -36,6 +36,7 @@ export default class NewClass extends cc.Component {
     bubbleHurts:cc.Prefab[]=[];
     
     onLoad(){
+        GameCtr.isFight=true;
         GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:GameData.getEnemyHP();
         GameCtr.getInstance().setFight(this);
         GameCtr.strikePool=new cc.NodePool();
