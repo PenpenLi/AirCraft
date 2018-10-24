@@ -109,7 +109,7 @@ export default class NewClass extends cc.Component {
     }
 
     setLotteryTimes(){
-        this._lb_surplusTimes.getComponent(cc.Label).string=GameData.lotteryTimes;
+        this._lb_surplusTimes.getComponent(cc.Label).string="("+10+"/"+GameData.lotteryTimes+")";
     }
 
 
@@ -165,6 +165,7 @@ export default class NewClass extends cc.Component {
             GameData.lotteryTimes++;
             this.setLotteryTimes();
             GameData.diamonds-=50
+            GameCtr.getInstance().getGame().setDiamonds();
         }else{
             ViewManager.toast("钻石不足");
         }
@@ -186,6 +187,7 @@ export default class NewClass extends cc.Component {
 
         if(bonus.diamond>0){
             GameData.diamonds+=bonus.diamond;
+            GameCtr.getInstance().getGame().setDiamonds();
             ViewManager.toast("获得"+bonus.diamond+"钻石"); 
         }
     }

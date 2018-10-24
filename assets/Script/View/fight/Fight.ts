@@ -36,6 +36,7 @@ export default class NewClass extends cc.Component {
     bubbleHurts:cc.Prefab[]=[];
     
     onLoad(){
+        GameCtr.isFight=true;
         GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:GameData.getEnemyHP();
         GameCtr.getInstance().setFight(this);
         GameCtr.strikePool=new cc.NodePool();
@@ -91,8 +92,8 @@ export default class NewClass extends cc.Component {
             let level=GameData.getPlaneLevel(GameCtr.selfPlanes[i]);
 
             let infodata={
-                lifeValue:10,//GameData.getPlaneLifeValue(level),
-                bulletHurt:30,//GameData.planesConfig[GameCtr.selfPlanes[i]-1].baseAttack+(level-1)*GameData.planesConfig[GameCtr.selfPlanes[i]-1].attackIncrease,
+                lifeValue:100,//GameData.getPlaneLifeValue(level),
+                bulletHurt:50,//GameData.planesConfig[GameCtr.selfPlanes[i]-1].baseAttack+(level-1)*GameData.planesConfig[GameCtr.selfPlanes[i]-1].attackIncrease,
                 isEnemy:false,
                 level:10,//GameCtr.selfPlanes[i]
             };
@@ -482,10 +483,14 @@ export default class NewClass extends cc.Component {
         this._interval+=dt;
         if(this._interval>=0.1){
             this.getCurrentBullets();
+            console.log("log----------this._airs.length=:",this._airs.length);
+            console.log("log----------this._bullets.length=:",this._bullets.length);
+
             for(let i=0;i<this._airs.length;i++){
                 for(let j=0;j<this._bullets.length;j++){
                     if( this._airs[i] && this._bullets[j] && this._bullets[j].active && this._bullets[j].getComponent("Bullet").getIsEmeny()!=this._airs[i].info.isEnemy &&cc.rectContainsPoint(this._airs[i].node.getBoundingBox(),cc.p(this._bullets[j].x,this._bullets[j].y))){
                         this._bullets[j].active=false;
+                        this._bullets[j].tag=-10;
                         this.showStrike({x:this._bullets[j].x,y:this._bullets[j].y});
                         this._airs[i].node.getComponent("Air").onAttacked(this._bullets[j].getComponent("Bullet").getHurt());
                     }

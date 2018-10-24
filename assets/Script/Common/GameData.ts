@@ -331,7 +331,7 @@ export default class GameData {
         console.log("获取本地数据！！！！！！！！！！！！");
         GameData.gold = WXCtr.getStorageData("gold");
         GameData.diamonds = WXCtr.getStorageData("diamonds");
-        GameData.maxPlaneLevel = WXCtr.getStorageData("maxPlaneLevel");
+        GameData.maxPlaneLevel = WXCtr.getStorageData("maxPlaneLevel",1);
         GameData.repPlaneNum = WXCtr.getStorageData("repPlaneNum");
         GameData.factoryLevel = WXCtr.getStorageData("factoryLevel");
         GameData.repositoryLevel = WXCtr.getStorageData("repositoryLevel");
@@ -345,9 +345,9 @@ export default class GameData {
         GameData.forceCriticalStrike = WXCtr.getStorageData("forceCriticalStrike");
         GameData.vipLevel = WXCtr.getStorageData("vipLevel");
         GameData.freeDiamondCount= WXCtr.getStorageData("freeDiamondCount");
-        GameData.fightLevel= WXCtr.getStorageData("fightLevel");
-        GameData.enemyHP= WXCtr.getStorageData("enemyHP");
-        GameData.baseBonus= WXCtr.getStorageData("baseBonus");
+        GameData.fightLevel= WXCtr.getStorageData("fightLevel",1);
+        GameData.enemyHP= WXCtr.getStorageData("enemyHP",30);
+        GameData.baseBonus= WXCtr.getStorageData("baseBonus",10);
         Guide.guideStep = WXCtr.getStorageData("guideStep");
 
         for (let i = 1; i <= this.maxApron; i++) {
@@ -431,6 +431,8 @@ export default class GameData {
                 GameData.missionData[key] = false;
             }
         }
+
+        console.log("log----------getMissionData=:",GameData.missionData);
     }
 
     static setMissonData(key, value) {

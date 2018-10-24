@@ -233,7 +233,7 @@ export default class Util {
 
         for(let i=units.length-1;i>0;i--){
             if(number>=Math.pow(10,i*3)){
-                return (number/Math.pow(10,i*3)).toFixed(1)+units[i];
+                return (number/Math.pow(10,i*3)).toFixed(1)+units[i-1];
             }
         }
         return number;

@@ -68,6 +68,8 @@ export default class GameCtr {
     public static lbGoldPool=null;                
     public static lbHurtPool=null;
 
+    public static isFight=false;
+
 
     public static StatisticType = cc.Enum({                         //统计类型
         SPEED: 1,                                                   //加速分享

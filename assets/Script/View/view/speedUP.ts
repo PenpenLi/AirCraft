@@ -46,6 +46,7 @@ export default class NewClass extends cc.Component {
         if(GameData.diamonds>=50){
             GameCtr.speedUpTime=60;
             GameData.diamonds-=50;
+            GameCtr.getInstance().getGame().setDiamonds();
             GameCtr.getInstance().getGame().showSpeedAni();
             GameCtr.getInstance().getGame().showSpeedUpTimer();
             GameData.setMissonData("speedTimes", GameData.missionData.speedTimes+1);

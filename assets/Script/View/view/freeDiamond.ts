@@ -1,6 +1,7 @@
 import WXCtr from "../../Controller/WXCtr";
 import HttpCtr from "../../Controller/HttpCtr";
 import GameData from "../../Common/GameData";
+import GameCtr from "../../Controller/GameCtr";
 
 
 const {ccclass, property} = cc._decorator;
@@ -20,8 +21,6 @@ export default class NewClass extends cc.Component {
         this.initNode();
         this.requestInviteResult();
     }
-
-    
 
     initNode(){
         this._btn_close=this.node.getChildByName("btn_close");
@@ -56,8 +55,9 @@ export default class NewClass extends cc.Component {
     }
 
     getBonus(){
-        GameData.gold+=300;
+        GameData.diamonds+=300;
         GameData.freeDiamondCount+=1;
+        GameCtr.getInstance().getGame().setDiamonds();
     }
 
     requestInviteResult(){

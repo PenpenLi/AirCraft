@@ -115,7 +115,11 @@ export default class Game extends cc.Component {
     }
 
     start() {
-        
+        // this.gameStart();
+        if(GameCtr.isFight){
+            this.gameStart();
+        }
+        GameCtr.isFight=false;
     }
 
     initPools() {
@@ -175,6 +179,7 @@ export default class Game extends cc.Component {
     setDiamonds() {
         let lbDiamonds = Util.findChildByName("lbDiamonds", this.ndGold).getComponent(cc.Label);
         lbDiamonds.string = Util.formatNum(GameData.diamonds);
+        
         let lbGold = Util.findChildByName("lbGold", this.ndGold).getComponent(cc.Label);
         lbGold.string = Util.formatNum(GameData.gold);
     }
