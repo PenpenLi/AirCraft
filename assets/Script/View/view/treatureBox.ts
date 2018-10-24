@@ -165,14 +165,13 @@ export default class NewClass extends cc.Component {
             GameData.lotteryTimes++;
             this.setLotteryTimes();
             GameData.diamonds-=50
+            GameCtr.getInstance().getGame().setDiamonds();
         }else{
             ViewManager.toast("钻石不足");
         }
     }
 
     getBonus(index){
-        // console.log("log--------------index=:",index);
-        // console.log("log--------------GameCtr.selfPlanes=:",GameCtr.selfPlanes);
         let bonus=this._bonusData[index];
         if(bonus.airLevel>0){
             for(let i=0;i<GameCtr.selfPlanes.length;i++){
@@ -188,6 +187,7 @@ export default class NewClass extends cc.Component {
 
         if(bonus.diamond>0){
             GameData.diamonds+=bonus.diamond;
+            GameCtr.getInstance().getGame().setDiamonds();
             ViewManager.toast("获得"+bonus.diamond+"钻石"); 
         }
     }

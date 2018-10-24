@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "e8f578ce-b760-4ad9-b170-af26ab6dcc7e",
+  "uuid": "cfda90e0-4d8e-4a89-9e86-bb25fdb44144",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "icon_lottery3": {
+    "btn_watchTV": {
       "ver": "1.0.3",
-      "uuid": "227467fd-7ddb-49a1-979c-d5bb6efbb304",
-      "rawTextureUuid": "e8f578ce-b760-4ad9-b170-af26ab6dcc7e",
+      "uuid": "75fd3381-9239-4e4d-8ef2-83c68e9b2401",
+      "rawTextureUuid": "cfda90e0-4d8e-4a89-9e86-bb25fdb44144",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 62,
-      "height": 63,
-      "rawWidth": 62,
-      "rawHeight": 63,
+      "width": 280,
+      "height": 138,
+      "rawWidth": 280,
+      "rawHeight": 138,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,

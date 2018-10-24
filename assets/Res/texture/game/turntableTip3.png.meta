@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "24098f1d-f36e-42a7-be28-313a7dca0661",
+  "uuid": "5abe7afe-ac4f-45bd-a29c-2a1222623e46",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "dianmond_3": {
+    "turntableTip3": {
       "ver": "1.0.3",
-      "uuid": "4dcfb29d-9cfe-4667-bc93-5eeacb04b573",
-      "rawTextureUuid": "24098f1d-f36e-42a7-be28-313a7dca0661",
+      "uuid": "21f7b640-8cfc-4135-b0d1-e4fe3a7aee04",
+      "rawTextureUuid": "5abe7afe-ac4f-45bd-a29c-2a1222623e46",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 126,
-      "height": 78,
-      "rawWidth": 126,
-      "rawHeight": 78,
+      "width": 204,
+      "height": 33,
+      "rawWidth": 204,
+      "rawHeight": 33,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,

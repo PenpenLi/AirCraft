@@ -26,7 +26,7 @@ export default class NewClass extends cc.Component {
 
     onLoad(){
         this.initNode();
-        this.initLights();
+        //this.initLights();
         this.initData();
     }
 
@@ -72,6 +72,7 @@ export default class NewClass extends cc.Component {
             }else if(e.target.getName()=="btn_buy"){
                 if(GameData.diamonds>=50){
                     GameData.diamonds-=50;
+                    GameCtr.getInstance().getGame().setDiamonds();
                     this._way=Way.BUY;
                     this.doLottery();
                 }else{
