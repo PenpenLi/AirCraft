@@ -172,15 +172,14 @@ export default class WXCtr {
 
             WXCtr.userInfoBtn = wx.createUserInfoButton({
                 type: 'image',
-                image: 'res/raw-assets/resources/texture/start/btn_auth.png',
+                image: 'res/raw-assets/resources/texture/authBtn.png',
                 style: {
-                    left: (WXCtr.screenWidth / 2) + (20 * WXCtr.widthRatio),
-                    top: (WXCtr.screenHeight / 2) + (140 * WXCtr.widthRatio),
+                    left: (WXCtr.screenWidth / 2) - (60 * WXCtr.widthRatio),
+                    top: (WXCtr.screenHeight / 2) + (30 * WXCtr.widthRatio),
                     width: 120 * WXCtr.widthRatio,
-                    height: 40 * WXCtr.heightRatio,
+                    height: 30 * WXCtr.heightRatio,
                 }
             });
-
         }
     }
 
@@ -189,11 +188,12 @@ export default class WXCtr {
         let call: Function = (res) => {
             if (res.userInfo) {
                 WXCtr.wxGetUsrInfo();
+                WXCtr.userInfoBtn.hide();
+                WXCtr.authed = true;
                 callback(true);
             } else {
                 callback(false);
             }
-            WXCtr.userInfoBtn.hide();
         };
         WXCtr.userInfoBtn.onTap(call);
     }
@@ -290,7 +290,7 @@ export default class WXCtr {
         }
     }
 
-    static wxGetUsrInfo() {
+    static wxGetUsrInfo(callback = null) {
         if (window.wx != undefined) {
             window.wx.getUserInfo({
                 openIdList: ['selfOpenId'],
@@ -299,6 +299,9 @@ export default class WXCtr {
                     let info = res.userInfo;
                     WXCtr.authed = true;
                     HttpCtr.saveUserInfo(res);
+                    if (callback) {
+                        callback(info);
+                    }
                 },
                 fail: function (res) {
                 }

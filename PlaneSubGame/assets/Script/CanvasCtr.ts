@@ -95,7 +95,7 @@ export default class CanvasCtr extends cc.Component {
                         if (b.KVDataList.length == 0) {
                             return -1;
                         }
-                        return b.KVDataList[0].value - a.KVDataList[0].value;
+                        return b.KVDataList[1].value - a.KVDataList[1].value;
                     });
                     this.mFriendRankData = data;
                     if (showFriend) {
@@ -130,7 +130,7 @@ export default class CanvasCtr extends cc.Component {
                                 if (b.KVDataList.length == 0) {
                                     return -1;
                                 }
-                                return b.KVDataList[0].value - a.KVDataList[0].value;
+                                return b.KVDataList[1].value - a.KVDataList[1].value;
                             });
                             this.mGroupData = data;
                         },

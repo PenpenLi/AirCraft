@@ -1,5 +1,6 @@
 import PromptDialog from "./PromptDialog";
 import WXCtr from "../../Controller/WXCtr";
+import GameCtr from "../../Controller/GameCtr";
 
 const {ccclass, property} = cc._decorator;
 
@@ -12,11 +13,16 @@ export default class AuthPop extends PromptDialog {
     // onLoad () {}
 
     start () {
-
+        WXCtr.createUserInfoBtn();
+        WXCtr.onUserInfoBtnTap((res)=>{
+            if(res){
+                this.dismiss();
+                GameCtr.ins.mGame.showRanking();
+            }
+        });
     }
 
     dismiss() {
-        if(WXCtr.userInfoBtn) WXCtr.userInfoBtn.hide();
         super.dismiss();
     }
 
