@@ -723,9 +723,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -736,8 +736,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 145,
-      "height": 30
+      "width": 113.33,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -764,12 +764,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "1 卡普罗尼",
     "_N$horizontalAlign": 1,
@@ -810,9 +812,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -823,8 +825,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 99,
-      "height": 30
+      "width": 99.17,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -855,8 +857,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "等级 500",
     "_N$horizontalAlign": 1,
@@ -897,9 +901,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -910,8 +914,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 232,
-      "height": 30
+      "width": 234.17,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -942,8 +946,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "攻击25250000 生命6",
     "_N$horizontalAlign": 1,

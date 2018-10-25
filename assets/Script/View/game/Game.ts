@@ -255,14 +255,14 @@ export default class Game extends cc.Component {
                 comp.isUsed = true;
                 GameData.setApronState(i, level);
                 if(GameCtr.autoCompose){
-                    this.autoComposePlane(port);
+                    this.autoComposePlane(port, i);
                 }
                 return;
             }
         }
     }
 
-    autoComposePlane(tPort) {
+    autoComposePlane(tPort, idx) {
         this.showSpeedAni();
         let tApron: Apron = tPort.getComponent(Apron);
         for (let i = 0; i < this.allPort.length; i++) {
@@ -272,11 +272,13 @@ export default class Game extends cc.Component {
                 continue;
             }
             if (comp.plane.getLevel() == tApron.plane.getLevel()) {
+                GameData.setApronState(i, comp.plane.getLevel()+1);
                 comp.plane.setLevel(comp.plane.getLevel() + 1);
+                GameData.setApronState(idx, 0);
                 this.removeLandPlane(tApron.plane.node);
                 tApron.plane.node.destroy();
                 tApron.reset();
-                this.autoComposePlane(port);
+                this.autoComposePlane(port, idx);
                 return;
             }
         }
