@@ -45,11 +45,11 @@ export default class LandPlane extends cc.Component {
 
     onTouchStart(event) {
         if (!this.isTouch && !this.touchID) {
-            if (Guide.guideStep <= 7 && Guide.guideStep != 3 && Guide.guideStep != 4 && Guide.guideStep != 7) {
-                if (this.apronTag == 1) {
-                    return false;
-                }
-            }
+            // if (Guide.guideStep <= 7 && Guide.guideStep != 3 && Guide.guideStep != 4 && Guide.guideStep != 7) {
+            //     if (this.apronTag == 1) {
+            //         return false;
+            //     }
+            // }
             this.touchID = event.getID();
             this.isTouch = true;
 
@@ -162,9 +162,9 @@ export default class LandPlane extends cc.Component {
             let rect = port.getChildByName("rect");
             if (rect.getBoundingBoxToWorld().contains(wPos)) {
                 if (!apron.isUsed) {
-                    if (Guide.guideStep <= 7) {
-                        return false;
-                    }
+                    // if (Guide.guideStep <= 7) {
+                    //     return false;
+                    // }
                     pApron.plane = null;
                     pApron.isUsed = false;
                     GameData.setApronState(this.node.parent.tag, 0);   //自己停机坪状态设为0（没有飞机）
