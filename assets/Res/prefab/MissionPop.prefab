@@ -1012,9 +1012,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1025,8 +1025,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 137,
-      "height": 30
+      "width": 176,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1053,12 +1053,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "每日广告1",
     "_N$horizontalAlign": 1,
@@ -1099,9 +1101,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1112,8 +1114,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 190,
-      "height": 30
+      "width": 189.17,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1144,8 +1146,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "今日广告1次(1/1)",
     "_N$horizontalAlign": 1,
@@ -1790,9 +1794,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1803,8 +1807,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 137,
-      "height": 30
+      "width": 181.33,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1831,12 +1835,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "每日广告2",
     "_N$horizontalAlign": 1,
@@ -1877,9 +1883,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1890,8 +1896,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 190,
-      "height": 30
+      "width": 189.17,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1922,8 +1928,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "今日广告3次(3/3)",
     "_N$horizontalAlign": 1,
@@ -2568,9 +2576,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -2581,8 +2589,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 137,
-      "height": 30
+      "width": 182.67,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -2609,12 +2617,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "每日广告3",
     "_N$horizontalAlign": 1,
@@ -2655,9 +2665,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -2668,8 +2678,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 190,
-      "height": 30
+      "width": 189.17,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -2700,8 +2710,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "今日广告5次(5/5)",
     "_N$horizontalAlign": 1,
@@ -3346,9 +3358,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -3359,8 +3371,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 30
+      "width": 160,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -3387,12 +3399,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "加速制造",
     "_N$horizontalAlign": 1,
@@ -3433,9 +3447,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -3446,8 +3460,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 274,
-      "height": 30
+      "width": 199.17,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -3478,8 +3492,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "今日开启5次加速（2/5）",
     "_N$horizontalAlign": 1,
@@ -4124,9 +4140,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -4137,8 +4153,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 30
+      "width": 160,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4165,12 +4181,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "无限合成",
     "_N$horizontalAlign": 1,
@@ -4211,9 +4229,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -4224,8 +4242,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 307,
-      "height": 30
+      "width": 259.17,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4256,8 +4274,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "今日合成128次（128/128）",
     "_N$horizontalAlign": 1,
@@ -4902,9 +4922,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -4915,8 +4935,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 30
+      "width": 160,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4943,12 +4963,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "幸运宝箱",
     "_N$horizontalAlign": 1,
@@ -4989,9 +5011,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -5002,8 +5024,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 301,
-      "height": 30
+      "width": 227.5,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5034,8 +5056,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "今日开启宝箱10次（0/10）",
     "_N$horizontalAlign": 1,
@@ -5680,9 +5704,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -5693,8 +5717,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 30
+      "width": 160,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5721,12 +5745,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "幸运转盘",
     "_N$horizontalAlign": 1,
@@ -5767,9 +5793,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -5780,8 +5806,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 235,
-      "height": 30
+      "width": 159.17,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5812,8 +5838,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "今日开启转盘（0/2）",
     "_N$horizontalAlign": 1,
@@ -6458,9 +6486,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -6471,8 +6499,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 30
+      "width": 158.67,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -6499,12 +6527,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "无限闯关",
     "_N$horizontalAlign": 1,
@@ -6545,9 +6575,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -6558,8 +6588,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 265,
-      "height": 30
+      "width": 216.67,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -6590,8 +6620,10 @@
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "今日战斗10次（10/10）",
     "_N$horizontalAlign": 1,

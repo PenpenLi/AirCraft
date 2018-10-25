@@ -723,9 +723,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -736,8 +736,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 55,
-      "height": 30
+      "width": 113.33,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -764,8 +764,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {
