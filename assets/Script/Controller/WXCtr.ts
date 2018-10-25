@@ -174,11 +174,11 @@ export default class WXCtr {
                 type: 'image',
                 image: 'res/raw-assets/resources/texture/authBtn.png',
                 style: {
-                    left: (WXCtr.screenWidth / 2) - (60 * WXCtr.widthRatio),
-                    top: (WXCtr.screenHeight / 2) + (30 * WXCtr.widthRatio),
-                    width: 120 * WXCtr.widthRatio,
-                    height: 30 * WXCtr.heightRatio,
-                }
+                    left: (WXCtr.screenWidth / 2) - (130 * WXCtr.widthRatio),
+                    top: (WXCtr.screenHeight / 2) + (45 * WXCtr.widthRatio),
+                    width: 260 * WXCtr.widthRatio,
+                    height: 50 * WXCtr.heightRatio,
+                } 
             });
         }
     }

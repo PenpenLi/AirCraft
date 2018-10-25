@@ -253,9 +253,9 @@ export default class Game extends cc.Component {
                 landPlane.apronTag = port.tag + 10;
                 comp.plane = landPlane;
                 comp.isUsed = true;
-                GameData.setApronState(i, level);
+                GameData.setApronState(port.tag, level);
                 if(GameCtr.autoCompose){
-                    this.autoComposePlane(port, i);
+                    this.autoComposePlane(port, port.tag);
                 }
                 return;
             }
