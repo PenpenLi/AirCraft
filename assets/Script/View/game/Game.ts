@@ -90,6 +90,12 @@ export default class Game extends cc.Component {
     @property(cc.Prefab)
     pfRanking: cc.Prefab = null;
 
+    @property(cc.Node)
+    adContent:cc.Node =null;
+
+    @property(cc.Prefab)
+    ad:cc.Prefab =null;
+
     private landPlanePool;
     public goldParticlePool;
 
@@ -97,11 +103,14 @@ export default class Game extends cc.Component {
     public allPort = [];
     private ufoShowTimes = 0;
     private sliderIdx = 0;
+    adArr=[];
 
     onLoad() {
+        cc.director.setDisplayStats(false);
         GameCtr.getInstance().setGame(this);
         this.initPools();
         this.initMusicState();
+        this.showAds();
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
@@ -652,6 +661,43 @@ export default class Game extends cc.Component {
         this.scheduleOnce(() => {
             this.speedUpTimeCount();
         }, 1)
+    }
+
+
+    /****************************广告**********************************/
+    showAds(){
+        for(let i=0;i<5;i++){
+            let ad =cc.instantiate(this.ad);
+            ad.parent=this.adContent;
+            ad.x=-342+i*231;
+            ad.y=12;
+
+            this.adArr.push(ad);
+        }
+        this.scheduleOnce(this.doCarousel.bind(this),10)
+    }
+
+    //轮播
+    doCarousel(){
+        if(this.adArr.length<=4){ //广告位推荐位大于3个，才有轮播功能
+            return 
+        }
+        //整体左移一个广告位
+        for(let i=0;i<this.adArr.length-1;i++){
+            this.adArr[i].stopAllActions();
+            this.adArr[i].scale=1.0;
+            this.adArr[i].runAction(cc.moveBy(0.5,cc.p(-231*1,0)))
+        }
+        //将超出左边边界的移动到右边
+        this.adArr[this.adArr.length-1].runAction(cc.sequence(
+            cc.moveBy(0.5,cc.p(-231*1,0)),
+            cc.callFunc(()=>{
+                let first=this.adArr.shift();
+                this.adArr.push(first);
+                this.adArr[this.adArr.length-1].x=this.adArr[this.adArr.length-2].x+231;
+                this.scheduleOnce(this.doCarousel.bind(this),10)
+            })
+        ))
     }
 
 }
