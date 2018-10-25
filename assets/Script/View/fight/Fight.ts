@@ -119,6 +119,7 @@ export default class NewClass extends cc.Component {
 
 
     initEnemys(){
+        this.clearInvalidBullet();
         this.setGameCount();
         for(let i=0;i<5;i++){
             let enemy=null;
@@ -277,7 +278,8 @@ export default class NewClass extends cc.Component {
         }
         //敌人战败
         if(this._enemyAirs.length==0 && !isBoss){
-            this.clearBullets();
+            this.clearBulletsData();
+            this.stopAttackEnemy();
             this.showPass();
         }
     }
@@ -323,14 +325,19 @@ export default class NewClass extends cc.Component {
         return formation;
     }
 
-    getCurrentBullets(){
-        this._bullets.splice(0,this._bullets.length);
-        while(cc.find("Canvas").getChildByTag(10086)){
-            let buttet=cc.find("Canvas").getChildByTag(10086);
-            buttet.tag=10;
-            this._bullets.push(buttet);
+    startAttackEnemy(){
+        for(let i=0;i<this._selfAirs.length;i++){
+            this._selfAirs[i].node.getComponent("Air").startAttack();
         }
     }
+
+    stopAttackEnemy(){
+        for(let i=0;i<this._selfAirs.length;i++){
+            this._selfAirs[i].node.getComponent("Air").stopAttack();
+        }
+    }
+
+    
 
     showStrike(pos){
         let strike=null;
@@ -380,6 +387,7 @@ export default class NewClass extends cc.Component {
                 cc.callFunc(()=>{
                     this.showGold(Math.floor(gold/5),{x:pos.x+Math.random()*300-150,y:pos.y+Math.random()*50-25});
                     if(i==4){
+                        this.startAttackEnemy();
                         this.initEnemys();
                     }
                 })
@@ -407,6 +415,7 @@ export default class NewClass extends cc.Component {
                 cc.delayTime(0.4),
                 cc.fadeOut(0.4),
                 cc.callFunc(()=>{
+                    this.startAttackEnemy();
                     this.initEnemys();
                 })
             ));
@@ -432,6 +441,7 @@ export default class NewClass extends cc.Component {
         this.node.runAction(cc.sequence(
             cc.delayTime(2),
             cc.callFunc(()=>{
+                this.startAttackEnemy();
                 this.initBoss();
             })
         ))
@@ -480,9 +490,6 @@ export default class NewClass extends cc.Component {
         this.showGameOver();
     }
 
-    recycleEnemy(enemy){
-        GameCtr.enemyPoolArr[this._levelSmall-2].put(enemy);
-    }
 
     clear(){
         for(let i=0;i<this._airs.length;i++){
@@ -493,15 +500,21 @@ export default class NewClass extends cc.Component {
         this._selfAirs.splice(0,this._selfAirs.length);
         this._airs.splice(0,this._airs.length);
 
-        this.clearBullets();
+        this.clearBulletsData();
     }
 
 
-    clearBullets(){
+    clearBulletsData(){
         for(let i=0;i<this._bullets.length;i++){
             this._bullets[i].active=false;
         }
         this._bullets.splice(0,this._bullets.length)
+    }
+
+    clearInvalidBullet(){
+        while(cc.find("Canvas").getChildByTag(-1000)){
+            cc.find("Canvas").removeChildByTag(-1000)
+        }
     }
 
     addBullet(bullet){
@@ -521,15 +534,14 @@ export default class NewClass extends cc.Component {
     update(dt){
         this._interval+=dt;
         if(this._interval>=0.1){
-            // this.getCurrentBullets();
-            console.log("log----------this._bullets.length=:",this._bullets.length);
+            console.log("log----------this.node.children.length=:",this.node.children.length);
             for(let i=0;i<this._airs.length;i++){
                 for(let j=0;j<this._bullets.length;j++){
                     if( this._airs[i] && this._bullets[j] && this._bullets[j].active && this._bullets[j].getComponent("Bullet").getIsEmeny()!=this._airs[i].info.isEnemy &&cc.rectContainsPoint(this._airs[i].node.getBoundingBox(),cc.p(this._bullets[j].x,this._bullets[j].y))){
                         this._bullets[j].active=false;
-                        this.removeBullet(this._bullets[j]);
                         this.showStrike({x:this._bullets[j].x,y:this._bullets[j].y});
                         this._airs[i].node.getComponent("Air").onAttacked(this._bullets[j].getComponent("Bullet").getHurt());
+                        this.removeBullet(this._bullets[j]);
                     }
                 }
             }
