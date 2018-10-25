@@ -231,10 +231,11 @@ export default class NewClass extends cc.Component {
         this._deadEft.y=this.node.y;
         this._deadEft.getComponent(cc.Animation).play();
 
-        /*将子弹tag值置为-1，后续清理掉*/
+        /*收集子弹，后续清理*/
         for(let i=0;i<this._bulletsArr.length;i++){
-            this._bulletsArr[i].tag=-1000;
+            GameCtr.getInstance().getFight().collectInvalidBullet(this._bulletsArr[i]);
         }
+        
         this.node.destroy();
     }
 

@@ -47,4 +47,6 @@ export default class NewClass extends cc.Component {
     getHurt(){
         return this._hurt;
     }
+
+    
 }

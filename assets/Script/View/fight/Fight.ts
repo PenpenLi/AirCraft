@@ -16,6 +16,7 @@ export default class NewClass extends cc.Component {
     _enemyAirs=[];
     _selfAirsPos=[];
     _bullets=[];
+    _invalidBullets=[];
     _interval=0;
     _airTag=0;
     _bulletTag=0;
@@ -55,10 +56,6 @@ export default class NewClass extends cc.Component {
         GameCtr.strikePool=new cc.NodePool();
         GameCtr.lbGoldPool=new cc.NodePool();
         GameCtr.lbHurtPool=new cc.NodePool();
-        // for(let i=0;i<9;i++){
-        //     let enemyPool =new cc.NodePool;
-        //     GameCtr.enemyPoolArr.push(enemyPool);
-        // }
     }
 
     initNode(){
@@ -94,16 +91,16 @@ export default class NewClass extends cc.Component {
 
 
     initAirs(){
-        for(let i=0;i<16;i++){//GameCtr.selfPlanes.length
-            //if(GameCtr.selfPlanes[i]<=0){continue;}
+        for(let i=0;i<GameCtr.selfPlanes.length;i++){
+            if(GameCtr.selfPlanes[i]<=0){continue;}
             let air = cc.instantiate(this.airsPrefab[0]);
             let level=GameData.getPlaneLevel(GameCtr.selfPlanes[i]);
 
             let infodata={
-                lifeValue:100,//GameData.getPlaneLifeValue(level),
-                bulletHurt:50,//GameData.planesConfig[GameCtr.selfPlanes[i]-1].baseAttack+(level-1)*GameData.planesConfig[GameCtr.selfPlanes[i]-1].attackIncrease,
+                lifeValue:GameData.getPlaneLifeValue(level),
+                bulletHurt:GameData.planesConfig[GameCtr.selfPlanes[i]-1].baseAttack+(level-1)*GameData.planesConfig[GameCtr.selfPlanes[i]-1].attackIncrease,
                 isEnemy:false,
-                level:10,//GameCtr.selfPlanes[i]
+                level:GameCtr.selfPlanes[i],
             };
 
             air.parent=cc.find("Canvas");
@@ -122,13 +119,7 @@ export default class NewClass extends cc.Component {
         this.clearInvalidBullet();
         this.setGameCount();
         for(let i=0;i<5;i++){
-            let enemy=null;
-            // if(GameCtr.enemyPoolArr[this._levelSmall-1].size()>0){
-            //     enemy=GameCtr.enemyPoolArr[this._levelSmall-1].get();
-            // }else{
-                enemy= cc.instantiate(this.airsPrefab[0]);
-                //GameCtr.enemyPoolArr[this._levelSmall-1].put(enemy)
-            //}
+            let enemy= cc.instantiate(this.airsPrefab[0]);
             let infodata={
                 lifeValue:GameData.enemyHP,
                 bulletHurt:1,
@@ -279,6 +270,7 @@ export default class NewClass extends cc.Component {
         //敌人战败
         if(this._enemyAirs.length==0 && !isBoss){
             this.clearBulletsData();
+            this.clearInvalidBullet();
             this.stopAttackEnemy();
             this.showPass();
         }
@@ -511,10 +503,15 @@ export default class NewClass extends cc.Component {
         this._bullets.splice(0,this._bullets.length)
     }
 
+    collectInvalidBullet(bullet){
+        this._invalidBullets.push(bullet);
+    }
+
     clearInvalidBullet(){
-        while(cc.find("Canvas").getChildByTag(-1000)){
-            cc.find("Canvas").removeChildByTag(-1000)
+        for(let i=0;i<this._invalidBullets.length;i++){
+            this._invalidBullets[i].destroy();
         }
+        this._invalidBullets.splice(0,this._invalidBullets.length);
     }
 
     addBullet(bullet){
@@ -534,7 +531,6 @@ export default class NewClass extends cc.Component {
     update(dt){
         this._interval+=dt;
         if(this._interval>=0.1){
-            console.log("log----------this.node.children.length=:",this.node.children.length);
             for(let i=0;i<this._airs.length;i++){
                 for(let j=0;j<this._bullets.length;j++){
                     if( this._airs[i] && this._bullets[j] && this._bullets[j].active && this._bullets[j].getComponent("Bullet").getIsEmeny()!=this._airs[i].info.isEnemy &&cc.rectContainsPoint(this._airs[i].node.getBoundingBox(),cc.p(this._bullets[j].x,this._bullets[j].y))){

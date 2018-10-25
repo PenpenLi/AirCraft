@@ -2,6 +2,7 @@ import WXCtr from "../../Controller/WXCtr";
 import HttpCtr from "../../Controller/HttpCtr";
 import GameData from "../../Common/GameData";
 import GameCtr from "../../Controller/GameCtr";
+import ViewManager from "../../Common/ViewManager";
 
 
 const {ccclass, property} = cc._decorator;
@@ -46,8 +47,10 @@ export default class NewClass extends cc.Component {
                 WXCtr.share({invite: true});
             }else if(e.target.getName()=="btn_getBonus"){
                 if(this._inviteRelust){
-                    if(this._inviteRelust.length-GameData.freeDiamondCount){
+                    if(this._inviteRelust.length-GameData.freeDiamondCount>0){
                         this.getBonus();
+                    }else{
+                        ViewManager.toast("领取次数不足");
                     }
                 }
             }
@@ -58,20 +61,29 @@ export default class NewClass extends cc.Component {
         GameData.diamonds+=300;
         GameData.freeDiamondCount+=1;
         GameCtr.getInstance().getGame().setDiamonds();
+
+        this.showBonusCount();
     }
 
     requestInviteResult(){
         HttpCtr.getInviteResult((res) => {
             this._inviteRelust=res;
             this._lb_inviteCount.getComponent(cc.Label).string="您已邀请"+res.length+"人";
-            if(res.length - GameData.freeDiamondCount<=0){
-                this._tip.active=true;
-            }else {
-                this._lb_getBonusCount.active=true;
-                this._lb_getBonusCount.getComponent(cc.Label).string=res.length-GameData.freeDiamondCount;
-            }
+            this.showBonusCount();
         });
 
         this.scheduleOnce(()=>{this.requestInviteResult()},2)
+    }
+
+
+    showBonusCount(){
+        if(this._inviteRelust.length - GameData.freeDiamondCount<=0){
+            this._tip.active=true;
+            this._lb_getBonusCount.active=false;
+        }else {
+            this._tip.active=false;
+            this._lb_getBonusCount.active=true;
+            this._lb_getBonusCount.getComponent(cc.Label).string="还可以领取"+(this._inviteRelust.length-GameData.freeDiamondCount)+"次";
+        }
     }
 }
