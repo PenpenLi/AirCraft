@@ -91,16 +91,16 @@ export default class NewClass extends cc.Component {
 
 
     initAirs(){
-        for(let i=0;i<16;i++){//GameCtr.selfPlanes.length
-            //if(GameCtr.selfPlanes[i]<=0){continue;}
+        for(let i=0;i<GameCtr.selfPlanes.length;i++){
+            if(GameCtr.selfPlanes[i]<=0){continue;}
             let air = cc.instantiate(this.airsPrefab[0]);
             let level=GameData.getPlaneLevel(GameCtr.selfPlanes[i]);
 
             let infodata={
-                lifeValue:100,//GameData.getPlaneLifeValue(level),
-                bulletHurt:50,//GameData.planesConfig[GameCtr.selfPlanes[i]-1].baseAttack+(level-1)*GameData.planesConfig[GameCtr.selfPlanes[i]-1].attackIncrease,
+                lifeValue:GameData.getPlaneLifeValue(level),
+                bulletHurt:GameData.planesConfig[GameCtr.selfPlanes[i]-1].baseAttack+(level-1)*GameData.planesConfig[GameCtr.selfPlanes[i]-1].attackIncrease,
                 isEnemy:false,
-                level:10,//GameCtr.selfPlanes[i]
+                level:GameCtr.selfPlanes[i],
             };
 
             air.parent=cc.find("Canvas");
@@ -119,13 +119,7 @@ export default class NewClass extends cc.Component {
         this.clearInvalidBullet();
         this.setGameCount();
         for(let i=0;i<5;i++){
-            let enemy=null;
-            // if(GameCtr.enemyPoolArr[this._levelSmall-1].size()>0){
-            //     enemy=GameCtr.enemyPoolArr[this._levelSmall-1].get();
-            // }else{
-                enemy= cc.instantiate(this.airsPrefab[0]);
-                //GameCtr.enemyPoolArr[this._levelSmall-1].put(enemy)
-            //}
+            let enemy= cc.instantiate(this.airsPrefab[0]);
             let infodata={
                 lifeValue:GameData.enemyHP,
                 bulletHurt:1,
