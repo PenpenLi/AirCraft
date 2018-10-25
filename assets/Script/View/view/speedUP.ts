@@ -36,6 +36,7 @@ export default class NewClass extends cc.Component {
             }else if(e.target.getName()=="btn_watchVedio"){
                 let callFunc=()=>{
                     GameCtr.autoCompose=true;
+                    GameCtr.isSpeedUpModel=true;
                     GameCtr.speedUpTime=120;
                     GameCtr.getInstance().getGame().showSpeedAni();
                     GameCtr.getInstance().getGame().showSpeedUpTimer();
@@ -48,6 +49,7 @@ export default class NewClass extends cc.Component {
     buy(){
         if(GameData.diamonds>=50){
             GameCtr.autoCompose=true;
+            GameCtr.isSpeedUpModel=true;
             GameCtr.speedUpTime=60;
             GameData.diamonds-=50;
             GameCtr.getInstance().getGame().setDiamonds();

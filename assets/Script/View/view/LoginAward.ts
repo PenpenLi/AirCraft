@@ -3,6 +3,8 @@ import ViewManager from "../../Common/ViewManager";
 import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
 import HttpCtr from "../../Controller/HttpCtr";
+import Util from "../../Common/Util";
+import WXCtr from "../../Controller/WXCtr";
 
 const { ccclass, property } = cc._decorator;
 
@@ -27,8 +29,28 @@ export default class LoginAward extends cc.Component {
 
     setAwardDatas() {
         HttpCtr.getLoginAwardList((res) => {
-            let idx = 0;
             let data = res.data;
+            let total = res.todaySum+res.pySum;
+            this.lbDays.string = "连续签到"+res.todaySum+"日登陆奖励+"+res.todaySum+"倍";
+            this.lbFriends.string = "共邀请"+res.pySum+"位好友，奖励+"+res.pySum+"倍";
+            this.lbTotal.string = "今日签到奖励："+total+"倍!";
+            let lbTimes;
+            let lbNum;
+            lbTimes = Util.findChildByName("lbTimes", this.ndDiamond).getComponent(cc.Label);
+            lbTimes.string = total+"";
+            lbNum = Util.findChildByName("lbNum", this.ndDiamond).getComponent(cc.Label);
+            lbNum.string = data.moeny+"";
+
+            lbTimes = Util.findChildByName("lbTimes", this.ndGold).getComponent(cc.Label);
+            lbTimes.string = total+"";
+            lbNum = Util.findChildByName("lbNum", this.ndGold).getComponent(cc.Label);
+            lbNum.string = data.gold+"";
+        });
+    }
+
+    invite() {
+        WXCtr.share({
+            invite: true
         });
     }
 
@@ -38,12 +60,11 @@ export default class LoginAward extends cc.Component {
         HttpCtr.sign((res) => {
             btn.interactable = true;
             if (res) {
-                
-                let signedSum = res.todaySum;
                 if(res.data){
                     GameData.diamonds += res.data.money;
+                    GameData.gold += res.data.gold;
                     GameCtr.ins.mGame.setDiamonds();
-                    ViewManager.toast("恭喜获得"+res.data.money+"钻石！");
+                    ViewManager.toast("签到成功");
                 }else{
                     ViewManager.toast(res.msg);
                 }

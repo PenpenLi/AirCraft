@@ -471,9 +471,6 @@ export default class Game extends cc.Component {
      * 显示邀请好友界面
      */
     showInviteFriendPop() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         let nd = cc.instantiate(this.pfInviteFriend);
         ViewManager.show({
             node: nd,
@@ -487,9 +484,6 @@ export default class Game extends cc.Component {
      * 更多游戏
      */
     showMoreGame() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         if (GameCtr.otherData) {
             WXCtr.gotoOther(GameCtr.otherData);
             HttpCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, GameCtr.otherData.appid);                               //更多游戏点击统计
@@ -497,9 +491,6 @@ export default class Game extends cc.Component {
     }
 
     openCustomService() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         HttpCtr.clickStatistics(GameCtr.StatisticType.GIFT);                                    //关注礼包点击统计
         WXCtr.customService();
     }
@@ -537,9 +528,6 @@ export default class Game extends cc.Component {
 
     //每日登录奖励
     showLoginAward() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         let nd = cc.instantiate(this.pfLoginAward)
         ViewManager.show({
             node: nd,
@@ -573,9 +561,6 @@ export default class Game extends cc.Component {
     }
 
     clickslider() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         let data = GameCtr.sliderDatas[this.sliderIdx];
         WXCtr.gotoOther(data);
         HttpCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, data.appid);
@@ -589,6 +574,17 @@ export default class Game extends cc.Component {
 
 
     onClickBtnFight() {
+        let airCount=0;
+        for(let i=0;i<GameCtr.selfPlanes.length;i++){
+            if(GameCtr.selfPlanes[i]>0){
+                airCount++
+            }
+        }
+
+        if(airCount==0){
+            ViewManager.toast("没有作战飞机")
+            return;
+        }
         cc.director.loadScene("Fight");
         GameData.setMissonData("fightTimes", GameData.missionData.fightTimes + 1);
     }
@@ -649,6 +645,7 @@ export default class Game extends cc.Component {
             this.speedUpFrame.active = false;
             this.lb_speedUp.string = "";
             GameCtr.autoCompose=false;
+            GameCtr.isSpeedUpModel=false;
             this.stopSpeedAni();
             return;
         }

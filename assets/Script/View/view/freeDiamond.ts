@@ -61,7 +61,6 @@ export default class NewClass extends cc.Component {
         GameData.diamonds+=300;
         GameData.freeDiamondCount+=1;
         GameCtr.getInstance().getGame().setDiamonds();
-
         this.showBonusCount();
     }
 

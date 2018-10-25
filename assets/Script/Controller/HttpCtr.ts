@@ -165,6 +165,7 @@ export default class HttpCtr {
     }
 
     static compareData(data) {
+        console.log("log------compareData----data=:",data);
         if (!data.data_20) {
             GameData.getAllLocalGameData();
             console.log("1111111111111111")
@@ -204,7 +205,6 @@ export default class HttpCtr {
             },
             data: sendData
         });
-        // GameData.setUserData({});
     }
 
     // 邀请好友

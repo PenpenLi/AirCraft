@@ -1204,7 +1204,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125.86,
+      "width": 150.86,
       "height": 25.86
     },
     "_rotationX": 0,
@@ -1987,7 +1987,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125.86,
+      "width": 150.86,
       "height": 25.86
     },
     "_rotationX": 0,
@@ -2770,7 +2770,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 139.66,
+      "width": 164.66,
       "height": 25.86
     },
     "_rotationX": 0,
@@ -5119,7 +5119,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 177.59,
+      "width": 176.72,
       "height": 25.86
     },
     "_rotationX": 0,
@@ -5156,7 +5156,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "获得1辆7级汽车",
+    "_N$string": "获得1架7级飞机",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -5902,7 +5902,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 191.38,
+      "width": 190.52,
       "height": 25.86
     },
     "_rotationX": 0,
@@ -5939,7 +5939,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "获得1辆10级汽车",
+    "_N$string": "获得1架10级飞机",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -6685,7 +6685,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 191.38,
+      "width": 190.52,
       "height": 25.86
     },
     "_rotationX": 0,
@@ -6722,7 +6722,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "获得1辆12级汽车",
+    "_N$string": "获得1架12级飞机",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -6799,7 +6799,7 @@
     "node": {
       "__id__": 10
     },
-    "_enabled": true,
+    "_enabled": false,
     "_type": 0,
     "_segements": 64,
     "_N$spriteFrame": null,
