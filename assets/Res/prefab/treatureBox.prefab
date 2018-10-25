@@ -4742,8 +4742,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 291,
-      "height": 40
+      "width": 330.6,
+      "height": 24
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4752,7 +4752,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 676
+      "y": 680
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -4774,8 +4774,10 @@
     "_fontSize": 30,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "fa73e3e4-85bf-4be0-903b-e4da867916cf"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "每日0点开宝箱次数+5",
     "_N$horizontalAlign": 1,
