@@ -31,6 +31,7 @@ export default class UrlConfig {
   static VideoOpen = "/weixinapi.php?method=openAdv";                               //关闭视频广告时渠道统计
   static Diamond_NOTICE = "/weixinapi.php?method=moenynotice";                      //钻石增加通知
   static CLICK_STATISTICS = "/weixinapi.php?method=openClick";                      //点击统计
-  static GET_LOGINAWARD = "/weixinapi.php?method=getToday";                         //获取签到奖励列表
-  static SIGN_IN = "/weixinapi.php?method=DoToday";                                 //领取登录奖励
+  static GET_LOGINAWARD = "/weixinapi.php?method=getToday2";                         //获取签到奖励列表
+  static SIGN_IN = "/weixinapi.php?method=DoToday2";                                 //领取登录奖励
+
 }

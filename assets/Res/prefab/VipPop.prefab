@@ -1728,7 +1728,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0
+      "y": 3.7
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2892,7 +2892,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 651.6,
+      "width": 654,
       "height": 72
     },
     "_rotationX": 0,
@@ -2929,7 +2929,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": -2,
-    "_N$string": "直接制造更高级的汽车",
+    "_N$string": "直接制造更高级的飞机",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",

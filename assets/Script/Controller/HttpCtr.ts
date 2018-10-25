@@ -141,7 +141,7 @@ export default class HttpCtr {
 
     //获取个人信息
     static getUserInfo(callBack = null) {
-        // 个人信息，data_20表示上次保存数据到服务器时间戳， data_21退出游戏时间, data_1表示新手引导步骤, data_5标示邀请好友数量, 
+        // 个人信息，data_20表示上次保存数据到服务器时间戳， data_21退出游戏时间 
         Http.send({
             url: Http.UrlConfig.GET_USERINFO,
             success: (resp) => {
@@ -205,7 +205,6 @@ export default class HttpCtr {
             },
             data: sendData
         });
-        // GameData.setUserData({});
     }
 
     // 邀请好友

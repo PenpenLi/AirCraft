@@ -376,7 +376,7 @@ export default class GameData {
 
     static getOnlineGameData(data) {
         GameData.gold = data.gold;
-        GameData.diamonds = data.money;
+        GameData.diamonds = data.money == "NaN" ? 0 : data.money;
         GameData.maxPlaneLevel = data.maxfeiji == "undefined" ? 1 : data.maxfeiji;
         GameData.repPlaneNum = data.data_1;
         GameData.factoryLevel = data.data_2;

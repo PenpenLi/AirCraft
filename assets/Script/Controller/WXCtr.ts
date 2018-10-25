@@ -73,7 +73,7 @@ export default class WXCtr {
             wx.onHide(() => {
                 console.log("退到后台！！！！！");
                 let time = new Date().getTime();
-                HttpCtr.submitUserData({ data_4: time });
+                HttpCtr.submitUserData({ data_21: time });
                 WXCtr.setStorageData("lastTime", time);
                 WXCtr.isOnHide = true;
             });

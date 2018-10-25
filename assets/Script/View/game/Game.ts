@@ -471,9 +471,6 @@ export default class Game extends cc.Component {
      * 显示邀请好友界面
      */
     showInviteFriendPop() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         let nd = cc.instantiate(this.pfInviteFriend);
         ViewManager.show({
             node: nd,
@@ -487,9 +484,6 @@ export default class Game extends cc.Component {
      * 更多游戏
      */
     showMoreGame() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         if (GameCtr.otherData) {
             WXCtr.gotoOther(GameCtr.otherData);
             HttpCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, GameCtr.otherData.appid);                               //更多游戏点击统计
@@ -497,9 +491,6 @@ export default class Game extends cc.Component {
     }
 
     openCustomService() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         HttpCtr.clickStatistics(GameCtr.StatisticType.GIFT);                                    //关注礼包点击统计
         WXCtr.customService();
     }
@@ -537,9 +528,6 @@ export default class Game extends cc.Component {
 
     //每日登录奖励
     showLoginAward() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         let nd = cc.instantiate(this.pfLoginAward)
         ViewManager.show({
             node: nd,
@@ -573,9 +561,6 @@ export default class Game extends cc.Component {
     }
 
     clickslider() {
-        if (Guide.guideStep <= 7) {
-            return;
-        }
         let data = GameCtr.sliderDatas[this.sliderIdx];
         WXCtr.gotoOther(data);
         HttpCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, data.appid);
