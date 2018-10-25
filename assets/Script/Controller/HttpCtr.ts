@@ -165,26 +165,27 @@ export default class HttpCtr {
     }
 
     static compareData(data) {
-        // if (!data.data_20) {
+        console.log("log------compareData----data=:",data);
+        if (!data.data_20) {
             GameData.getAllLocalGameData();
             console.log("1111111111111111")
-        // } else {
-        //     console.log("data.data_20 == ", data.data_20);
-        //     let saveTime = WXCtr.getStorageData("saveTime");
-        //     if (saveTime) {
-        //         console.log("saveTime ==", saveTime);
-        //         if (data.data_20 > saveTime) {
-        //             GameData.getOnlineGameData(data);
-        //             console.log("222222222222222:", data.data_20 - saveTime)
-        //         } else {
-        //             GameData.getAllLocalGameData();
-        //             console.log("44444444444444444")
-        //         }
-        //     } else {
-        //         GameData.getOnlineGameData(data);
-        //         console.log("5555555555555")
-        //     }
-        // }
+        } else {
+            console.log("data.data_20 == ", data.data_20);
+            let saveTime = WXCtr.getStorageData("saveTime");
+            if (saveTime) {
+                console.log("saveTime ==", saveTime);
+                if (data.data_20 > saveTime) {
+                    GameData.getOnlineGameData(data);
+                    console.log("222222222222222:", data.data_20 - saveTime)
+                } else {
+                    GameData.getAllLocalGameData();
+                    console.log("44444444444444444")
+                }
+            } else {
+                GameData.getOnlineGameData(data);
+                console.log("5555555555555")
+            }
+        }
     }
 
     //上传个人信息

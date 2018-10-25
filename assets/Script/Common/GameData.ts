@@ -431,7 +431,6 @@ export default class GameData {
                 GameData.missionData[key] = false;
             }
         }
-
         console.log("log----------getMissionData=:",GameData.missionData);
     }
 
