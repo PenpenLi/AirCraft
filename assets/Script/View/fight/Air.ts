@@ -13,7 +13,7 @@ export default class NewClass extends cc.Component {
     _level=null;
     _bulletHurt=null;
     _deadEft=null;
-    _bulletSpeed=3;
+    _bulletSpeed=1.8;
     _attackInterval=1;
     _attackDelay=1;
     _bulletsArr=[];
@@ -49,8 +49,16 @@ export default class NewClass extends cc.Component {
     }
 
     startAttack(){
-        this._attackInterval=this._isBoss?0.5:2;
-        this._attackDelay=this._isEnemy?2:0.5;
+        if(this._isBoss){
+            this._attackInterval=0.2;
+            this._attackDelay=0.5;
+        }else if(this._isEnemy){
+            this._attackInterval=3.0;
+            this._attackDelay=2.0;
+        }else {
+            this._attackInterval=0.6;
+            this._attackDelay=0.5;
+        }
         this.schedule(this.doAttack, this._attackInterval,cc.macro.REPEAT_FOREVER,this._attackDelay);
     }
 
@@ -62,7 +70,7 @@ export default class NewClass extends cc.Component {
         this._isBoss=data.isBoss;
         this._level=data.level;
         this._attackDirection=this._isEnemy?Attack.DOWN:Attack.UP;
-        this._bulletCount=this._isBoss?10:3;
+        this._bulletCount=this._isBoss?30:10;
 
         this.initBullets();
         this.initDeadEft();
@@ -122,8 +130,9 @@ export default class NewClass extends cc.Component {
     doAttack(){
         let bullet=this.getFreeBullet();
         let targetPosX=this._isBoss?Math.random()*1400-700:0
-        GameCtr.getInstance().getFight().addBullet(bullet);
+       
         if(bullet){
+            GameCtr.getInstance().getFight().addBullet(bullet);
             bullet.stopAllActions();
             bullet.active=true;
             bullet.x=this.node.x;
