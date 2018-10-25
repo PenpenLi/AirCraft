@@ -267,9 +267,9 @@ export default class LandPlane extends cc.Component {
                 if (otherPlane.level > GameData.maxPlaneLevel) {
                     GameData.maxPlaneLevel = otherPlane.level;
                 }
-                if (Guide.guideStep <= 7) {
-                    Guide.setGuideStorage(++Guide.guideStep);
-                }
+                // if (Guide.guideStep <= 7) {
+                //     Guide.setGuideStorage(++Guide.guideStep);
+                // }
                 let wPos = otherParent.parent.convertToWorldSpaceAR(otherParent.position);
                 GameCtr.ins.mGame.showExpParticle(wPos);
                 // GameCtr.ins.mGame.setPgbLevel();
