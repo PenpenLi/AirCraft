@@ -442,7 +442,7 @@ export default class GameData {
     }
 
     //保存个人信息
-    static setUserData(data) {
+    static setUserData(data) { 
         data["saveTime"] = new Date().getTime();
         for (let key in data) {
             WXCtr.setStorageData(key, data[key]);

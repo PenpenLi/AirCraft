@@ -37,6 +37,7 @@ export default class ProduceBtn extends cc.Component {
     }
 
     update (dt) {
+        if(!GameCtr.isStartGame) return;
         if(GameCtr.isSpeedUpModel) {
             this.produceTime = 0.1;
         }

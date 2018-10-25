@@ -171,7 +171,7 @@ export default class HttpCtr {
             console.log("1111111111111111")
         } else {
             console.log("data.data_20 == ", data.data_20);
-            let saveTime = WXCtr.getStorageData("saveTime");
+            let saveTime = WXCtr.getStorageData("saveTime", null);
             if (saveTime) {
                 console.log("saveTime ==", saveTime);
                 if (data.data_20 > saveTime) {
@@ -360,7 +360,7 @@ export default class HttpCtr {
             success: (res) => {
                 if (res.banner) {
                     let day = Util.getCurrTimeYYMMDD();
-                    let obj = WXCtr.getStorageData("VideoTimes");
+                    let obj = WXCtr.getStorageData("VideoTimes", null);
                     if (!obj) {
                         GameCtr.surplusVideoTimes = res.banner;
                     } else {

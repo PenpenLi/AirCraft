@@ -439,8 +439,6 @@ export default class Game extends cc.Component {
             comp.setOffLineProfit(offTime, offLineProfit);
             HttpCtr.submitUserData({ data_4: cTime });
             WXCtr.setStorageData("lastTime", cTime);
-        } else {
-            this.autoShowLoginAward();
         }
 
     }
