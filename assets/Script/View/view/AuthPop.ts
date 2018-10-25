@@ -23,6 +23,7 @@ export default class AuthPop extends PromptDialog {
     }
 
     dismiss() {
+        WXCtr.userInfoBtn.destroy();
         super.dismiss();
     }
 
