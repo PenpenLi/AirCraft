@@ -1,6 +1,7 @@
 import PopupView from "./PopupView";
 import GameData from "../../Common/GameData";
 import ViewManager from "../../Common/ViewManager";
+import WXCtr from "../../Controller/WXCtr";
 
 
 const { ccclass, property } = cc._decorator;
@@ -25,6 +26,7 @@ export default class MissionPop extends cc.Component {
         btnGet = this.ndContent.children[0].getChildByName("blueBtn");
         key = "missionCollected_1";
         btnGet.active = !GameData.missionData[key];
+        if(!WXCtr.videoAd) item.active = false;
 
         item = this.ndContent.children[1];
         lbLevel = this.ndContent.children[1].getChildByName("lbLevel").getComponent(cc.Label);
@@ -32,6 +34,7 @@ export default class MissionPop extends cc.Component {
         btnGet = this.ndContent.children[1].getChildByName("blueBtn");
         key = "missionCollected_2";
         btnGet.active = !GameData.missionData[key];
+        if(!WXCtr.videoAd) item.active = false;
 
         item = this.ndContent.children[2];
         lbLevel = this.ndContent.children[2].getChildByName("lbLevel").getComponent(cc.Label);
@@ -39,6 +42,7 @@ export default class MissionPop extends cc.Component {
         btnGet = this.ndContent.children[2].getChildByName("blueBtn");
         key = "missionCollected_3";
         btnGet.active = !GameData.missionData[key];
+        if(!WXCtr.videoAd) item.active = false;
 
         item = this.ndContent.children[3];
         lbLevel = this.ndContent.children[3].getChildByName("lbLevel").getComponent(cc.Label);
