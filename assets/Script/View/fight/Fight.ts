@@ -11,6 +11,7 @@ export default class NewClass extends cc.Component {
     _otherNode=null;
     _goldFrame=null;
     _lbGold=null;
+    _btnOver=null;
     _airs=[];
     _selfAirs=[];
     _enemyAirs=[];
@@ -66,6 +67,9 @@ export default class NewClass extends cc.Component {
         this._lbGameCount=this._otherNode.getChildByName("lb_gameCount");
         this._goldFrame=this._otherNode.getChildByName("goldFrame");
         this._lbGold=this._goldFrame.getChildByName("lb_gold");
+        this._btnOver=this.node.getChildByName("btnOver");
+
+        this._btnOver.setLocalZOrder(10);
         this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameData.gold);
     }
 
@@ -143,7 +147,7 @@ export default class NewClass extends cc.Component {
     initBoss(){
         let boss=cc.instantiate(this.airsPrefab[0]);
         let infoData={
-            lifeValue:1*GameData.enemyHP,
+            lifeValue:30*GameData.enemyHP,
             bulletHurt:3,
             isEnemy:true,
             level:Math.floor(Math.random()*5)+1,
@@ -268,11 +272,13 @@ export default class NewClass extends cc.Component {
             }
         }
         //敌人战败
-        if(this._enemyAirs.length==0 && !isBoss){
+        if(this._enemyAirs.length==0 ){
             this.clearBulletsData();
             this.clearInvalidBullet();
             this.stopAttackEnemy();
-            this.showPass();
+            if(!isBoss){
+                this.showPass();
+            }
         }
     }
 
@@ -285,13 +291,28 @@ export default class NewClass extends cc.Component {
                 line++;
             }
         }
-        startPosY=-800+100*(line-1);
+        
+        let scaleRate= 0;
+        if(line<=2){
+            scaleRate=1;
+        }else if(line==3){
+            scaleRate=0.9;
+        }else if(line==4){
+            scaleRate=0.8;
+        }else if(line==5){
+            scaleRate=0.7; 
+        }else {
+            scaleRate=0.6; 
+        }
+        startPosY=-1000+150*scaleRate*(line-1);
+
         for(let i=0;i<formation.length;i++){
             for(let j=0;j<formation[i].length;j++){
-                formation[i][j].node.x=0-(formation[i].length-1)*70+j*140;
-                formation[i][j].node.y=startPosY-150*(i-1);
+                formation[i][j].node.scale=scaleRate;
+                formation[i][j].node.x=0-(formation[i].length-1)*70*scaleRate+j*140*scaleRate;
+                formation[i][j].node.y=startPosY-150*scaleRate*(i-1);
             }
-        }
+        } 
     }
 
     getAirsformation(){
@@ -328,8 +349,6 @@ export default class NewClass extends cc.Component {
             this._selfAirs[i].node.getComponent("Air").stopAttack();
         }
     }
-
-    
 
     showStrike(pos){
         let strike=null;
@@ -417,8 +436,8 @@ export default class NewClass extends cc.Component {
     }
 
     showBossComming(){
+        this.setGameCount();
         let word_boss=this._otherNode.getChildByName("word_boss");
-
         for(let i=0;i<4;i++){
             let word=word_boss.getChildByName(i+"");
             word.x=-935;
@@ -445,6 +464,7 @@ export default class NewClass extends cc.Component {
         }
         let gameOver=cc.instantiate(this.gameOver);
         gameOver.parent=cc.find("Canvas");
+        gameOver.setLocalZOrder(20);
         gameOver.getComponent("GameOver").setGold((this._levelSmall-1)*GameData.enemyHP);
     }
 

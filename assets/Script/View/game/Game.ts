@@ -590,12 +590,17 @@ export default class Game extends cc.Component {
 
     onClickBtnFight() {
         let airCount=0;
+        
+        // for(let i=0;i<16;i++){
+        //     let level=Math.floor(Math.random()*16)+1;
+        //     GameCtr.selfPlanes.push(level);
+        // }
+
         for(let i=0;i<GameCtr.selfPlanes.length;i++){
             if(GameCtr.selfPlanes[i]>0){
                 airCount++
             }
         }
-
         if(airCount==0){
             ViewManager.toast("没有作战飞机")
             return;
