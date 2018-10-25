@@ -115,7 +115,6 @@ export default class Game extends cc.Component {
     }
 
     start() {
-        // this.gameStart();
         if (GameCtr.isFight) {
             this.gameStart();
         }
@@ -245,7 +244,9 @@ export default class Game extends cc.Component {
                 comp.plane = landPlane;
                 comp.isUsed = true;
                 GameData.setApronState(i, level);
-                //this.autoComposePlane(port);
+                if(GameCtr.autoCompose){
+                    this.autoComposePlane(port);
+                }
                 return;
             }
         }
@@ -624,7 +625,7 @@ export default class Game extends cc.Component {
 
 
     showSpeedUpTimer() {
-        console.log("log---------showSpeedUpTimer-----------");
+        //console.log("log---------showSpeedUpTimer-----------");
         this.speedUpFrame.active = true;
         this.lb_speedUp.string = GameCtr.speedUpTime + '';
 
@@ -635,6 +636,7 @@ export default class Game extends cc.Component {
         if (GameCtr.speedUpTime < 0) {
             this.speedUpFrame.active = false;
             this.lb_speedUp.string = "";
+            GameCtr.autoCompose=false;
             this.stopSpeedAni();
             return;
         }

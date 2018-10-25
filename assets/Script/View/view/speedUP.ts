@@ -35,7 +35,10 @@ export default class NewClass extends cc.Component {
                 this.node.destroy();
             }else if(e.target.getName()=="btn_watchVedio"){
                 let callFunc=()=>{
+                    GameCtr.autoCompose=true;
                     GameCtr.speedUpTime=120;
+                    GameCtr.getInstance().getGame().showSpeedAni();
+                    GameCtr.getInstance().getGame().showSpeedUpTimer();
                     GameData.setMissonData("speedTimes", GameData.missionData.speedTimes+1);
                 }
             }
@@ -44,11 +47,13 @@ export default class NewClass extends cc.Component {
 
     buy(){
         if(GameData.diamonds>=50){
+            GameCtr.autoCompose=true;
             GameCtr.speedUpTime=60;
             GameData.diamonds-=50;
             GameCtr.getInstance().getGame().setDiamonds();
             GameCtr.getInstance().getGame().showSpeedAni();
             GameCtr.getInstance().getGame().showSpeedUpTimer();
+           
             GameData.setMissonData("speedTimes", GameData.missionData.speedTimes+1);
         }else {
             ViewManager.toast("钻石不足");

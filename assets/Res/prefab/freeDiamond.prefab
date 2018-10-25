@@ -1078,7 +1078,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -50
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1183,7 +1183,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 35
@@ -1196,9 +1196,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 0,
-      "b": 0,
+      "r": 237,
+      "g": 70,
+      "b": 67,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1209,8 +1209,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 157,
-      "height": 24
+      "width": 216,
+      "height": 36
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1218,8 +1218,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 3,
-      "y": 58
+      "x": 0,
+      "y": 14
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1237,14 +1237,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 24,
-    "_fontSize": 24,
-    "_lineHeight": 24,
+    "_actualFontSize": 36,
+    "_fontSize": 36,
+    "_lineHeight": 36,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "还可以领取3次",
+    "_N$string": "领取次数不足",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -1381,9 +1381,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 237,
-      "g": 70,
-      "b": 67,
+      "r": 52,
+      "g": 200,
+      "b": 252,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1394,7 +1394,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 216,
+      "width": 236,
       "height": 36
     },
     "_rotationX": 0,
@@ -1403,7 +1403,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 3,
+      "x": 0,
       "y": 14
     },
     "_skewX": 0,
@@ -1429,7 +1429,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "领取次数不足",
+    "_N$string": "还可以领取2次",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",

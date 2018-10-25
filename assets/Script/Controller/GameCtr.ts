@@ -59,7 +59,6 @@ export default class GameCtr {
     public static doubleGold = false;                               //2倍金币
     public static lotteryTimes=10;                                  //抽奖次数
     public static attactGoldRate=1;                                 //攻击倍率
-    public static attactGoldRateTime=0;                             //攻击倍率加倍时间
     public static isSpeedUpModel = false;                           //是否是加速模式
     public static speedUpTime=0;                                    //加速时间
     public static musicSwitch=1;                                    //音乐、音效开关  1：开  -1:关    
@@ -70,6 +69,7 @@ export default class GameCtr {
     public static enemyPoolArr=[];
 
     public static isFight=false;
+    public static autoCompose=false;
 
 
     public static StatisticType = cc.Enum({                         //统计类型
