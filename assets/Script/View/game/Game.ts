@@ -611,6 +611,7 @@ export default class Game extends cc.Component {
         }
         let pfTreatureBox = cc.instantiate(this.pfTreatrueBox);
         pfTreatureBox.parent = cc.find("Canvas");
+        AudioManager.getInstance().playSound("audio/click", false);
     }
 
     onClickBtnPfturnble() {
@@ -619,6 +620,7 @@ export default class Game extends cc.Component {
         }
         let pfTurntable = cc.instantiate(this.pfTurntable);
         pfTurntable.parent = cc.find("Canvas");
+        AudioManager.getInstance().playSound("audio/click", false);
     }
 
     onClickBtnSpeedUP() {
@@ -627,6 +629,7 @@ export default class Game extends cc.Component {
         }
         let pfSpeedUP = cc.instantiate(this.pfSpeedUP);
         pfSpeedUP.parent = cc.find("Canvas");
+        AudioManager.getInstance().playSound("audio/click", false);
     }
 
     onClickBtnFreeDiamond() {
@@ -635,6 +638,7 @@ export default class Game extends cc.Component {
         }
         let pfFreeDiamond = cc.instantiate(this.pfFreeDiamond);
         pfFreeDiamond.parent = cc.find("Canvas");
+        AudioManager.getInstance().playSound("audio/click", false);
     }
 
     onClickBtnMusic() {
@@ -644,6 +648,14 @@ export default class Game extends cc.Component {
             this.musicBtnMask.active = false;
         } else {                    //关闭开关
             this.musicBtnMask.active = true;
+        }
+        this.updateMusicState();
+    }
+
+    updateMusicState(){
+        let music=this.node.getChildByTag(GameCtr.musicTag);
+        if(music){
+            music.getComponent("music").updatePlayState();
         }
     }
 
