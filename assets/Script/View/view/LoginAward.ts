@@ -61,7 +61,7 @@ export default class LoginAward extends cc.Component {
             btn.interactable = true;
             if (res) {
                 if(res.data){
-                    GameData.diamonds += res.data.money;
+                    GameData.diamonds += res.data.moeny;
                     GameData.gold += res.data.gold;
                     GameCtr.ins.mGame.setDiamonds();
                     ViewManager.toast("签到成功");

@@ -292,5 +292,10 @@ export default class LandPlane extends cc.Component {
     setFrame(level) {
         PlaneFrameMG.setPlaneFrame(this.spr, level);
     }
+
+    blink() {
+        let blinkAni = this.node.getChildByName("ndBlink").getComponent(cc.Animation);
+        blinkAni.play();
+    }
     // update (dt) {}
 }

@@ -120,7 +120,7 @@ export default class Util {
         value = Math.floor(value);
         if (value >= Math.pow(10, digit) && value < Math.pow(10, digit+3)) {
             value = Math.floor(value / 1000);
-            value = this.getString(value) + "k";
+            value = this.getString(value) + "K";
         }
         else if (value >= Math.pow(10, digit+3) && value < Math.pow(10, digit+6)) {
             value = Math.floor(value / 1000000);
@@ -129,7 +129,16 @@ export default class Util {
         else if (value >= Math.pow(10, digit+6) && value < Math.pow(10, digit+9)) {
             value = Math.floor(value / 1000000000);
             value = this.getString(value) + "B";
-        } else if (value >= Math.pow(10, digit+9)) {
+        }
+        else if (value >= Math.pow(10, digit+9) && value < Math.pow(10, digit+12)) {
+            value = Math.floor(value / 1000000000000);
+            value = this.getString(value) + "T";
+        }
+        else if (value >= Math.pow(10, digit+12) && value < Math.pow(10, digit+15)) {
+            value = Math.floor(value / 1000000000000000);
+            value = this.getString(value) + "P";
+        } 
+        else if (value >= Math.pow(10, digit+15)) {
             let valueDigit = this.getDigitOfNum(value);
             let suffix = "E"+(valueDigit-3);
             value = Math.floor(value / Math.pow(10, valueDigit-6));

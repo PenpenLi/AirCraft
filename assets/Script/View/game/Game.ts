@@ -30,9 +30,7 @@ export default class Game extends cc.Component {
     @property(cc.Node)
     ndGame: cc.Node = null;
     @property(cc.Node)
-    ndLoading: cc.Node = null;
-    @property(cc.ProgressBar)
-    pgbLoading: cc.ProgressBar = null;
+    ndMask: cc.Node = null;
 
     @property(cc.Label)
     lbScore: cc.Label = null;
@@ -152,26 +150,10 @@ export default class Game extends cc.Component {
         GameCtr.isStartGame = true;
         WXCtr.getSelfData();
         WXCtr.getFriendRankingData();
-        this.showLoading();
-        this.produceBtn.setPlaneNum();
-    }
-
-    showLoading() {
-        // let pgb = this.ndLoading.getChildByName("pgbLoading").getComponent(cc.ProgressBar);
-        // pgb.node.active = true;
-        // let plane = pgb.node.getChildByName("plane");
-        // if (pgb.progress <= 1) {
-        //     this.scheduleOnce(() => {
-        //         plane.x = pgb.node.width * pgb.progress - (pgb.node.width / 2);
-        //         pgb.progress += 0.015;
-        //         this.showLoading();
-        //     }, 0.02);
-        // } else {
-        //     this.ndLoading.active = false;
-
         this.initGame();
         WXCtr.createBannerAd(100, 300);
-        // }
+        this.produceBtn.setPlaneNum();
+        this.ndMask.active = false;
     }
 
     initGame() {
@@ -250,6 +232,7 @@ export default class Game extends cc.Component {
                 plane.position = cc.v2(0, 0);
                 let landPlane = plane.getComponent(LandPlane);
                 landPlane.setLevel(level);
+                landPlane.blink();
                 landPlane.apronTag = port.tag + 10;
                 comp.plane = landPlane;
                 comp.isUsed = true;
@@ -340,6 +323,15 @@ export default class Game extends cc.Component {
         this.landPlaneArr.splice(idx, 1);
     }
 
+    getBaseProfitOfPlane() {
+        let profit = 0;
+        for(let i=0; i< GameCtr.selfPlanes.length; i++) {
+            let level = GameCtr.selfPlanes[i];
+            profit += GameData.planeProfits[level];
+        }
+        return profit;
+    }
+
     update(dt) {
 
     }
@@ -421,12 +413,11 @@ export default class Game extends cc.Component {
      */
     showOffLineProfitPop() {
         console.log("离线收益！！！！！！");
-        let profit = 0;                                         //
+        let profit = this.getBaseProfitOfPlane();                                         //
         let lastTime = WXCtr.getStorageData("lastTime");
         let cTime = new Date().getTime();
         let offTime = Math.floor((cTime - lastTime) / 1000);
-        let offLineProfit = Math.floor(profit * offTime * Math.pow(0.4, offTime / 28800));
-        if (offTime > 2 * 60 && offLineProfit > 0) {
+        if (offTime > 90 && profit > 0) {
             let nd = cc.instantiate(this.pfOffLineProfit);
             let comp = nd.getComponent(OffLineProfit)
             ViewManager.show({
@@ -436,8 +427,8 @@ export default class Game extends cc.Component {
                 maskOpacity: 200,
                 localZOrder: 1001
             });
-            comp.setOffLineProfit(offTime, offLineProfit);
-            HttpCtr.submitUserData({ data_4: cTime });
+            comp.setOffLineProfit(offTime, profit);
+            HttpCtr.submitUserData({ data_21: cTime });
             WXCtr.setStorageData("lastTime", cTime);
         }
 

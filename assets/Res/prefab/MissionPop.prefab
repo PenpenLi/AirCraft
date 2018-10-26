@@ -1025,8 +1025,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 176,
-      "height": 40
+      "width": 176.55,
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1102,8 +1102,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 245,
+      "b": 208,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1114,8 +1114,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 189.17,
-      "height": 25
+      "width": 227.59,
+      "height": 31.03
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1142,8 +1142,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {
@@ -1807,8 +1807,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 181.33,
-      "height": 40
+      "width": 182.07,
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1884,8 +1884,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 245,
+      "b": 208,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1896,8 +1896,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 189.17,
-      "height": 25
+      "width": 227.59,
+      "height": 31.03
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1924,8 +1924,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {
@@ -2589,8 +2589,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 182.67,
-      "height": 40
+      "width": 183.45,
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -2666,8 +2666,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 245,
+      "b": 208,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -2678,8 +2678,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 189.17,
-      "height": 25
+      "width": 227.59,
+      "height": 31.03
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -2706,8 +2706,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {
@@ -3371,8 +3371,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
-      "height": 40
+      "width": 158.62,
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -3448,8 +3448,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 245,
+      "b": 208,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -3460,8 +3460,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 199.17,
-      "height": 25
+      "width": 314.48,
+      "height": 31.03
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -3488,8 +3488,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {
@@ -4154,7 +4154,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 160,
-      "height": 40
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4230,8 +4230,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 245,
+      "b": 208,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -4242,8 +4242,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 259.17,
-      "height": 25
+      "width": 326.9,
+      "height": 31.03
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4270,8 +4270,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {
@@ -4279,7 +4279,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "今日合成128次（128/128）",
+    "_N$string": "今日合成128次(128/128)",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -4936,7 +4936,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 160,
-      "height": 40
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5012,8 +5012,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 245,
+      "b": 208,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -5024,8 +5024,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 227.5,
-      "height": 25
+      "width": 320.69,
+      "height": 31.03
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5052,8 +5052,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {
@@ -5061,7 +5061,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "今日开启宝箱10次（0/10）",
+    "_N$string": "今日开启宝箱10次(0/10)",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -5718,7 +5718,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 160,
-      "height": 40
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5794,8 +5794,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 245,
+      "b": 208,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -5806,8 +5806,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 159.17,
-      "height": 25
+      "width": 267.93,
+      "height": 31.03
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5834,8 +5834,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {
@@ -6499,8 +6499,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 158.67,
-      "height": 40
+      "width": 158.62,
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -6576,8 +6576,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 245,
+      "b": 208,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -6588,8 +6588,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 216.67,
-      "height": 25
+      "width": 304.14,
+      "height": 31.03
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -6616,8 +6616,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": {

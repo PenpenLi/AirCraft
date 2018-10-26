@@ -12,6 +12,8 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class OffLineProfit extends cc.Component {
 
+    @property(cc.Node)
+    ndLight: cc.Node = null;
     @property(cc.Label)
     lbProfit: cc.Label = null;
     @property(cc.Node)
@@ -25,17 +27,17 @@ export default class OffLineProfit extends cc.Component {
     // onLoad () {}
 
     start() {
-
+        this.ndLight.runAction(cc.repeatForever(cc.rotateBy(2.0, 360)));
     }
 
     onDestroy() {
-        GameCtr.ins.mGame.autoShowLoginAward();
     }
 
     setOffLineProfit(offTime, profit) {
-        let maxTime = 8 * 60 * 60;
+        let maxTime = 30 * 60;
         if (offTime > maxTime) offTime = maxTime;
-        this.offLineProfit = profit;
+        let minT = Math.ceil((offTime-90)/60);
+        this.offLineProfit = profit*minT;
         this.lbProfit.string = "+" + Util.formatNum(this.offLineProfit);
         if (!WXCtr.videoAd || GameCtr.surplusVideoTimes <= 0) {
             this.ndVedioBtn.active = false;
@@ -60,9 +62,8 @@ export default class OffLineProfit extends cc.Component {
             WXCtr.showVideoAd();
             WXCtr.onCloseVideo((res) => {
                 WXCtr.offCloseVideo();
-                GameCtr.playBgm();
                 if (res) {
-                    this.offLineProfit *= 2;
+                    this.offLineProfit *= 3;
                 }
                 this.close();
             });
@@ -82,10 +83,6 @@ export default class OffLineProfit extends cc.Component {
         } else {
             this.node.destroy();
         }
-        GameCtr.ins.mGame.showOffLineProfitParticle();
-        AudioManager.getInstance().setSoundVolume(1);
-        AudioManager.getInstance().setMusicVolume(1);
-
     }
 
     // update (dt) {}
