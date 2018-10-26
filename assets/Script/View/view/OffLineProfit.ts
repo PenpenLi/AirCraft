@@ -76,6 +76,7 @@ export default class OffLineProfit extends cc.Component {
             return;
         }
         GameData.gold += this.offLineProfit;
+        GameCtr.ins.mGame.setDiamonds();
         GameData.offLineProfit = 0;
         let popupView = this.node.parent.getComponent(PopupView);
         if (!!popupView) {

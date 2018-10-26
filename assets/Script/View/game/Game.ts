@@ -126,17 +126,9 @@ export default class Game extends cc.Component {
     }
 
     loadPackages(){
-       if(wx){
-        wx.loadSubpackage({
-            name: 'Fight', // name 可以填 name 或者 root
-            success: function(res) {
-                console.log("log............分包加载完成---------")
-            },
-            fail: function(res) {
-                console.log("log............分包加载失败---------")
-            }
-          })
-       } 
+        WXCtr.loadSubPackages("Fight", ()=>{
+            console.log("log............分包加载完成---------")
+        });
     }
 
     initMainMusic(){
