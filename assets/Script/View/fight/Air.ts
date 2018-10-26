@@ -157,7 +157,8 @@ export default class NewClass extends cc.Component {
         if(this._isBoss || this._isEnemy){
             hurt=GameCtr.doubleAttack?hurt*2:hurt;
         }
-        AudioManager.getInstance().playSound("audio/hit", false);
+        //AudioManager.getInstance().playSound("audio/hit", false);
+        
         this._currentLifeValue-=hurt;
         if(this._isEnemy){
             this._lifeBar.getComponent(cc.ProgressBar).progress=this._currentLifeValue/this._lifeValue;

@@ -1,6 +1,7 @@
 import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
 import Util from "../../Common/Util";
+import AudioManager from "../../Common/AudioManager";
 const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
@@ -531,6 +532,7 @@ export default class NewClass extends cc.Component {
     }
 
     onBtnOver(){
+        AudioManager.getInstance().playSound("audio/click", false);
         cc.director.pause();
         this.showGameOver();
     }

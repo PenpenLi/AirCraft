@@ -1,5 +1,6 @@
 import GameCtr from "../../Controller/GameCtr";
 import Util from "../../Common/Util";
+import AudioManager from "../../Common/AudioManager";
 
 const {ccclass, property} = cc._decorator;
 @ccclass
@@ -27,6 +28,7 @@ export default class NewClass extends cc.Component {
 
     initBtnEvent(btn){
         btn.on(cc.Node.EventType.TOUCH_END,(e)=>{
+            AudioManager.getInstance().playSound("audio/click", false);
             cc.director.resume();
             if(e.target.getName()=="btn_playAgain"){
                 GameCtr.getInstance().getFight().clear();
