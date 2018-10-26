@@ -152,15 +152,4 @@ export default class GameCtr {
         }
     }
 
-    //根据图片路径设置sprite的spriteFrame
-    static loadImg(spr, imgUrl) {
-        cc.loader.load({
-            url: imgUrl,
-            type: 'png'
-        }, (err, texture) => {
-            spr.spriteFrame = new cc.SpriteFrame(texture);
-        });
-    }
-
-
 }

@@ -1,6 +1,7 @@
 import GameCtr from "../../Controller/GameCtr";
 import WXCtr from "../../Controller/WXCtr";
 import HttpCtr from "../../Controller/HttpCtr";
+import Util from "../../Common/Util";
 
 const {ccclass, property} = cc._decorator;
 
@@ -16,7 +17,7 @@ export default class NewClass extends cc.Component {
     
     init(data){
         let sp = this._adSprite.getComponent(cc.Sprite);
-        GameCtr.loadImg(sp,data.imageurl)
+        Util.loadImg(sp,data.imageurl)
         let obj = {appid:data.appid,path:data.path}
         this._adSprite.on(cc.Node.EventType.TOUCH_START, ()=>{
             WXCtr.gotoOther(obj);
