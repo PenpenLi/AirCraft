@@ -125,13 +125,13 @@ export default class Game extends cc.Component {
     }
 
     initMainMusic(){
-        while(this.node.getChildByTag(GameCtr.musicTag)){
-            this.node.removeChildByTag(GameCtr.musicTag);
-        }
-        let bgMusic=cc.instantiate(this.music);
-        bgMusic.parent=this.node;
-        bgMusic.getComponent("music").updatePlayState();
-        bgMusic.tag=GameCtr.musicTag;
+        // while(this.node.getChildByTag(GameCtr.musicTag)){
+        //     this.node.removeChildByTag(GameCtr.musicTag);
+        // }
+        // let bgMusic=cc.instantiate(this.music);
+        // bgMusic.parent=this.node;
+        // bgMusic.getComponent("music").updatePlayState();
+        // bgMusic.tag=GameCtr.musicTag;
     }
 
     onDestroy() {
