@@ -96,6 +96,32 @@ export default class GameData {
         { name: "25 天神", baseAttack: 8000000000, attackIncrease: 16000000, basePrice: 129380000 }
     ];
 
+    static planeProfits = [
+        0,
+        33,
+        66,
+        157,
+        364,
+        803,
+        1706,
+        3537,
+        7224,
+        14623,
+        29446,
+        59117,
+        118484,
+        237243,
+        474786,
+        949897,
+        1900144,
+        3800663,
+        7601726,
+        15203877,
+        30408204,
+        60816883,
+        121634266
+    ];
+
     static baseEnemy = {
         monsterHP: 30,
         bossHP: 900,

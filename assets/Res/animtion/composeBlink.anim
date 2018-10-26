@@ -1,0 +1,66 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "composeBlink",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.8,
+  "sample": 10,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "c53c9c24-6dab-4751-a389-85a4fcc65071"
+            }
+          },
+          {
+            "frame": 0.1,
+            "value": {
+              "__uuid__": "c6d21f80-64db-4a44-82e5-ff1c5979a1d7"
+            }
+          },
+          {
+            "frame": 0.2,
+            "value": {
+              "__uuid__": "5e4d46f2-4396-4340-b321-40a048d49e0e"
+            }
+          },
+          {
+            "frame": 0.3,
+            "value": {
+              "__uuid__": "91cd0662-db58-4947-9a5c-81e5d2aee564"
+            }
+          },
+          {
+            "frame": 0.4,
+            "value": {
+              "__uuid__": "53973fa7-5d5b-4f9d-93c7-1d16fdab2567"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "760b335c-e7df-447f-963c-cb25fc972294"
+            }
+          },
+          {
+            "frame": 0.6,
+            "value": {
+              "__uuid__": "c53c9c24-6dab-4751-a389-85a4fcc65071"
+            }
+          },
+          {
+            "frame": 0.7,
+            "value": null
+          }
+        ]
+      }
+    },
+    "props": {}
+  },
+  "events": []
+}
