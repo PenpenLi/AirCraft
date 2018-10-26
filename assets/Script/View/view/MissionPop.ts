@@ -2,6 +2,7 @@ import PopupView from "./PopupView";
 import GameData from "../../Common/GameData";
 import ViewManager from "../../Common/ViewManager";
 import WXCtr from "../../Controller/WXCtr";
+import GameCtr from "../../Controller/GameCtr";
 
 
 const { ccclass, property } = cc._decorator;
@@ -135,6 +136,7 @@ export default class MissionPop extends cc.Component {
         }
         btn.active = false;
         GameData.diamonds += 50;
+        GameCtr.ins.mGame.setDiamonds();
         let key = "missionCollected_" + data;
         GameData.setMissonData(key, true);
     }

@@ -2,6 +2,7 @@ import PlaneFrameMG from "../game/PlaneFrameMG";
 import GameData from "../../Common/GameData";
 import Util from "../../Common/Util";
 import AudioManager from "../../Common/AudioManager";
+import GameCtr from "../../Controller/GameCtr";
 
 const {ccclass, property} = cc._decorator;
 
@@ -61,6 +62,7 @@ export default class PlaneUpgradeItem extends cc.Component {
         if(GameData.gold >= this.price){
             this.setLevel(++this.level);
             GameData.gold -= this.price;
+            GameCtr.ins.mGame.setDiamonds();
             GameData.setPlaneLevel(this.idx, this.level);
             AudioManager.getInstance().playSound("audio/sound_p7_up", false);
         }
