@@ -109,6 +109,7 @@ export default class Game extends cc.Component {
     onLoad() {
         cc.director.setDisplayStats(false);
         GameCtr.getInstance().setGame(this);
+        this.loadPackages();
         this.initPools();
         this.initMusicState();
         this.initMainMusic();
@@ -124,14 +125,28 @@ export default class Game extends cc.Component {
         });
     }
 
+    loadPackages(){
+       if(wx){
+        wx.loadSubpackage({
+            name: 'Fight', // name 可以填 name 或者 root
+            success: function(res) {
+                console.log("log............分包加载完成---------")
+            },
+            fail: function(res) {
+                console.log("log............分包加载失败---------")
+            }
+          })
+       } 
+    }
+
     initMainMusic(){
-        // while(this.node.getChildByTag(GameCtr.musicTag)){
-        //     this.node.removeChildByTag(GameCtr.musicTag);
-        // }
-        // let bgMusic=cc.instantiate(this.music);
-        // bgMusic.parent=this.node;
-        // bgMusic.getComponent("music").updatePlayState();
-        // bgMusic.tag=GameCtr.musicTag;
+        while(this.node.getChildByTag(GameCtr.musicTag)){
+            this.node.removeChildByTag(GameCtr.musicTag);
+        }
+        let bgMusic=cc.instantiate(this.music);
+        bgMusic.parent=this.node;
+        bgMusic.getComponent("music").updatePlayState();
+        bgMusic.tag=GameCtr.musicTag;
     }
 
     onDestroy() {
