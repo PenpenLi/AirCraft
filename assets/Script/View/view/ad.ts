@@ -16,13 +16,13 @@ export default class NewClass extends cc.Component {
     
     init(data){
         let sp = this._adSprite.getComponent(cc.Sprite);
-        GameCtr.loadImg(sp,data.img)
+        GameCtr.loadImg(sp,data.imageurl)
         let obj = {appid:data.appid,path:data.path}
         this._adSprite.on(cc.Node.EventType.TOUCH_START, ()=>{
             WXCtr.gotoOther(obj);
-            HttpCtr.openClick(null,data.appid);
+            //HttpCtr.openClick(null,data.appid);
         });
-        this._adName.getComponent(cc.Label).string=data.title;
+        this._adName.getComponent(cc.Label).string=data.name;
     }
 
 
