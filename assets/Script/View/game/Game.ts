@@ -112,7 +112,6 @@ export default class Game extends cc.Component {
         this.loadPackages();
         this.initPools();
         this.initMusicState();
-        this.initMainMusic();
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
@@ -180,7 +179,7 @@ export default class Game extends cc.Component {
         WXCtr.createBannerAd(100, 300);
         this.produceBtn.setPlaneNum();
         this.ndMask.active = false;
-        GameCtr.playBgm();
+        this.initMainMusic();
     }
 
     initGame() {
