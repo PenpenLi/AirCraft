@@ -2,6 +2,7 @@ import GameData from "../../Common/GameData";
 import Util from "../../Common/Util";
 import PlaneFrameMG from "../game/PlaneFrameMG";
 import AudioManager from "../../Common/AudioManager";
+import GameCtr from "../../Controller/GameCtr";
 
 
 const { ccclass, property } = cc._decorator;
@@ -148,6 +149,7 @@ export default class SettingUpgradeItem extends cc.Component {
             GameData.forceCriticalStrike++;
                 break;
         }
+        GameCtr.ins.mGame.setDiamonds();
         this.setSettingInfo(this.type);
         AudioManager.getInstance().playSound("audio/sound_p7_up", false);
     }

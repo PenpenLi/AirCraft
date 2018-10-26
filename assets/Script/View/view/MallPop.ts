@@ -71,6 +71,7 @@ export default class MallPop extends cc.Component {
                 break;
         }
         GameData.diamonds -= price;
+        GameCtr.ins.mGame.setDiamonds();
     }
 
     close() {
