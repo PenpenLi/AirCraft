@@ -1,3 +1,5 @@
+import GameCtr from "../Controller/GameCtr";
+
 /**
  * 声音管理
  */
@@ -88,6 +90,9 @@ export default class AudioManager {
             return;
         }
         if (!this.soundOn) {
+            return;
+        }
+        if(GameCtr.musicSwitch<0){
             return;
         }
         try {
