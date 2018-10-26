@@ -241,7 +241,6 @@ export default class LandPlane extends cc.Component {
             // GameCtr.ins.mGame.showUnlockPop(otherPlane.level + 1);    //弹出解锁弹窗
         }
 
-        AudioManager.getInstance().playSound("audio/click", false);
         this.moveNode.runAction(cc.sequence(
             cc.moveBy(0.15, cc.v2(100, 0)).easing(cc.easeSineOut()),
             cc.moveBy(0.15, cc.v2(-100, 0)).easing(cc.easeSineIn()),
@@ -274,7 +273,7 @@ export default class LandPlane extends cc.Component {
                 GameCtr.ins.mGame.showExpParticle(wPos);
                 // GameCtr.ins.mGame.setPgbLevel();
                 GameCtr.ins.mGame.showPortLight(otherParent);
-                AudioManager.getInstance().playSound("audio/complex", false);
+                AudioManager.getInstance().playSound("audio/sound_p7_merge", false);
                 GameData.setMissonData("composeTimes", GameData.missionData.composeTimes+1);
             }),
         ));

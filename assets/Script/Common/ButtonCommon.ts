@@ -17,7 +17,7 @@ export default class ButtonCommon extends cc.Component {
     }
 
     touchstart() {
-        AudioManager.getInstance().playSound("audio/btn", false); 
+        AudioManager.getInstance().playSound("audio/click", false);
     }
     // update (dt) {}
 }

@@ -173,6 +173,7 @@ export default class Game extends cc.Component {
         WXCtr.createBannerAd(100, 300);
         this.produceBtn.setPlaneNum();
         this.ndMask.active = false;
+        GameCtr.playBgm();
     }
 
     initGame() {
@@ -259,6 +260,7 @@ export default class Game extends cc.Component {
                 if(GameCtr.autoCompose){
                     this.autoComposePlane(port, port.tag);
                 }
+                AudioManager.getInstance().playSound("audio/sound_p7_makePlane", false); 
                 return;
             }
         }
