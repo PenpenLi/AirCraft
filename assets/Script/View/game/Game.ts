@@ -109,6 +109,7 @@ export default class Game extends cc.Component {
     onLoad() {
         cc.director.setDisplayStats(false);
         GameCtr.getInstance().setGame(this);
+        this.loadPackages();
         this.initPools();
         this.initMusicState();
         this.initMainMusic();
@@ -122,6 +123,20 @@ export default class Game extends cc.Component {
         cc.game.on(cc.game.EVENT_SHOW,()=>{
             this.initMainMusic();
         });
+    }
+
+    loadPackages(){
+       if(wx){
+        wx.loadSubpackage({
+            name: 'Fight', // name 可以填 name 或者 root
+            success: function(res) {
+                console.log("log............分包加载完成---------")
+            },
+            fail: function(res) {
+                console.log("log............分包加载失败---------")
+            }
+          })
+       } 
     }
 
     initMainMusic(){
