@@ -1,5 +1,6 @@
 import GameCtr from "../../Controller/GameCtr";
 import NodePoolManager from "../../Common/NodePoolManager";
+import AudioManager from "../../Common/AudioManager";
 enum Attack{
     UP=1,
     DOWN=-1
@@ -156,7 +157,7 @@ export default class NewClass extends cc.Component {
         if(this._isBoss || this._isEnemy){
             hurt=GameCtr.doubleAttack?hurt*2:hurt;
         }
-
+        AudioManager.getInstance().playSound("audio/hit", false);
         this._currentLifeValue-=hurt;
         if(this._isEnemy){
             this._lifeBar.getComponent(cc.ProgressBar).progress=this._currentLifeValue/this._lifeValue;
@@ -173,7 +174,7 @@ export default class NewClass extends cc.Component {
                 this._lifeValue=GameCtr.doubleGold?this._lifeValue*2*GameCtr.attactGoldRate:this._lifeValue*GameCtr.attactGoldRate;
                 GameCtr.getInstance().getFight().showBossGold(this._lifeValue,{x:this.node.x,y:this.node.y});
             }
-
+            AudioManager.getInstance().playSound("audio/boom", false);
             GameCtr.getInstance().getFight().removeAir(this.node);
             this.showDeadEft();
         }

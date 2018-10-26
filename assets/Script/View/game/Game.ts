@@ -96,6 +96,9 @@ export default class Game extends cc.Component {
     @property(cc.Prefab)
     ad:cc.Prefab =null;
 
+    @property(cc.Prefab)
+    music:cc.Prefab=null;
+
     private landPlanePool;
     public goldParticlePool;
 
@@ -110,12 +113,27 @@ export default class Game extends cc.Component {
         GameCtr.getInstance().setGame(this);
         this.initPools();
         this.initMusicState();
+        this.initMainMusic();
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
                 this.showOffLineProfitPop();
             }, 2.5);
         });
+
+        cc.game.on(cc.game.EVENT_SHOW,()=>{
+            this.initMainMusic();
+        });
+    }
+
+    initMainMusic(){
+        while(this.node.getChildByTag(GameCtr.musicTag)){
+            this.node.removeChildByTag(GameCtr.musicTag);
+        }
+        let bgMusic=cc.instantiate(this.music);
+        bgMusic.parent=this.node;
+        bgMusic.getComponent("music").updatePlayState();
+        bgMusic.tag=GameCtr.musicTag;
     }
 
     onDestroy() {
@@ -574,12 +592,6 @@ export default class Game extends cc.Component {
 
     onClickBtnFight() {
         let airCount=0;
-        
-        // for(let i=0;i<16;i++){
-        //     let level=Math.floor(Math.random()*16)+1;
-        //     GameCtr.selfPlanes.push(level);
-        // }
-
         for(let i=0;i<GameCtr.selfPlanes.length;i++){
             if(GameCtr.selfPlanes[i]>0){
                 airCount++
@@ -589,6 +601,7 @@ export default class Game extends cc.Component {
             ViewManager.toast("没有作战飞机")
             return;
         }
+        cc.game.off(cc.game.EVENT_SHOW);
         cc.director.loadScene("Fight");
         GameData.setMissonData("fightTimes", GameData.missionData.fightTimes + 1);
     }

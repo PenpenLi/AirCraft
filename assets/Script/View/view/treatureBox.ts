@@ -2,6 +2,7 @@ import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
 import Util from "../../Common/Util";
 import ViewManager from "../../Common/ViewManager";
+import AudioManager from "../../Common/AudioManager";
 
 
 const {ccclass, property} = cc._decorator;
@@ -88,6 +89,7 @@ export default class NewClass extends cc.Component {
 
     initBtnEvent(btn){
         btn.on(cc.Node.EventType.TOUCH_END,(e)=>{
+            AudioManager.getInstance().playSound("audio/click", false);
             if(e.target.getName()=="btn_close"){
                 this.node.destroy();
             }else if(e.target.getName()=="btn_open"){

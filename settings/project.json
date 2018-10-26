@@ -14,10 +14,13 @@
   "design-resolution-height": 1920,
   "design-resolution-width": 1080,
   "excluded-modules": [
+    "ParticleSystem",
     "TiledMap",
+    "Spine Skeleton",
     "PageView",
     "PageViewIndicator",
     "Slider",
+    "EditorBox",
     "VideoPlayer",
     "WebView",
     "RichText",

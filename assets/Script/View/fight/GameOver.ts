@@ -33,6 +33,7 @@ export default class NewClass extends cc.Component {
                 GameCtr.getInstance().getFight().resetGame();
                 this.node.destroy();
             }else if(e.target.getName()=="btn_back"){
+                cc.game.off(cc.game.EVENT_SHOW);
                 cc.director.loadScene("Game");
             }
             

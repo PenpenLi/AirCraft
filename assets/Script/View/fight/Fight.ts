@@ -37,6 +37,9 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Prefab)
     bubbleHurts:cc.Prefab[]=[];
+
+    @property(cc.Prefab)
+    music:cc.Prefab=null;
     
     onLoad(){
         GameCtr.isFight=true;
@@ -51,6 +54,21 @@ export default class NewClass extends cc.Component {
         this.initFightTouch();
         this.startBgRoll();
         this.setGameCount();
+        this.initFightMusic();
+
+        cc.game.on(cc.game.EVENT_SHOW,()=>{
+            this.initFightMusic();
+        });
+    }
+
+    initFightMusic(){
+        while(this.node.getChildByTag(GameCtr.musicTag)){
+            this.node.removeChildByTag(GameCtr.musicTag);
+        }
+        let bgMusic=cc.instantiate(this.music);
+        bgMusic.parent=this.node;
+        bgMusic.getComponent("music").updatePlayState();
+        bgMusic.tag=GameCtr.musicTag;
     }
 
     initPools(){
