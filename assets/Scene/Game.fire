@@ -1189,7 +1189,9 @@
     "pfOffLineProfit": {
       "__uuid__": "77593cac-0250-4d97-b823-dd43c87c084f"
     },
-    "pfUnlock": null,
+    "pfUnlock": {
+      "__uuid__": "412700e4-93c8-48f9-8987-4597c2adc62a"
+    },
     "pfInviteFriend": null,
     "pfLoginAward": {
       "__uuid__": "3dcbe427-b291-4df0-8cd8-54d2baf85df8"

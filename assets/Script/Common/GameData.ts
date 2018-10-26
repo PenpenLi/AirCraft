@@ -22,10 +22,10 @@ const dataKeyConfig = {
     forceCriticalStrike: "data_11",                                             //暴击暴伤
     vipLevel: "data_12",                                                        //VIP等级
     guideStep: "data_13",
-    freeDiamondCount:"data_14",                                                 //领取免费钻石奖励次数
-    fightLevel:"level",                                                       //战斗等级
-    enemyHP:"data_16",                                                          //当前关卡敌人血量  
-    baseBonus:"data_17",                                                        //当前关卡基础奖励
+    freeDiamondCount: "data_14",                                                 //领取免费钻石奖励次数
+    fightLevel: "level",                                                       //战斗等级
+    enemyHP: "data_16",                                                          //当前关卡敌人血量  
+    baseBonus: "data_17",                                                        //当前关卡基础奖励
 };
 
 
@@ -48,10 +48,10 @@ export default class GameData {
     private static _forceCriticalStrike: number = 0;                    //暴击暴伤等级
     private static _vipLevel: number = 0;                               //vip等级
     private static _lotteryTimes: number = 0;                           //宝箱抽奖次数
-    private static _freeDiamondCount: number =0;                        //领取免费钻石奖励次数  
-    private static _fightLevel: number =1;                              //战斗等级  
-    private static _enemyHP: number =0;                                 //当前关卡敌人血量  
-    private static _baseBonus: number =0;                               //当前关卡基础奖励         
+    private static _freeDiamondCount: number = 0;                        //领取免费钻石奖励次数  
+    private static _fightLevel: number = 1;                              //战斗等级  
+    private static _enemyHP: number = 0;                                 //当前关卡敌人血量  
+    private static _baseBonus: number = 0;                               //当前关卡基础奖励         
 
     public static saveTime = null;                                      //保存数据时间戳
 
@@ -119,7 +119,34 @@ export default class GameData {
         15203877,
         30408204,
         60816883,
-        121634266
+        121634266,
+        243269057,
+        486538664,
+        973077903
+    ];
+
+    static planeGift = [0, 0, 0, 0, 0,
+        24000,
+        52100,
+        112220,
+        234460,
+        501000,
+        1060000,
+        2250000,
+        4680000,
+        9720000,
+        20130000,
+        41600000,
+        85800000,
+        176640000,
+        363090000,
+        745290000,
+        1527840000,
+        3128430000,
+        6399060000,
+        13076340000,
+        26697520000,
+        54462940000
     ];
 
     static baseEnemy = {
@@ -256,60 +283,60 @@ export default class GameData {
     }
 
     //设置已领取免费领取钻石次数
-    static set freeDiamondCount(count){
-        if(count<0){
-            count=0;
+    static set freeDiamondCount(count) {
+        if (count < 0) {
+            count = 0;
         }
-        GameData._freeDiamondCount=count;
+        GameData._freeDiamondCount = count;
         GameData.setUserData({ freeDiamondCount: GameData._freeDiamondCount });
     }
 
     //获取已领取免费领取钻石次数
-    static get freeDiamondCount(){
+    static get freeDiamondCount() {
         return GameData._freeDiamondCount;
     }
 
     //设置游戏战斗等级
-    static set fightLevel(level){
-        if(level<0){
-            level=0;
+    static set fightLevel(level) {
+        if (level < 0) {
+            level = 0;
         }
 
-        GameData._fightLevel=level;
-        GameData.setUserData({fightLevel:GameData._fightLevel})
+        GameData._fightLevel = level;
+        GameData.setUserData({ fightLevel: GameData._fightLevel })
     }
 
     //获取游戏战斗等级
-    static get fightLevel(){
+    static get fightLevel() {
         return GameData._fightLevel;
     }
 
     //设置当前关卡敌人血量
-    static set enemyHP(HP){
-        if(HP<0){
-            HP=0;
+    static set enemyHP(HP) {
+        if (HP < 0) {
+            HP = 0;
         }
-        GameData._enemyHP=HP;
-        GameData.setUserData({enemyHP:GameData._enemyHP});
+        GameData._enemyHP = HP;
+        GameData.setUserData({ enemyHP: GameData._enemyHP });
 
     }
 
     //获取当前关卡敌人血量
-    static get enemyHP(){
+    static get enemyHP() {
         return GameData._enemyHP;
     }
 
     //设置当前关卡基础血量
-    static set baseBonus(baseBonus){
-        if(baseBonus<0){
-            baseBonus=0;
+    static set baseBonus(baseBonus) {
+        if (baseBonus < 0) {
+            baseBonus = 0;
         }
-        GameData._baseBonus=baseBonus;
-        GameData.setUserData({baseBonus:GameData._baseBonus})
+        GameData._baseBonus = baseBonus;
+        GameData.setUserData({ baseBonus: GameData._baseBonus })
     }
 
     //获取当前关卡基础奖励
-    static get baseBonus(){
+    static get baseBonus() {
         return GameData._baseBonus;
     }
 
@@ -357,7 +384,7 @@ export default class GameData {
         console.log("获取本地数据！！！！！！！！！！！！");
         GameData.gold = WXCtr.getStorageData("gold");
         GameData.diamonds = WXCtr.getStorageData("diamonds");
-        GameData.maxPlaneLevel = WXCtr.getStorageData("maxPlaneLevel",1);
+        GameData.maxPlaneLevel = WXCtr.getStorageData("maxPlaneLevel", 1);
         GameData.repPlaneNum = WXCtr.getStorageData("repPlaneNum");
         GameData.factoryLevel = WXCtr.getStorageData("factoryLevel");
         GameData.repositoryLevel = WXCtr.getStorageData("repositoryLevel");
@@ -370,10 +397,10 @@ export default class GameData {
         GameData.highCriticalStrike = WXCtr.getStorageData("highCriticalStrike");
         GameData.forceCriticalStrike = WXCtr.getStorageData("forceCriticalStrike");
         GameData.vipLevel = WXCtr.getStorageData("vipLevel");
-        GameData.freeDiamondCount= WXCtr.getStorageData("freeDiamondCount");
-        GameData.fightLevel= WXCtr.getStorageData("fightLevel",1);
-        GameData.enemyHP= WXCtr.getStorageData("enemyHP",30);
-        GameData.baseBonus= WXCtr.getStorageData("baseBonus",10);
+        GameData.freeDiamondCount = WXCtr.getStorageData("freeDiamondCount");
+        GameData.fightLevel = WXCtr.getStorageData("fightLevel", 1);
+        GameData.enemyHP = WXCtr.getStorageData("enemyHP", 30);
+        GameData.baseBonus = WXCtr.getStorageData("baseBonus", 10);
         Guide.guideStep = WXCtr.getStorageData("guideStep");
 
         for (let i = 1; i <= this.maxApron; i++) {
@@ -416,11 +443,11 @@ export default class GameData {
         GameData.highCriticalStrike = data.data_10;
         GameData.forceCriticalStrike = data.data_11;
         GameData.vipLevel = data.data_12;
-        GameData.freeDiamondCount= data.data_14;
-        GameData.fightLevel= data.level;
+        GameData.freeDiamondCount = data.data_14;
+        GameData.fightLevel = data.level;
 
-        GameData.enemyHP= data.data_16;
-        GameData.baseBonus= data.data_17;
+        GameData.enemyHP = data.data_16;
+        GameData.baseBonus = data.data_17;
 
         Guide.guideStep = data.data_13 == "null" ? 8 : data.data_13;
         GameData.setUserData({ guideStep: Guide.guideStep });
@@ -457,7 +484,7 @@ export default class GameData {
                 GameData.missionData[key] = false;
             }
         }
-        console.log("log----------getMissionData=:",GameData.missionData);
+        console.log("log----------getMissionData=:", GameData.missionData);
     }
 
     static setMissonData(key, value) {
@@ -468,7 +495,7 @@ export default class GameData {
     }
 
     //保存个人信息
-    static setUserData(data) { 
+    static setUserData(data) {
         data["saveTime"] = new Date().getTime();
         for (let key in data) {
             WXCtr.setStorageData(key, data[key]);
@@ -681,18 +708,18 @@ export default class GameData {
     static getEnemyHP() {
         if (GameData.fightLevel == 1) {
             GameData.enemyHP = 30;
-            return  GameData.enemyHP;
+            return GameData.enemyHP;
         }
-        return Math.floor(((3 + GameData.fightLevel) / Math.pow( GameData.fightLevel, 1.8) + 1.02) * GameData.enemyHP) + 9 * ( GameData.fightLevel - 1);
+        return Math.floor(((3 + GameData.fightLevel) / Math.pow(GameData.fightLevel, 1.8) + 1.02) * GameData.enemyHP) + 9 * (GameData.fightLevel - 1);
     }
 
 
     static getBaseBonus() {
-        if ( GameData.fightLevel == 1) {
+        if (GameData.fightLevel == 1) {
             GameCtr.baseBonus = 10;
             return GameCtr.baseBonus;
         }
-        return Math.floor(Math.pow(Math.floor( GameData.fightLevel / 3 + 1), 1.5) + GameCtr.baseBonus * 1.02);
+        return Math.floor(Math.pow(Math.floor(GameData.fightLevel / 3 + 1), 1.5) + GameCtr.baseBonus * 1.02);
     }
 
     // update (dt) {}

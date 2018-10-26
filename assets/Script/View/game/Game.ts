@@ -52,13 +52,9 @@ export default class Game extends cc.Component {
     ndGold: cc.Node = null;
 
     @property(cc.Prefab)
-    pfUpgrade: cc.Prefab = null;
-    @property(cc.Prefab)
     pfOffLineProfit: cc.Prefab = null;
     @property(cc.Prefab)
     pfUnlock: cc.Prefab = null;
-    @property(cc.Prefab)
-    pfInviteFriend: cc.Prefab = null;
     @property(cc.Prefab)
     pfLoginAward: cc.Prefab = null;
     @property(cc.Prefab)
@@ -474,11 +470,9 @@ export default class Game extends cc.Component {
     showUnlockPop(level) {
         let nd = cc.instantiate(this.pfUnlock);
         let comp = nd.getComponent(UnLockView);
-        ViewManager.showPromptDialog({
+        ViewManager.show({
             node: nd,
-            title: "解锁",
-            closeButton: true,
-            transition: false
+            maskOpacity: 200
         });
         comp.setData(level);
     }

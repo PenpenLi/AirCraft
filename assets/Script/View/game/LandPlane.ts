@@ -237,8 +237,8 @@ export default class LandPlane extends cc.Component {
 
         let tmpNode = this.moveNode;
 
-        if (GameData.maxPlaneLevel < otherPlane.level + 1) {
-            // GameCtr.ins.mGame.showUnlockPop(otherPlane.level + 1);    //弹出解锁弹窗
+        if (GameData.maxPlaneLevel < otherPlane.level + 1 && GameData.maxPlane > 4) {
+            GameCtr.ins.mGame.showUnlockPop(otherPlane.level + 1);    //弹出解锁弹窗
         }
 
         this.moveNode.runAction(cc.sequence(

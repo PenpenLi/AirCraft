@@ -21,6 +21,8 @@ export default class PlaneUpgradeItem extends cc.Component {
     lbPrice: cc.Label = null;
     @property(cc.Label)
     lbAttribute: cc.Label = null;
+    @property(cc.Node)
+    ndButton: cc.Node = null;
 
     private level = 1;
     private idx = 1;
@@ -45,6 +47,13 @@ export default class PlaneUpgradeItem extends cc.Component {
     }
 
     private setLevel(level){
+        if(level > GameData.maxPlaneLevel) {
+            this.lbLevel.node.active = true;
+            this.lbAttribute.node.active = true;
+            this.sprPlane.node.opacity = 180;
+            this.ndButton.active = false;
+            return;
+        }
         this.lbLevel.string = "等级 "+level;
         let attact = this.info.baseAttack+this.info.attackIncrease*(level-1);
         let life = baseLife;
