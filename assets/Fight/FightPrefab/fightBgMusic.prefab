@@ -69,7 +69,7 @@
     },
     "_enabled": true,
     "_clip": {
-      "__uuid__": "f6dba10b-ffbf-4c07-a12a-44c50442543e"
+      "__uuid__": "be5e234a-d0c7-45fd-a895-5025a6baddfa"
     },
     "_volume": 1,
     "_mute": false,
@@ -83,7 +83,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "37950143-f0a6-463c-bcd9-362734931ca0"
     },
     "fileId": "a9dwC/lEFCEY6vji4Jj+kG",
     "sync": false
