@@ -282,23 +282,6 @@ export default class HttpCtr {
 
     //渠道验证
     static chanelCheck(query, code) {
-        // Http.send({
-        //     url: Http.UrlConfig.CHANEL_RECORD,
-        //     data: {
-        //         uid: userId,
-        //         voucher: UserManager.voucher,
-        //         channel_id: query.channel_id,
-        //         cuid: query.cuid,
-        //         cvoucher: query.cvoucher,
-        //         cid: query.cid,
-        //         pid: query.pid
-        //     },
-        //     success: (resp) => {
-        //     },
-        //     error: () => {
-        //         setTimeout(() => { HttpCtr.chanelCheck(query, userId); }, 5000);
-        //     }
-        // });
         if(window.wx){
             wx.request({
                 url:"https://ball.yz071.com/api/?do=Ball.Api.Auth.WechatLogin",
@@ -428,6 +411,59 @@ export default class HttpCtr {
                 voucher: UserManager.voucher,
             }
         });
+    }
+
+    // static openClick(_clickid,_appid=null){
+    //     if(!GameCtr.setting){return}
+    //     if(_appid || GameCtr.setting.onclick){
+    //         Http.send({
+    //             url: Http.UrlConfig.OPEN_CLICK,
+    //             success: (res) => {
+    //                 if(res.ret!=1){
+    //                     GameCtr.getInstance().getGame().showToast(res.msg);
+    //                 }
+    //             },
+    //             data: {
+    //                 uid: UserManager.user_id,
+    //                 voucher: UserManager.voucher,
+    //                 clickid:_clickid,
+    //                 appid:_appid
+    //             }
+    //         });     
+    //     }
+    // }
+
+
+    static getAdsByType(callFunc,type){
+        let _url="https://ball.yz071.com/api/?do=Ball.Api.User."+type;
+        if(window.wx){
+            window.wx.login({
+                success: function (loginResp) {
+                    wx.request({
+                        url:_url,
+                        header:{
+                            "cache-control": "no-cache",
+                            "content-type": "application/json",
+                            "x-source": "1000"
+                        },
+                        data: {
+                            code: loginResp.code,
+                        },
+                        method:'POST',
+                        success: (resp) => {
+                            if(callFunc){
+                                callFunc(resp.data);
+                            }
+                        },
+                        fail:{
+
+                        }
+                    });
+                },
+                fail: function (res) {
+                }
+            })
+        }
     }
     
     // update (dt) {}

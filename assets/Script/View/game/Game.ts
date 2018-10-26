@@ -110,7 +110,6 @@ export default class Game extends cc.Component {
         GameCtr.getInstance().setGame(this);
         this.initPools();
         this.initMusicState();
-        this.showAds();
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
@@ -128,6 +127,8 @@ export default class Game extends cc.Component {
             this.gameStart();
         }
         GameCtr.isFight = false;
+
+        HttpCtr.getAdsByType(this.showAds.bind(this),"Recommend");
     }
 
     initPools() {
@@ -668,15 +669,19 @@ export default class Game extends cc.Component {
 
 
     /****************************广告**********************************/
-    showAds(){
-        for(let i=0;i<5;i++){
-            let ad =cc.instantiate(this.ad);
-            ad.parent=this.adContent;
-            ad.x=-342+i*231;
-            ad.y=12;
-
-            this.adArr.push(ad);
+    showAds(ads){
+        console.log("log----------showAds=:",ads);
+        if(ads){
+            for(let i=0;i<ads.data.length;i++){
+                let ad =cc.instantiate(this.ad);
+                ad.parent=this.adContent;
+                ad.x=-342+i*231;
+                ad.y=12;
+                ad.getComponent("ad").init(ads.data[i]);
+                this.adArr.push(ad);
+            }
         }
+       
         this.scheduleOnce(this.doCarousel.bind(this),10)
     }
 
