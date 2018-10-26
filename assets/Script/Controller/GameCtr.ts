@@ -142,7 +142,7 @@ export default class GameCtr {
 
     //播放背景音乐
     static playBgm() {
-        AudioManager.getInstance().playMusic("audio/bgm", true);
+        AudioManager.getInstance().playMusic("audio/main_music", true);
     }
 
     //增加分数
