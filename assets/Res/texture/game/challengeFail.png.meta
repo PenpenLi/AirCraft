@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "91de1f84-c4ca-4468-a2fa-731816188c5f",
+  "uuid": "f3d9aa6f-39d3-4c7f-a38c-9383e9f53427",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
     "challengeFail": {
       "ver": "1.0.3",
-      "uuid": "3a9c27d7-b60f-4de5-8127-3fe78ef24632",
-      "rawTextureUuid": "91de1f84-c4ca-4468-a2fa-731816188c5f",
+      "uuid": "599a4396-2dd9-460f-9e3b-ad2d0e704c96",
+      "rawTextureUuid": "f3d9aa6f-39d3-4c7f-a38c-9383e9f53427",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
