@@ -108,15 +108,12 @@ export default class Game extends cc.Component {
         this.loadPackages();
         this.initPools();
         this.initMusicState();
+        this.initMainMusic();
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
                 this.showOffLineProfitPop();
             }, 2.5);
-        });
-
-        cc.game.on(cc.game.EVENT_SHOW,()=>{
-            this.initMainMusic();
         });
     }
 
@@ -127,13 +124,8 @@ export default class Game extends cc.Component {
     }
 
     initMainMusic(){
-        while(this.node.getChildByTag(GameCtr.musicTag)){
-            this.node.removeChildByTag(GameCtr.musicTag);
-        }
-        let bgMusic=cc.instantiate(this.music);
-        bgMusic.parent=this.node;
-        bgMusic.getComponent("music").updatePlayState();
-        bgMusic.tag=GameCtr.musicTag;
+        let music =cc.find("Canvas").getChildByName("mainBgMusic");
+        music.getComponent("music").updatePlayState();
     }
 
     onDestroy() {
@@ -146,6 +138,13 @@ export default class Game extends cc.Component {
         }
         GameCtr.isFight = false;
 
+        cc.game.on(cc.game.EVENT_SHOW,()=>{
+            if(GameCtr.isFight){
+                GameCtr.getInstance().getFight().initFightMusic();
+            }else {
+                this.initMainMusic();
+            }
+        });
         HttpCtr.getAdsByType(this.showAds.bind(this),"Recommend");
     }
 
@@ -175,7 +174,6 @@ export default class Game extends cc.Component {
         WXCtr.createBannerAd(100, 300);
         this.produceBtn.setPlaneNum();
         this.ndMask.active = false;
-        this.initMainMusic();
     }
 
     initGame() {
@@ -594,7 +592,6 @@ export default class Game extends cc.Component {
             ViewManager.toast("没有作战飞机")
             return;
         }
-        cc.game.off(cc.game.EVENT_SHOW);
         cc.director.loadScene("Fight");
         GameData.setMissonData("fightTimes", GameData.missionData.fightTimes + 1);
     }
@@ -643,15 +640,10 @@ export default class Game extends cc.Component {
         } else {                    //关闭开关
             this.musicBtnMask.active = true;
         }
-        this.updateMusicState();
+        this.initMainMusic();
     }
 
-    updateMusicState(){
-        let music=this.node.getChildByTag(GameCtr.musicTag);
-        if(music){
-            music.getComponent("music").updatePlayState();
-        }
-    }
+  
 
 
     showSpeedUpTimer() {

@@ -56,20 +56,19 @@ export default class NewClass extends cc.Component {
         this.startBgRoll();
         this.setGameCount();
         this.initFightMusic();
-
-        cc.game.on(cc.game.EVENT_SHOW,()=>{
-            this.initFightMusic();
-        });
     }
 
     initFightMusic(){
-        while(this.node.getChildByTag(GameCtr.musicTag)){
-            this.node.removeChildByTag(GameCtr.musicTag);
+        if(GameCtr.musicSwitch>0){
+            let music= cc.find("Canvas").getChildByTag(GameCtr.musicTag)
+            if(music){
+                music.getComponent("music").updatePlayState();
+            }else{
+                music=cc.instantiate(this.music);
+                music.parent=cc.find("Canvas");
+                music.tag=GameCtr.musicTag;
+            }
         }
-        let bgMusic=cc.instantiate(this.music);
-        bgMusic.parent=this.node;
-        bgMusic.getComponent("music").updatePlayState();
-        bgMusic.tag=GameCtr.musicTag;
     }
 
     initPools(){
