@@ -100,7 +100,9 @@ export default class Game extends cc.Component {
     public allPort = [];
     private ufoShowTimes = 0;
     private sliderIdx = 0;
-    adArr=[];
+    _youLikeGames=[];
+    _hotGames=[];
+    _carouselHotIndex=-1;
 
     onLoad() {
         cc.director.setDisplayStats(false);
@@ -108,15 +110,12 @@ export default class Game extends cc.Component {
         this.loadPackages();
         this.initPools();
         this.initMusicState();
+        this.initMainMusic();
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
                 this.showOffLineProfitPop();
             }, 2.5);
-        });
-
-        cc.game.on(cc.game.EVENT_SHOW,()=>{
-            this.initMainMusic();
         });
     }
 
@@ -127,13 +126,8 @@ export default class Game extends cc.Component {
     }
 
     initMainMusic(){
-        while(this.node.getChildByTag(GameCtr.musicTag)){
-            this.node.removeChildByTag(GameCtr.musicTag);
-        }
-        let bgMusic=cc.instantiate(this.music);
-        bgMusic.parent=this.node;
-        bgMusic.getComponent("music").updatePlayState();
-        bgMusic.tag=GameCtr.musicTag;
+        let music =cc.find("Canvas").getChildByName("mainBgMusic");
+        music.getComponent("music").updatePlayState();
     }
 
     onDestroy() {
@@ -146,6 +140,14 @@ export default class Game extends cc.Component {
         }
         GameCtr.isFight = false;
 
+        cc.game.on(cc.game.EVENT_SHOW,()=>{
+            if(GameCtr.isFight){
+                GameCtr.getInstance().getFight().initFightMusic();
+            }else {
+                this.initMainMusic();
+            }
+        });
+        HttpCtr.getSliderConfig("index");
         HttpCtr.getAdsByType(this.showAds.bind(this),"Recommend");
     }
 
@@ -175,7 +177,6 @@ export default class Game extends cc.Component {
         WXCtr.createBannerAd(100, 300);
         this.produceBtn.setPlaneNum();
         this.ndMask.active = false;
-        this.initMainMusic();
     }
 
     initGame() {
@@ -594,7 +595,6 @@ export default class Game extends cc.Component {
             ViewManager.toast("没有作战飞机")
             return;
         }
-        cc.game.off(cc.game.EVENT_SHOW);
         cc.director.loadScene("Fight");
         GameData.setMissonData("fightTimes", GameData.missionData.fightTimes + 1);
     }
@@ -643,15 +643,17 @@ export default class Game extends cc.Component {
         } else {                    //关闭开关
             this.musicBtnMask.active = true;
         }
-        this.updateMusicState();
+        AudioManager.getInstance().playSound("audio/click", false);
+        this.initMainMusic();
     }
 
-    updateMusicState(){
-        let music=this.node.getChildByTag(GameCtr.musicTag);
-        if(music){
-            music.getComponent("music").updatePlayState();
-        }
+    onClickMore(){
+        AudioManager.getInstance().playSound("audio/click", false);
+        //console.log("log-----------onClickMore otherData=:",GameCtr.otherData);
+        //if(GameCtr.otherData) WXCtr.gotoOther(GameCtr.otherData[0]);
     }
+
+  
 
 
     showSpeedUpTimer() {
@@ -688,42 +690,93 @@ export default class Game extends cc.Component {
 
     /****************************广告**********************************/
     showAds(ads){
-        console.log("log----------showAds=:",ads);
-        if(ads){
-            for(let i=0;i<ads.data.length;i++){
+        let youLikeGames=GameCtr.getAdList(ads.data,1);
+        let hotGames=GameCtr.getAdList(ads.data,2);
+
+        this.showYouLikeGames(youLikeGames);
+        this.showHotGames(hotGames);
+    }
+
+    //猜你喜欢
+    showYouLikeGames(games){
+        if(games && games.length>0){
+            for(let i=0;i<games.length;i++){
                 let ad =cc.instantiate(this.ad);
                 ad.parent=this.adContent;
                 ad.x=-342+i*231;
                 ad.y=12;
-                ad.getComponent("ad").init(ads.data[i]);
-                this.adArr.push(ad);
+                ad.getComponent("ad").init(games[i]);
+                this._youLikeGames.push(ad);
             }
+            this.scheduleOnce(this.doCarouselYouLike.bind(this),10)
         }
-       
-        this.scheduleOnce(this.doCarousel.bind(this),10)
     }
 
-    //轮播
-    doCarousel(){
-        if(this.adArr.length<=4){ //广告位推荐位大于3个，才有轮播功能
+    //爆款游戏
+    showHotGames(games){
+        if(games && games.length>0){
+            for(let i=0;i<games.length;i++){
+                let ad=cc.instantiate(this.ad);
+                ad.parent=this.node;
+                ad.scale=0.6;
+                ad.getComponent("ad").init(games[i]);
+                ad.x=i==0?540:1800;
+                ad.y=i==0?1750:3000;
+                this._hotGames.push(ad);
+            }
+            this._carouselHotIndex=0;
+            this.scheduleOnce(()=>{
+                this._hotGames[this._carouselHotIndex].getComponent("ad").doShake();
+            },2)
+            this.scheduleOnce(this.doCarouselHot.bind(this),5);
+        }
+       
+    }
+
+    //猜你喜欢轮播
+    doCarouselYouLike(){
+        if(this._youLikeGames.length<=4){ //广告位推荐位大于4个，才有轮播功能
             return 
         }
         //整体左移一个广告位
-        for(let i=0;i<this.adArr.length-1;i++){
-            this.adArr[i].stopAllActions();
-            this.adArr[i].scale=1.0;
-            this.adArr[i].runAction(cc.moveBy(0.5,cc.p(-231*1,0)))
+        for(let i=0;i<this._youLikeGames.length-1;i++){
+            this._youLikeGames[i].stopAllActions();
+            this._youLikeGames[i].scale=1.0;
+            this._youLikeGames[i].runAction(cc.moveBy(0.5,cc.p(-231*1,0)))
         }
         //将超出左边边界的移动到右边
-        this.adArr[this.adArr.length-1].runAction(cc.sequence(
+        this._youLikeGames[this._youLikeGames.length-1].runAction(cc.sequence(
             cc.moveBy(0.5,cc.p(-231*1,0)),
             cc.callFunc(()=>{
-                let first=this.adArr.shift();
-                this.adArr.push(first);
-                this.adArr[this.adArr.length-1].x=this.adArr[this.adArr.length-2].x+231;
-                this.scheduleOnce(this.doCarousel.bind(this),10)
+                let first=this._youLikeGames.shift();
+                this._youLikeGames.push(first);
+                this._youLikeGames[this._youLikeGames.length-1].x=this._youLikeGames[this._youLikeGames.length-2].x+231;
+                this.scheduleOnce(this.doCarouselYouLike.bind(this),10)
             })
         ))
+    }
+
+    //爆款游戏轮播
+    doCarouselHot(){
+        if(this._hotGames.length<=1){ //广告位推荐位大于1个，才有轮播功能
+            return 
+        }
+        this._hotGames[this._carouselHotIndex].x=540;
+        this._hotGames[this._carouselHotIndex].y=1750;
+        this._hotGames[this._carouselHotIndex].getComponent("ad").doShake();
+        for(let i=0;i<this._hotGames.length;i++){
+            if(i==this._carouselHotIndex){
+                continue;
+            }
+            this._hotGames[i].rotation=0;
+            this._hotGames[i].getComponent("ad").stopActions();
+            this._hotGames[i].x=1800;//移除屏幕之外
+        }
+
+        this._carouselHotIndex++;
+        this._carouselHotIndex=this._carouselHotIndex%this._hotGames.length;
+
+        this.scheduleOnce(this.doCarouselHot.bind(this),5);
     }
 
 }

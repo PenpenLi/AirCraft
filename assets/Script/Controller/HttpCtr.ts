@@ -46,7 +46,11 @@ export default class HttpCtr {
                         UserManager.user_id = resp.data.uid;
                         UserManager.voucher = resp.data.voucher;
                         HttpCtr.getUserInfo();
-                        HttpCtr.chanelCheck(WXCtr.launchOption.query, code);
+                        console.log("log----------WXCtr.launchOption=:",WXCtr.launchOption);
+                        if(WXCtr.launchOption.query.channel){
+                            HttpCtr.chanelCheck(WXCtr.launchOption.query.channel);
+                        }
+                        
                         HttpCtr.getShareConfig();
                         HttpCtr.getGameConfig();
                         HttpCtr.getAdConfig();
@@ -281,27 +285,34 @@ export default class HttpCtr {
 
 
     //渠道验证
-    static chanelCheck(query, code) {
+    static chanelCheck(chanelId){
         if(window.wx){
-            wx.request({
-                url:"https://ball.yz071.com/api/?do=Ball.Api.Auth.WechatLogin",
-                header:{
-                    "cache-control": "no-cache",
-                    "content-type": "application/json",
-                    "x-source": "1000"
-                },
-                data: {
-                    code: code,
-                    channel: query.channel_id
-                },
-                method:'POST',
-                success: (resp) => {
-                    console.log("渠道验证成功beijing----", resp);
-                },
-                fail:{
+            window.wx.login({
+                success: function (loginResp) {
+                    console.log("log---------chanelCheck-------loginResp=:",loginResp);
+                    wx.request({
+                        url:"https://ball.yz071.com/api/?do=Ball.Api.Auth.WechatLogin",
+                        header:{
+                            "cache-control": "no-cache",
+                            "content-type": "application/json",
+                            "x-source": "1000"
+                        },
+                        data: {
+                            code: loginResp.code,
+                            channel: chanelId
+                        },
+                        method:'POST',
+                        success: (resp) => {
+                            console.log("渠道验证成功beijing----", resp);
+                        },
+                        fail:{
 
+                        }
+                    });
+                },
+                fail: function (res) {
                 }
-            });
+            })
         }
     }
 
@@ -465,6 +476,60 @@ export default class HttpCtr {
             })
         }
     }
+
+
+   //上报统计接口
+   static reportClickInfo(affair,id){
+        if(window.wx){
+            wx.request({
+                url:"https://ball.yz071.com/api/?do="+'Ball.Api.User.BitMap',
+                header:{"X-Token":"","X-Source": "1015"},
+                data: {"affair":""+affair,"id":""+id},
+                method:'GET',
+                success: (resp) => {
+                    console.log("上报成功成功----上报ID",affair,id);
+                },
+                fail: function (res) {
+                }
+            })
+        }
+    }
+
+    //观看视频统计
+    static reportWatchVedio(){
+        if(window.wx){
+            wx.request({
+                url:"https://ball.yz071.com/api/?do=Ball.Api.Statistic.VideoStatistic",
+                header:{"X-Source": "1015","X-Token":"","X-Version":""},
+                method:'GET',
+                success: (resp) => {
+                    console.log("观看视频上报成功");
+                },
+                fail: function (res) {
+                }
+            })
+        }
+    }
+
+
+     //获取广告配置
+     static getSliderConfig(slideType) {
+        Http.send({
+            url: Http.UrlConfig.GET_ADSCONFIG,
+            success: (resp) => {
+                if (slideType == "start") { 
+                } else if (slideType == "die") {
+                    //GameCtr.ins.mEnd.refreshMoreNewGame(resp.data)
+                }else if(slideType == "index"){
+                    GameCtr.otherData=resp.data;
+                }
+            },
+            data: {
+                slide_type: slideType
+            }
+        });
+    }
+
     
     // update (dt) {}
 }

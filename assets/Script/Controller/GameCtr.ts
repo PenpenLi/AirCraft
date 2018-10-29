@@ -152,4 +152,15 @@ export default class GameCtr {
         }
     }
 
+    //获取广告配置 1.猜你喜欢  2.爆款游戏  3.游戏结束  4.游戏中
+    static getAdList(data,type){
+        let arr=[];
+        for(let i=0;i<data.length;i++){
+            if(data[i].status==type){
+                arr.push(data[i])
+            }
+        }
+        return arr
+    }
+
 }

@@ -239,6 +239,7 @@ export default class WXCtr {
         if (window.wx != undefined) {
             //登录微信
             console.log("微信登录!!");
+            
             window.wx.login({
                 success: function (loginResp) {
                     HttpCtr.login(loginResp.code);
@@ -545,6 +546,7 @@ export default class WXCtr {
             });
         }
     }
+
 
     //导航到其他小程序
     static gotoOther(data) {
