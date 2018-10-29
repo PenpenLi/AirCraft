@@ -45,11 +45,6 @@ export default class LandPlane extends cc.Component {
 
     onTouchStart(event) {
         if (!this.isTouch && !this.touchID) {
-            // if (Guide.guideStep <= 7 && Guide.guideStep != 3 && Guide.guideStep != 4 && Guide.guideStep != 7) {
-            //     if (this.apronTag == 1) {
-            //         return false;
-            //     }
-            // }
             this.touchID = event.getID();
             this.isTouch = true;
 
@@ -162,9 +157,6 @@ export default class LandPlane extends cc.Component {
             let rect = port.getChildByName("rect");
             if (rect.getBoundingBoxToWorld().contains(wPos)) {
                 if (!apron.isUsed) {
-                    // if (Guide.guideStep <= 7) {
-                    //     return false;
-                    // }
                     pApron.plane = null;
                     pApron.isUsed = false;
                     GameData.setApronState(this.node.parent.tag, 0);   //自己停机坪状态设为0（没有飞机）
@@ -237,7 +229,7 @@ export default class LandPlane extends cc.Component {
 
         let tmpNode = this.moveNode;
 
-        if (GameData.maxPlaneLevel < otherPlane.level + 1 && GameData.maxPlane > 4) {
+        if (GameData.maxPlaneLevel < otherPlane.level + 1 && GameData.maxPlaneLevel > 4) {
             GameCtr.ins.mGame.showUnlockPop(otherPlane.level + 1);    //弹出解锁弹窗
         }
 
@@ -266,9 +258,6 @@ export default class LandPlane extends cc.Component {
                 if (otherPlane.level > GameData.maxPlaneLevel) {
                     GameData.maxPlaneLevel = otherPlane.level;
                 }
-                // if (Guide.guideStep <= 7) {
-                //     Guide.setGuideStorage(++Guide.guideStep);
-                // }
                 let wPos = otherParent.parent.convertToWorldSpaceAR(otherParent.position);
                 GameCtr.ins.mGame.showExpParticle(wPos);
                 // GameCtr.ins.mGame.setPgbLevel();

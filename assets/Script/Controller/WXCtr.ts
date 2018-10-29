@@ -104,6 +104,7 @@ export default class WXCtr {
         if (window.wx != undefined) {
             wx.getSetting({
                 success: function (res) {
+                    console.log("授权信息", res);
                     var authSetting = res.authSetting
                     if (authSetting['scope.userInfo'] === true) {
                         // 用户已授权
