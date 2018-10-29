@@ -111,6 +111,8 @@ export default class HttpCtr {
             success: (resp) => {
                 if (resp.success == Http.Code.OK) {
                     GameCtr.reviewSwitch = resp.ok;
+                    console.log("log-----------审核开关=:",GameCtr.reviewSwitch);
+                    GameCtr.getInstance().getGame().showSwitchStatus();
                     if (resp.nav.index) GameCtr.otherData = resp.nav.index;
                     if (resp.nav.nav) GameCtr.sliderDatas = resp.nav.nav;
                     if (resp.nav.banner) GameCtr.bannerDatas = resp.nav.banner;

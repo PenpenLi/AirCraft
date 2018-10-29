@@ -114,7 +114,7 @@ export default class Game extends cc.Component {
         this.initPools();
         this.initMusicState();
         this.initMainMusic();
-        this.btn_freeDiamond.active=GameCtr.reviewSwitch;
+       
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
@@ -143,7 +143,6 @@ export default class Game extends cc.Component {
             this.gameStart();
         }
         GameCtr.isFight = false;
-
         cc.game.on(cc.game.EVENT_SHOW,()=>{
             if(GameCtr.isFight){
                 GameCtr.getInstance().getFight().initFightMusic();
@@ -152,6 +151,11 @@ export default class Game extends cc.Component {
             }
         });
         HttpCtr.getAdsByType(this.showAds.bind(this),"Recommend");
+    }
+
+
+    showSwitchStatus(){
+        this.btn_freeDiamond.active=GameCtr.reviewSwitch;
     }
 
     initPools() {
