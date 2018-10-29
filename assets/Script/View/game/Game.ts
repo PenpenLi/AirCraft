@@ -93,6 +93,9 @@ export default class Game extends cc.Component {
     @property(cc.Prefab)
     music:cc.Prefab=null;
 
+    @property(cc.Node)
+    btn_freeDiamond:cc.Node=null;
+
     private landPlanePool;
     public goldParticlePool;
 
@@ -111,6 +114,7 @@ export default class Game extends cc.Component {
         this.initPools();
         this.initMusicState();
         this.initMainMusic();
+        this.btn_freeDiamond.active=GameCtr.reviewSwitch;
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {
