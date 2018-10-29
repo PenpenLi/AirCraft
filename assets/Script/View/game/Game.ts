@@ -576,6 +576,7 @@ export default class Game extends cc.Component {
         }
         let pfTreatureBox = cc.instantiate(this.pfTreatrueBox);
         pfTreatureBox.parent = cc.find("Canvas");
+        pfTreatureBox.setLocalZOrder(5);
         AudioManager.getInstance().playSound("audio/click", false);
     }
 
@@ -585,6 +586,7 @@ export default class Game extends cc.Component {
         }
         let pfTurntable = cc.instantiate(this.pfTurntable);
         pfTurntable.parent = cc.find("Canvas");
+        pfTurntable.setLocalZOrder(5);
         AudioManager.getInstance().playSound("audio/click", false);
     }
 
@@ -594,6 +596,7 @@ export default class Game extends cc.Component {
         }
         let pfSpeedUP = cc.instantiate(this.pfSpeedUP);
         pfSpeedUP.parent = cc.find("Canvas");
+        pfSpeedUP.setLocalZOrder(5);
         AudioManager.getInstance().playSound("audio/click", false);
     }
 
@@ -603,6 +606,7 @@ export default class Game extends cc.Component {
         }
         let pfFreeDiamond = cc.instantiate(this.pfFreeDiamond);
         pfFreeDiamond.parent = cc.find("Canvas");
+        pfFreeDiamond.setLocalZOrder(5);
         AudioManager.getInstance().playSound("audio/click", false);
     }
 
@@ -688,11 +692,11 @@ export default class Game extends cc.Component {
         if(games && games.length>0){
             for(let i=0;i<games.length;i++){
                 let ad=cc.instantiate(this.ad);
-                ad.parent=this.node;
+                ad.parent=cc.find("Canvas");
                 ad.scale=0.6;
                 ad.getComponent("ad").init(games[i]);
-                ad.x=i==0?540:1800;
-                ad.y=i==0?1750:3000;
+                ad.x=i==0?0:1800;
+                ad.y=i==0?790:3000;
                 this._hotGames.push(ad);
             }
             this._carouselHotIndex=0;
@@ -732,8 +736,8 @@ export default class Game extends cc.Component {
         if(this._hotGames.length<=1){ //广告位推荐位大于1个，才有轮播功能
             return 
         }
-        this._hotGames[this._carouselHotIndex].x=540;
-        this._hotGames[this._carouselHotIndex].y=1750;
+        this._hotGames[this._carouselHotIndex].x=0;
+        this._hotGames[this._carouselHotIndex].y=790;
         this._hotGames[this._carouselHotIndex].getComponent("ad").doShake();
         for(let i=0;i<this._hotGames.length;i++){
             if(i==this._carouselHotIndex){
@@ -743,10 +747,8 @@ export default class Game extends cc.Component {
             this._hotGames[i].getComponent("ad").stopActions();
             this._hotGames[i].x=1800;//移除屏幕之外
         }
-
         this._carouselHotIndex++;
         this._carouselHotIndex=this._carouselHotIndex%this._hotGames.length;
-
         this.scheduleOnce(this.doCarouselHot.bind(this),5);
     }
 

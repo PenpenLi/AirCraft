@@ -22,6 +22,7 @@ export default class NewClass extends cc.Component {
     _bonusData=[];
     _bonusTimesArr=[];
     _timeCount=0;
+    _isLotterying=false;
 
     _hour=-1;
     _min=-1;
@@ -93,7 +94,12 @@ export default class NewClass extends cc.Component {
             if(e.target.getName()=="btn_close"){
                 this.node.destroy();
             }else if(e.target.getName()=="btn_open"){
-                this.doLottery()
+                if(!this._isLotterying){
+                    this.doLottery();
+                }else {
+                    ViewManager.toast("宝箱开启中.....");
+                }
+                
             }else if(e.target.getName()=="btn_buy"){
                 this.buyLotteryTimes();
             }else if(e.target.getName()=="btn_watchVedio"){
@@ -126,6 +132,7 @@ export default class NewClass extends cc.Component {
             /* 无抽奖次数 */
             return;
         }
+        this._isLotterying=true;
         GameData.lotteryTimes--;
         this.setLotteryTimes();
         this._lottery.active=true;
@@ -181,6 +188,7 @@ export default class NewClass extends cc.Component {
     }
 
     getBonus(index){
+        this._isLotterying=false;
         let bonus=this._bonusData[index];
         if(bonus.airLevel>0){
             for(let i=0;i<GameCtr.selfPlanes.length;i++){
