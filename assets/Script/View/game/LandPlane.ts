@@ -78,7 +78,7 @@ export default class LandPlane extends cc.Component {
             if (this.moveNode) {
                 if (!this.judge(wPos)) {
                     this.recycleMoveNode();
-                    GameCtr.ins.mGame.hideTrash();
+                    GameCtr.ins.mGame.showTrash(false);
                 }
             }
         }
@@ -108,7 +108,7 @@ export default class LandPlane extends cc.Component {
             return true;
         }
         if (this.judgeApron(wPos)) {
-            GameCtr.ins.mGame.hideTrash();
+            GameCtr.ins.mGame.showTrash(false);
             return true;
         }
 
@@ -132,10 +132,7 @@ export default class LandPlane extends cc.Component {
                     GameCtr.ins.mGame.removeLandPlane(this.node);
                     this.node.destroy();
 
-                    GameCtr.ins.mGame.hideTrash();
-
-                    let addGold = trash.getChildByName("AddGold");
-                    let lb = addGold.getChildByName("lbNum").getComponent(cc.Label);
+                    GameCtr.ins.mGame.showTrash(false);
                 })
             ));
             return true;

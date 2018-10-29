@@ -311,14 +311,8 @@ export default class Game extends cc.Component {
         return num;
     }
 
-    showTrash() {
-        let trash = this.ndTrash.getChildByName("icon_trash");
-        trash.opacity = 255;
-    }
-
-    hideTrash() {
-        let trash = this.ndTrash.getChildByName("icon_trash");
-        trash.opacity = 180;
+    showTrash(isShow = true) {
+        this.ndTrash.active = isShow;
     }
 
     //显示合成飞机粒子

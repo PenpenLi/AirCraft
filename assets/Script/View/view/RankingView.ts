@@ -69,6 +69,10 @@ export default class RankingView extends cc.Component {
 
     showSelf(top) {
         let ndSelf = this.ndWorld.getChildByName("ndSelf");
+        if(top == 0) {
+            ndSelf.active = false;
+            return;
+        }
         let comp = ndSelf.getComponent(RankingCell);
         WXCtr.wxGetUsrInfo((data) => {
             Util.loadImg(comp.sprHead, data.avatarUrl);
@@ -77,7 +81,7 @@ export default class RankingView extends cc.Component {
             if (top < 3) {
                 comp.lbRanking.node.active = false;
                 comp.sprMedal.node.active = true;
-                comp.sprMedal.spriteFrame = comp.medalsFrames[top];
+                comp.sprMedal.spriteFrame = comp.medalsFrames[top-1];
             } else {
                 comp.lbRanking.string = (top + 1) + "";
             }
