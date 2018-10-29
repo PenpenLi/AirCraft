@@ -116,7 +116,7 @@ export default class Util {
         return time;
     }
 
-    static formatNum(value, digit = 9) {
+    static formatNum(value, digit = 6) {
         value = Math.floor(value);
         if (value >= Math.pow(10, digit) && value < Math.pow(10, digit+3)) {
             value = Math.floor(value / 1000);
