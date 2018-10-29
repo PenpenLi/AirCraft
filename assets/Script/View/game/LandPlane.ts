@@ -260,7 +260,6 @@ export default class LandPlane extends cc.Component {
                 }
                 let wPos = otherParent.parent.convertToWorldSpaceAR(otherParent.position);
                 GameCtr.ins.mGame.showExpParticle(wPos);
-                // GameCtr.ins.mGame.setPgbLevel();
                 GameCtr.ins.mGame.showPortLight(otherParent);
                 AudioManager.getInstance().playSound("audio/sound_p7_merge", false);
                 GameData.setMissonData("composeTimes", GameData.missionData.composeTimes+1);
