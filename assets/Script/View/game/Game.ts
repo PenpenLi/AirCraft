@@ -416,22 +416,6 @@ export default class Game extends cc.Component {
         });
     }
 
-
-    /**
-     * 显示升级弹窗
-     */
-    showUpgrade(level) {
-        let nd = cc.instantiate(this.pfUpgrade);
-        let comp = nd.getComponent(UpgradeView);
-        ViewManager.showPromptDialog({
-            node: nd,
-            title: "升级啦",
-            closeButton: true,
-            transition: false
-        });
-        comp.setLevel(level);
-    }
-
     /**
      * 显示离线收益弹窗
      */
@@ -476,19 +460,6 @@ export default class Game extends cc.Component {
             maskOpacity: 200
         });
         comp.setData(level);
-    }
-
-    /**
-     * 显示邀请好友界面
-     */
-    showInviteFriendPop() {
-        let nd = cc.instantiate(this.pfInviteFriend);
-        ViewManager.show({
-            node: nd,
-            closeOnKeyBack: true,
-            transitionShow: false,
-            maskOpacity: 200
-        });
     }
 
     /**
