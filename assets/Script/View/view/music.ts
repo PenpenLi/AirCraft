@@ -9,9 +9,9 @@ export default class NewClass extends cc.Component {
         console.log('log-----------updatePlayState GameCtr.musicSwitch=:',GameCtr.musicSwitch);
         let audioSource=this.node.getComponent(cc.AudioSource);
         if(GameCtr.musicSwitch>0){
-            audioSource.volume=1;
+            audioSource.play();
         }else{
-            audioSource.volume=0;
+            audioSource.pause();
         }
     }
 }

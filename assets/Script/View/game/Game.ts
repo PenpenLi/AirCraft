@@ -91,10 +91,13 @@ export default class Game extends cc.Component {
     ad:cc.Prefab =null;
 
     @property(cc.Prefab)
-    music:cc.Prefab=null;
+    mainMusic:cc.Prefab=null;
 
     @property(cc.Node)
     btn_freeDiamond:cc.Node=null;
+
+    @property(cc.Node)
+    nodeBanner:cc.Node=null;
 
     private landPlanePool;
     public goldParticlePool;
@@ -130,8 +133,15 @@ export default class Game extends cc.Component {
     }
 
     initMainMusic(){
-        let music =cc.find("Canvas").getChildByName("mainBgMusic");
-        music.getComponent("music").updatePlayState();
+        while(cc.find("Canvas").getChildByTag(GameCtr.musicTag)){
+            cc.find("Canvas").removeChildByTag(GameCtr.musicTag)
+        }
+        let music=cc.instantiate(this.mainMusic);
+        if(music){
+            music.parent=cc.find("Canvas");
+            music.tag=GameCtr.musicTag;
+            music.getComponent("music").updatePlayState();
+        }
     }
 
     onDestroy() {
@@ -141,8 +151,9 @@ export default class Game extends cc.Component {
     start() {
         if (GameCtr.isFight) {
             this.gameStart();
+            this.showSwitchStatus();
+            this.requestAds();
         }
-        GameCtr.isFight = false;
         cc.game.on(cc.game.EVENT_SHOW,()=>{
             if(GameCtr.isFight){
                 GameCtr.getInstance().getFight().initFightMusic();
@@ -150,7 +161,7 @@ export default class Game extends cc.Component {
                 this.initMainMusic();
             }
         });
-        HttpCtr.getAdsByType(this.showAds.bind(this),"Recommend");
+        GameCtr.isFight = false;
     }
 
 
@@ -621,7 +632,11 @@ export default class Game extends cc.Component {
             this.musicBtnMask.active = true;
         }
         AudioManager.getInstance().playSound("audio/click", false);
-        this.initMainMusic();
+
+        let music=cc.find("Canvas").getChildByTag(GameCtr.musicTag);
+        if(music){
+            music.getComponent("music").updatePlayState();
+        }
     }
 
     onClickMore(){
@@ -665,7 +680,14 @@ export default class Game extends cc.Component {
 
 
     /****************************广告**********************************/
+    requestAds(){
+        HttpCtr.getAdsByType(this.showAds.bind(this),"Recommend");
+    }
+    
     showAds(ads){
+        if(!GameCtr.reviewSwitch){return}
+
+        this.nodeBanner.active=GameCtr.reviewSwitch;
         let youLikeGames=GameCtr.getAdList(ads.data,1);
         let hotGames=GameCtr.getAdList(ads.data,2);
 

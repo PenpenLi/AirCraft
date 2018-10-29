@@ -40,7 +40,7 @@ export default class NewClass extends cc.Component {
     bubbleHurts:cc.Prefab[]=[];
 
     @property(cc.Prefab)
-    music:cc.Prefab=null;
+    fightMusic:cc.Prefab=null;
     
     onLoad(){
         GameCtr.isFight=true;
@@ -59,16 +59,13 @@ export default class NewClass extends cc.Component {
     }
 
     initFightMusic(){
-        if(GameCtr.musicSwitch>0){
-            let music= cc.find("Canvas").getChildByTag(GameCtr.musicTag)
-            if(music){
-                music.getComponent("music").updatePlayState();
-            }else{
-                music=cc.instantiate(this.music);
-                music.parent=cc.find("Canvas");
-                music.tag=GameCtr.musicTag;
-            }
+        while(cc.find("Canvas").getChildByTag(GameCtr.musicTag)){
+            cc.find("Canvas").removeChildByTag(GameCtr.musicTag)
         }
+        let music=cc.instantiate(this.fightMusic);
+        music.parent=cc.find("Canvas");
+        music.tag=GameCtr.musicTag;
+        music.getComponent("music").updatePlayState();
     }
 
     initPools(){
