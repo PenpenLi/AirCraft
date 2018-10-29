@@ -58,9 +58,11 @@ export default class VIPPop extends cc.Component {
 
     setFriendInfo() {
         if(!this.data) return;
+
         for(let i=0; i<this.ndContent.childrenCount; i++) {
             let item = this.ndContent.children[i];
             let data = this.data[i+(3*GameData.vipLevel)];
+            if(!data) return;
             let lbName = item.getChildByName("lbName").getComponent(cc.Label);
             if(data.nick){
                 lbName.string = data.nick;

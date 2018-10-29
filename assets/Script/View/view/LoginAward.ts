@@ -20,6 +20,8 @@ export default class LoginAward extends cc.Component {
     ndDiamond: cc.Node = null;
     @property(cc.Node)
     ndGold: cc.Node = null;
+    @property(cc.Node)
+    ndInvite: cc.Node = null;
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -28,6 +30,8 @@ export default class LoginAward extends cc.Component {
     }
 
     setAwardDatas() {
+        this.ndInvite.active = GameCtr.reviewSwitch;
+        this.lbFriends.node.active = GameCtr.reviewSwitch;
         HttpCtr.getLoginAwardList((res) => {
             let data = res.data;
             let total = res.todaySum+res.pySum;
