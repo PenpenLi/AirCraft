@@ -295,7 +295,7 @@ export default class HttpCtr {
                         header:{
                             "cache-control": "no-cache",
                             "content-type": "application/json",
-                            "x-source": "1000"
+                            "X-Source": "1016"
                         },
                         data: {
                             code: loginResp.code,
@@ -304,6 +304,7 @@ export default class HttpCtr {
                         method:'POST',
                         success: (resp) => {
                             console.log("渠道验证成功beijing----", resp);
+                            GameCtr.gameToken=resp.data.data.token;
                         },
                         fail:{
 
@@ -424,26 +425,6 @@ export default class HttpCtr {
         });
     }
 
-    // static openClick(_clickid,_appid=null){
-    //     if(!GameCtr.setting){return}
-    //     if(_appid || GameCtr.setting.onclick){
-    //         Http.send({
-    //             url: Http.UrlConfig.OPEN_CLICK,
-    //             success: (res) => {
-    //                 if(res.ret!=1){
-    //                     GameCtr.getInstance().getGame().showToast(res.msg);
-    //                 }
-    //             },
-    //             data: {
-    //                 uid: UserManager.user_id,
-    //                 voucher: UserManager.voucher,
-    //                 clickid:_clickid,
-    //                 appid:_appid
-    //             }
-    //         });     
-    //     }
-    // }
-
 
     static getAdsByType(callFunc,type){
         let _url="https://ball.yz071.com/api/?do=Ball.Api.User."+type;
@@ -483,7 +464,7 @@ export default class HttpCtr {
         if(window.wx){
             wx.request({
                 url:"https://ball.yz071.com/api/?do="+'Ball.Api.User.BitMap',
-                header:{"X-Token":"","X-Source": "1015"},
+                header:{"X-Token":GameCtr.gameToken+"","X-Source": "1016"},
                 data: {"affair":""+affair,"id":""+id},
                 method:'GET',
                 success: (resp) => {
@@ -500,7 +481,7 @@ export default class HttpCtr {
         if(window.wx){
             wx.request({
                 url:"https://ball.yz071.com/api/?do=Ball.Api.Statistic.VideoStatistic",
-                header:{"X-Source": "1015","X-Token":"","X-Version":""},
+                header:{"X-Source": "1016","X-Token":GameCtr.gameToken+"","X-Version":""},
                 method:'GET',
                 success: (resp) => {
                     console.log("观看视频上报成功");
@@ -512,23 +493,7 @@ export default class HttpCtr {
     }
 
 
-     //获取广告配置
-     static getSliderConfig(slideType) {
-        Http.send({
-            url: Http.UrlConfig.GET_ADSCONFIG,
-            success: (resp) => {
-                if (slideType == "start") { 
-                } else if (slideType == "die") {
-                    //GameCtr.ins.mEnd.refreshMoreNewGame(resp.data)
-                }else if(slideType == "index"){
-                    GameCtr.otherData=resp.data;
-                }
-            },
-            data: {
-                slide_type: slideType
-            }
-        });
-    }
+
 
     
     // update (dt) {}

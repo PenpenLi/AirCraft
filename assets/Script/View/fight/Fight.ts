@@ -202,11 +202,9 @@ export default class NewClass extends cc.Component {
     }
 
     initFightTouch(){
-        let touchStep=-1;
-        let rotateFinish=false;
+        let direction=0;
+        let lastDirection=0;
         this._touchNode.on(cc.Node.EventType.TOUCH_START,(e)=>{
-            touchStep=0;
-            rotateFinish=false;
             for(let i=0;i<this._selfAirs.length;i++){
                 this._selfAirs[i].node.stopAllActions();
                 this._selfAirs[i].node.rotation=0; 
@@ -217,42 +215,38 @@ export default class NewClass extends cc.Component {
             for(let i=0;i<this._selfAirs.length;i++){
                 this._selfAirs[i].node.x+=e.touch._point.x - e.touch._prevPoint.x;
             }
-            if(touchStep==0){
-                if(e.touch._point.x - e.touch._prevPoint.x!=0){
-                    if(e.touch._point.x - e.touch._prevPoint.x>0){
+            if(e.touch._point.x - e.touch._prevPoint.x!=0){
+                if(e.touch._point.x - e.touch._prevPoint.x>0){
+                    direction=1
+                }else{
+                    direction=-1;
+                }
+                if(lastDirection!=direction){
+                    if(direction==1){
                         for(let i=0;i<this._selfAirs.length;i++){
+                            this._selfAirs[i].node.stopAllActions();
+                            this._selfAirs[i].node.rotation=0;
                             this._selfAirs[i].node.runAction(cc.sequence(
                                 cc.rotateBy(0.3, 20),
-                                cc.callFunc(()=>{
-                                    rotateFinish=true;
-                                }),
                                 cc.rotateBy(0.3,-20)
                             ))
                         }
-                    }else{
+                    }else if(direction==-1){
                         for(let i=0;i<this._selfAirs.length;i++){
+                            this._selfAirs[i].node.stopAllActions();
+                            this._selfAirs[i].node.rotation=0;
                             this._selfAirs[i].node.runAction(cc.sequence(
                                 cc.rotateBy(0.3,-20),
-                                cc.callFunc(()=>{
-                                    rotateFinish=true;
-                                }),
                                 cc.rotateBy(0.3, 20)
                             ))
                         }
                     }
-                    touchStep=1
                 }
+                lastDirection=direction;
             }
         });
 
         this._touchNode.on(cc.Node.EventType.TOUCH_END,(e)=>{
-            // if(!rotateFinish){
-            //     for(let i=0;i<this._selfAirs.length;i++){
-            //         this._selfAirs[i].node.stopAllActions();
-            //         this._selfAirs[i].node.runAction(cc.rotateTo(0.2, 0))
-            //     }
-            // }
-            touchStep=-1;
         })
     }
 

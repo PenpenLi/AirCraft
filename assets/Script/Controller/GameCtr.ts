@@ -72,6 +72,7 @@ export default class GameCtr {
     public static autoCompose=false;
 
     public static musicTag=-2000;
+    public static gameToken=-1;
 
 
     public static StatisticType = cc.Enum({                         //统计类型

@@ -147,7 +147,6 @@ export default class Game extends cc.Component {
                 this.initMainMusic();
             }
         });
-        HttpCtr.getSliderConfig("index");
         HttpCtr.getAdsByType(this.showAds.bind(this),"Recommend");
     }
 
@@ -460,6 +459,7 @@ export default class Game extends cc.Component {
      * 更多游戏
      */
     showMoreGame() {
+        console.log("log------------showMoreGame-----data=:",GameCtr.otherData);
         if (GameCtr.otherData) {
             WXCtr.gotoOther(GameCtr.otherData);
             HttpCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, GameCtr.otherData.appid);                               //更多游戏点击统计
@@ -618,8 +618,7 @@ export default class Game extends cc.Component {
 
     onClickMore(){
         AudioManager.getInstance().playSound("audio/click", false);
-        //console.log("log-----------onClickMore otherData=:",GameCtr.otherData);
-        //if(GameCtr.otherData) WXCtr.gotoOther(GameCtr.otherData[0]);
+        this.showMoreGame()
     }
 
   

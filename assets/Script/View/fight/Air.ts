@@ -1,6 +1,7 @@
 import GameCtr from "../../Controller/GameCtr";
 import NodePoolManager from "../../Common/NodePoolManager";
 import AudioManager from "../../Common/AudioManager";
+import GameData from "../../Common/GameData";
 enum Attack{
     UP=1,
     DOWN=-1
@@ -24,6 +25,7 @@ export default class NewClass extends cc.Component {
     _isBoss=false;
     _attackDirection=null;
     _bulletCount=0;
+    _goldIncrease=0;
 
     @property(cc.SpriteFrame)
     enemySkins:cc.SpriteFrame[]=[];
@@ -72,6 +74,7 @@ export default class NewClass extends cc.Component {
         this._level=data.level;
         this._attackDirection=this._isEnemy?Attack.DOWN:Attack.UP;
         this._bulletCount=this._isBoss?30:10;
+        this._goldIncrease=GameData.getRecycleGoldIncrease();
 
         this.initBullets();
         this.initDeadEft();
@@ -166,7 +169,7 @@ export default class NewClass extends cc.Component {
         }
         if(this._currentLifeValue<=0){
             if(this._isEnemy){
-                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2*GameCtr.attactGoldRate:this._lifeValue*GameCtr.attactGoldRate;
+                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2*GameCtr.attactGoldRate*(1+this._goldIncrease):this._lifeValue*GameCtr.attactGoldRate*(1+this._goldIncrease);
                 GameCtr.getInstance().getFight().showGold(this._lifeValue,{x:this.node.x,y:this.node.y});
             }
 

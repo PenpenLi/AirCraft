@@ -10171,7 +10171,7 @@
       }
     ],
     "_tag": -1,
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 317
@@ -10253,8 +10253,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
-      "height": 40
+      "width": 40,
+      "height": 160
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -10262,7 +10262,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 21,
       "y": 0
     },
     "_skewX": 0,
@@ -10288,7 +10288,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "更多游戏",
+    "_N$string": "更\n多\n游\n戏",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -10302,9 +10302,7 @@
       "__id__": 314
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "f8a0f5ea-abe1-46c9-9af9-a786f74c5518"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
