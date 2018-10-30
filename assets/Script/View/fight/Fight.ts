@@ -179,7 +179,7 @@ export default class NewClass extends cc.Component {
             isBoss:true
         };
         boss.parent=cc.find("Canvas");
-        boss.y=600;
+        boss.y=500;
         boss.getComponent("Air").init(infoData);
         boss.getComponent("Air").startAttack();
         this.addAir({node:boss,info:infoData});

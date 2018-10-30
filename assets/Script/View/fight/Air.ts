@@ -27,6 +27,7 @@ export default class NewClass extends cc.Component {
     _bulletCount=0;
     _goldIncrease=0;
     _bonus=0;
+    _moveDis=1500;
 
     @property(cc.SpriteFrame)
     enemySkins:cc.SpriteFrame[]=[];
@@ -136,7 +137,8 @@ export default class NewClass extends cc.Component {
     doAttack(){
         let bullet=this.getFreeBullet();
         let targetPosX=this._isBoss?Math.random()*1400-700:0
-       
+        this._bulletSpeed=this._isBoss?1.6:this._bulletSpeed;
+        this._bulletSpeed=this._isEnemy?1.4:this._bulletSpeed;
         if(bullet){
             GameCtr.getInstance().getFight().addBullet(bullet);
             bullet.stopAllActions();
