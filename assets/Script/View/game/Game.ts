@@ -123,12 +123,15 @@ export default class Game extends cc.Component {
             this.scheduleOnce(() => {
                 this.showOffLineProfitPop();
             }, 2.5);
+            console.log("log--------------------回到微信--------------");
+            this.initMainMusic();
+            
         });
     }
 
     loadPackages(){
         WXCtr.loadSubPackages("Fight", ()=>{
-            console.log("log............分包加载完成---------")
+            console.log("log............分包加载完成---------");
         });
     }
 
@@ -154,13 +157,6 @@ export default class Game extends cc.Component {
             this.showSwitchStatus();
             this.requestAds();
         }
-        cc.game.on(cc.game.EVENT_SHOW,()=>{
-            if(GameCtr.isFight){
-                GameCtr.getInstance().getFight().initFightMusic();
-            }else {
-                this.initMainMusic();
-            }
-        });
         GameCtr.isFight = false;
     }
 

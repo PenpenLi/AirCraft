@@ -2,6 +2,7 @@ import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
 import Util from "../../Common/Util";
 import AudioManager from "../../Common/AudioManager";
+import WXCtr from "../../Controller/WXCtr";
 const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
@@ -56,6 +57,11 @@ export default class NewClass extends cc.Component {
         this.startBgRoll();
         this.setGameCount();
         this.initFightMusic();
+
+        WXCtr.onShow(() => {
+            console.log("log--------------------回到微信--------------");
+            this.initFightMusic();
+        });
     }
 
     initFightMusic(){
