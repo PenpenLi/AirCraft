@@ -5,6 +5,7 @@ import Util from "../../Common/Util";
 import PlaneFrameMG from "../game/PlaneFrameMG";
 import WXCtr from "../../Controller/WXCtr";
 import ViewManager from "../../Common/ViewManager";
+import GameCtr from "../../Controller/GameCtr";
 
 
 const {ccclass, property} = cc._decorator;
@@ -88,6 +89,7 @@ export default class VIPPop extends cc.Component {
         if(Math.floor(this.data.length/3) >= GameData.vipLevel+1) {
             GameData.vipLevel += 1;
             GameData.diamonds += vipConfigs[GameData.vipLevel].diamonds;
+            GameCtr.ins.mGame.setDiamonds();
             for(let i=0; i<this.ndContent.childrenCount; i++) {
                 let item = this.ndContent.children[i];
                 let sprHead = item.getChildByName("sprHead").getComponent(cc.Sprite);
