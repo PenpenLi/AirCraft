@@ -183,7 +183,6 @@ export default class Game extends cc.Component {
     }
 
     gameStart() {
-        GameData.diamonds += 10000;
         GameCtr.isStartGame = true;
         WXCtr.getSelfData();
         WXCtr.getFriendRankingData();
@@ -228,9 +227,8 @@ export default class Game extends cc.Component {
             node.tag = i;
             this.allPort.push(node);
         }
-        if(!GameCtr.isFight){
-            this.setPortPlane();
-        }
+        this.setPortPlane();
+        
     }
 
     setPortPlane() {
@@ -243,7 +241,9 @@ export default class Game extends cc.Component {
             GameCtr.selfPlanes.push(level);
         }
 
-        this.showOffLineProfitPop();
+        if(!GameCtr.isFight){
+            this.showOffLineProfitPop();   
+        }
     }
 
     setPlaneOnLand(level, port) {
@@ -578,8 +578,6 @@ export default class Game extends cc.Component {
             ViewManager.toast("没有作战飞机")
             return;
         }
-
-        GameCtr.fightStartGold=GameData.gold;
         cc.director.loadScene("Fight");
         GameData.setMissonData("fightTimes", GameData.missionData.fightTimes + 1);
     }

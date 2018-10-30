@@ -265,7 +265,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "汽车升级",
+    "_N$string": "飞机升级",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -389,7 +389,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 850,
-      "height": 1300
+      "height": 1200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -495,8 +495,8 @@
     "_alignFlags": 45,
     "_left": 0,
     "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
+    "_top": 50,
+    "_bottom": 50,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -576,7 +576,7 @@
     "itemTemplate": {
       "__uuid__": "b5c96144-8ba8-4a77-a2e5-81dcd3b18f20"
     },
-    "spacing": 20,
+    "spacing": 42,
     "spawnCount": 3,
     "scrollView": {
       "__id__": 17

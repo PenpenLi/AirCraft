@@ -258,8 +258,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 540,
-      "height": 40
+      "width": 511.72,
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -288,12 +288,14 @@
     "_useOriginalSize": false,
     "_actualFontSize": 40,
     "_fontSize": 40,
-    "_lineHeight": 40,
+    "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "邀请3名好友开启              特权",
+    "_N$string": "邀请3名好友开启           特权",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -451,7 +453,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 104.8,
+      "width": 109.2,
       "height": 48
     },
     "_rotationX": 0,
@@ -487,7 +489,7 @@
       "__uuid__": "fa73e3e4-85bf-4be0-903b-e4da867916cf"
     },
     "_isSystemFontUsed": false,
-    "_spacingX": -2,
+    "_spacingX": -3,
     "_N$string": "贵宾1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1721,8 +1723,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 184,
-      "height": 40
+      "width": 183.45,
+      "height": 41.38
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1751,10 +1753,12 @@
     "_useOriginalSize": false,
     "_actualFontSize": 40,
     "_fontSize": 40,
-    "_lineHeight": 40,
+    "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "贵宾1奖励",
     "_N$horizontalAlign": 1,
@@ -2014,7 +2018,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 140.4,
+      "width": 165,
       "height": 36
     },
     "_rotationX": 0,
@@ -2292,7 +2296,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 186,
+      "width": 192.6,
       "height": 36
     },
     "_rotationX": 0,
@@ -3024,8 +3028,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 654,
-      "height": 72
+      "width": 533,
+      "height": 60
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -3052,15 +3056,15 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 60,
-    "_fontSize": 60,
+    "_actualFontSize": 50,
+    "_fontSize": 50,
     "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "fa73e3e4-85bf-4be0-903b-e4da867916cf"
     },
     "_isSystemFontUsed": false,
-    "_spacingX": -2,
+    "_spacingX": -3,
     "_N$string": "直接制造更高级的飞机",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,

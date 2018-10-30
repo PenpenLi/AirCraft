@@ -412,8 +412,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 192,
-      "height": 52
+      "width": 315,
+      "height": 85
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -421,7 +421,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -152,
+      "x": -100,
       "y": 0
     },
     "_skewX": 0,
@@ -464,8 +464,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 28
+      "width": 48,
+      "height": 42
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -473,7 +473,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -60.9,
+      "x": -103.4,
       "y": 5.6
     },
     "_skewX": 0,
@@ -495,7 +495,7 @@
       "__uuid__": "665d03ff-986d-44fc-85f7-017b19fa4d1e"
     },
     "_type": 0,
-    "_sizeMode": 0,
+    "_sizeMode": 2,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -542,8 +542,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 17,
-      "height": 50
+      "width": 22.76,
+      "height": 36.21
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -551,8 +551,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -28.6,
-      "y": 5.2
+      "x": -40,
+      "y": 5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -572,9 +572,11 @@
     "_useOriginalSize": false,
     "_actualFontSize": 30,
     "_fontSize": 30,
-    "_lineHeight": 50,
+    "_lineHeight": 35,
     "_enableWrapText": true,
-    "_N$file": null,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "0",
@@ -649,8 +651,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 192,
-      "height": 52
+      "width": 315,
+      "height": 85
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -658,7 +660,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 68,
+      "x": 239,
       "y": 0
     },
     "_skewX": 0,
@@ -701,8 +703,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 24
+      "width": 47,
+      "height": 37
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -710,7 +712,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -62.6,
+      "x": -100.8,
       "y": 5.6
     },
     "_skewX": 0,
@@ -779,8 +781,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 17,
-      "height": 50
+      "width": 144.83,
+      "height": 36.21
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -788,8 +790,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -30.2,
-      "y": 5.2
+      "x": -40,
+      "y": 5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -809,12 +811,14 @@
     "_useOriginalSize": false,
     "_actualFontSize": 30,
     "_fontSize": 30,
-    "_lineHeight": 50,
+    "_lineHeight": 35,
     "_enableWrapText": true,
-    "_N$file": null,
+    "_N$file": {
+      "__uuid__": "0a11becf-c678-4cd6-8062-7ee1f757fb95"
+    },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "0",
+    "_N$string": "888.88K",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -976,8 +980,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 361,
-      "height": 162
+      "width": 400,
+      "height": 233
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1007,7 +1011,7 @@
       "__uuid__": "d15f7b61-6d32-4ba9-b7d7-ff655528eef7"
     },
     "_type": 1,
-    "_sizeMode": 0,
+    "_sizeMode": 2,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -7756,9 +7760,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 214,
-      "g": 122,
-      "b": 16,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -7769,8 +7773,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 40
+      "width": 92.4,
+      "height": 44
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -7779,7 +7783,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 57
+      "y": 62
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -7797,14 +7801,16 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 50,
-    "_fontSize": 50,
-    "_lineHeight": 40,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
+    "_lineHeight": 55,
     "_enableWrapText": true,
-    "_N$file": null,
+    "_N$file": {
+      "__uuid__": "e6167da3-1236-449e-a53b-a0d9285aaeb9"
+    },
     "_isSystemFontUsed": false,
     "_spacingX": -2,
-    "_N$string": "",
+    "_N$string": "1/30",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -7850,13 +7856,13 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 834,
-      "height": 74
+      "width": 337,
+      "height": 20
     },
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 0.42,
-    "_scaleY": 0.3,
+    "_scaleX": 1,
+    "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -7902,8 +7908,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 42
+      "width": 332,
+      "height": 14
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -7911,8 +7917,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -402.3,
-      "y": 3.6
+      "x": -165.7,
+      "y": 0.3
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -7930,7 +7936,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "23b9a233-8c61-40f4-a4eb-df6d0246734f"
+      "__uuid__": "1928d922-46e2-40f3-ae8a-85f6771c6aab"
     },
     "_type": 2,
     "_sizeMode": 0,
@@ -7956,7 +7962,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "eeacc2d3-0b5b-4ecb-9939-d0c3bc9bf98e"
+      "__uuid__": "92ba9da7-6efa-4c9f-b2a6-b820a21d50ff"
     },
     "_type": 0,
     "_sizeMode": 2,
@@ -7981,12 +7987,12 @@
       "__id__": 244
     },
     "_enabled": true,
-    "_N$totalLength": 805,
+    "_N$totalLength": 332,
     "_N$barSprite": {
       "__id__": 246
     },
     "_N$mode": 0,
-    "_N$progress": 0,
+    "_N$progress": 1,
     "_N$reverse": false
   },
   {
