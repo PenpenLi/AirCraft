@@ -168,6 +168,7 @@ export default class NewClass extends cc.Component {
     }
 
     initBoss(){
+        AudioManager.getInstance().playSound("audio/bossComing");
         let boss=cc.instantiate(this.airsPrefab[0]);
         let infoData={
             lifeValue:30*GameData.enemyHP,
@@ -290,6 +291,7 @@ export default class NewClass extends cc.Component {
         if(this._selfAirs.length==0){
             this.clear();
             this.showGameOver();
+            AudioManager.getInstance().playSound("audio/lose");
         }
     }
 

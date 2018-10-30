@@ -1,6 +1,7 @@
 import GameCtr from "../../Controller/GameCtr";
 import Util from "../../Common/Util";
 import AudioManager from "../../Common/AudioManager";
+import GameData from "../../Common/GameData";
 
 const {ccclass, property} = cc._decorator;
 @ccclass
@@ -53,7 +54,7 @@ export default class NewClass extends cc.Component {
     }
 
     setGold(_gold){
-        this._lb_gold.getComponent(cc.Label).string=Util.formatNum(_gold);
+        this._lb_gold.getComponent(cc.Label).string=Util.formatNum(GameData.gold-GameCtr.fightStartGold);
     }
 
     
