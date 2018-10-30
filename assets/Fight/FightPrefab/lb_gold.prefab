@@ -35,9 +35,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 99,
+      "g": 59,
+      "b": 38,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -48,8 +48,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 128.75,
-      "height": 50
+      "width": 87,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -76,7 +76,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 3
@@ -171,10 +171,8 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "44a73502-fd23-4b8d-a6da-d204e0f59a6e"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_N$string": "150k",
     "_N$horizontalAlign": 1,

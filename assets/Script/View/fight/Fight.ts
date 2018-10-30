@@ -504,7 +504,7 @@ export default class NewClass extends cc.Component {
     }
 
     setGameCount(){
-        this._lbGameCount.getComponent(cc.Label).string= GameData.fightLevel+"/"+this._levelSmall;
+        this._lbGameCount.getComponent(cc.Label).string= GameData.fightLevel+"-"+this._levelSmall;
     }
 
     doUpLevel(){
