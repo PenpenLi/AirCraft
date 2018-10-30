@@ -53,7 +53,7 @@ export default class NewClass extends cc.Component {
     }
 
     setGold(_gold){
-        this._lb_gold.getComponent(cc.Label).string=Util.formatNumber(_gold);
+        this._lb_gold.getComponent(cc.Label).string=Util.formatNum(_gold);
     }
 
     

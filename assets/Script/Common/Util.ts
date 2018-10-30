@@ -230,10 +230,8 @@ export default class Util {
     }
 
     //static get
-
-
-     //数值格式化
-     static formatNumber(number:number){
+    //数值格式化
+    static formatNumber(number:number){
         let units=[
         "K","M","B","T","aa",'bb','cc','dd','ee','ff','gg','hh','ii','jj','kk',
         "ll","mm","nn","oo","pp",'qq','rr','ss','tt','uu','vv','ww','xx','yy','zz',

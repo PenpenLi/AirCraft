@@ -46,6 +46,7 @@ export default class NewClass extends cc.Component {
     onLoad(){
         GameCtr.isFight=true;
         GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:GameData.getEnemyHP();
+        GameData.baseBonus=GameData.baseBonus?GameData.baseBonus:GameData.getBaseBonus();
         GameCtr.getInstance().setFight(this);
         this.initPools();
         this.initNode();
@@ -91,7 +92,7 @@ export default class NewClass extends cc.Component {
         this._btnOver=this.node.getChildByName("btnOver");
 
         this._btnOver.setLocalZOrder(10);
-        this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameData.gold);
+        this._lbGold.getComponent(cc.Label).string=Util.formatNum(GameData.gold);
     }
 
     startBgRoll(){
@@ -149,7 +150,8 @@ export default class NewClass extends cc.Component {
                 lifeValue:GameData.enemyHP,
                 bulletHurt:1,
                 isEnemy:true,
-                level:this._levelSmall
+                level:this._levelSmall,
+                bonus:GameData.baseBonus*4,
             }
             enemy.active=true;
             enemy.parent=cc.find("Canvas");
@@ -172,6 +174,7 @@ export default class NewClass extends cc.Component {
             bulletHurt:3,
             isEnemy:true,
             level:Math.floor(Math.random()*5)+1,
+            bonus:GameData.baseBonus*4*5,
             isBoss:true
         };
         boss.parent=cc.find("Canvas");
@@ -506,6 +509,7 @@ export default class NewClass extends cc.Component {
         this._levelSmall=1;
         GameData.fightLevel+=1;
         GameData.enemyHP=GameData.getEnemyHP();
+        GameData.baseBonus=GameData.getBaseBonus();
     }
 
     addGold(gold){
@@ -516,7 +520,7 @@ export default class NewClass extends cc.Component {
             })
         ))
         GameData.gold+=gold;
-        this._lbGold.getComponent(cc.Label).string=Util.formatNumber(GameData.gold);
+        this._lbGold.getComponent(cc.Label).string=Util.formatNum(GameData.gold);
     }
 
     resetGame(){

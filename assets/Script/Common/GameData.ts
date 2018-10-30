@@ -403,6 +403,8 @@ export default class GameData {
         GameData.baseBonus = WXCtr.getStorageData("baseBonus", 10);
         Guide.guideStep = WXCtr.getStorageData("guideStep");
 
+        console.log("log----------GameData.baseBonus  local=:",GameData.baseBonus)
+
         for (let i = 1; i <= this.maxApron; i++) {
             let key = "feiji_" + i;
             let data = WXCtr.getStorageData(key);
@@ -448,6 +450,8 @@ export default class GameData {
 
         GameData.enemyHP = data.data_16;
         GameData.baseBonus = data.data_17;
+
+        console.log("log----------GameData.baseBonus  online=:",GameData.baseBonus)
 
         Guide.guideStep = data.data_13 == "null" ? 8 : data.data_13;
         GameData.setUserData({ guideStep: Guide.guideStep });
@@ -716,10 +720,11 @@ export default class GameData {
 
     static getBaseBonus() {
         if (GameData.fightLevel == 1) {
-            GameCtr.baseBonus = 10;
-            return GameCtr.baseBonus;
+            GameData.baseBonus = 10;
+            return GameData.baseBonus;
         }
-        return Math.floor(Math.pow(Math.floor(GameData.fightLevel / 3 + 1), 1.5) + GameCtr.baseBonus * 1.02);
+        
+        return Math.floor(Math.pow(Math.floor(GameData.fightLevel / 3 + 1), 1.5) + GameData.baseBonus * 1.02);
     }
 
     // update (dt) {}

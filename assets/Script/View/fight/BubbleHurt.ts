@@ -10,6 +10,6 @@ export default class NewClass extends cc.Component {
     lb_hurt:cc.Label=null;
 
     showHurt(hurt){
-        this.lb_hurt.string=Util.formatNumber(hurt)+"";
+        this.lb_hurt.string=Util.formatNum(hurt)+"";
     }
 }
