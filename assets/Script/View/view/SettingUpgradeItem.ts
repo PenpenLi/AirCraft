@@ -3,6 +3,7 @@ import Util from "../../Common/Util";
 import PlaneFrameMG from "../game/PlaneFrameMG";
 import AudioManager from "../../Common/AudioManager";
 import GameCtr from "../../Controller/GameCtr";
+import ViewManager from "../../Common/ViewManager";
 
 
 const { ccclass, property } = cc._decorator;
@@ -51,28 +52,28 @@ export default class SettingUpgradeItem extends cc.Component {
         switch (type) {
             case 1:
                 this.lbLevel.string = "等级 " + (GameData.factoryLevel + 1);
-                this.lbAttribute.string = "缩短制造时间-" + (GameData.factoryLevel + 1) * 0.2 + "秒";
+                this.lbAttribute.string = "缩短制造时间-" + ((GameData.factoryLevel + 1) * 2) / 10 + "秒";
                 this.price = Math.pow(2, GameData.factoryLevel) * 1000;
                 break;
             case 2:
                 this.lbLevel.string = "等级 " + (GameData.repositoryLevel + 1);
                 this.lbAttribute.string = "增加制造库存" + (GameData.repositoryLevel + 1) * 2;
-                this.price = Math.pow(2, GameData.factoryLevel) * 1000;
+                this.price = Math.pow(2, GameData.repositoryLevel) * 1000;
                 break;
             case 3:
                 this.lbLevel.string = "等级 " + (GameData.recycleLevel + 1);
                 this.lbAttribute.string = "增加金币获得" + 5 * (GameData.recycleLevel + 1) + "%";
-                this.price = Math.pow(2, GameData.factoryLevel) * 1000;
+                this.price = Math.pow(2, GameData.recycleLevel) * 1000;
                 break;
             case 4:
                 this.lbLevel.string = "等级 " + (GameData.attackLevel + 1);
                 this.lbAttribute.string = "增加飞机攻击力" + (GameData.attackLevel + 1) + "%";
-                this.price = Math.pow(2, GameData.factoryLevel) * 1000;
+                this.price = Math.pow(2, GameData.attackLevel) * 1000;
                 break;
             case 5:
                 this.lbLevel.string = "等级 " + (GameData.criticalStrikeLevel + 1);
                 this.lbAttribute.string = "增加飞机暴击率" + (GameData.criticalStrikeLevel + 1) + "%";
-                this.price = Math.pow(2, GameData.factoryLevel) * 1000;
+                this.price = Math.pow(2, GameData.criticalStrikeLevel) * 1000;
                 break;
             case 6:
                 this.lbLevel.string = "等级 " + (GameData.highRecycleLevel + 1);
@@ -104,16 +105,21 @@ export default class SettingUpgradeItem extends cc.Component {
     }
 
     clickUpgrade() {
+        console.log("this.price == ", this.price);
         if (this.type <= 5) {
             if (GameData.gold >= this.price) {
                 GameData.gold -= this.price;
+                console.log("GameData.gold == ", GameData.gold);
             }else{
+                ViewManager.toast("金币不足！");
                 return;
             }
         } else {
             if (GameData.diamonds >= this.price) {
                 GameData.diamonds -= this.price;
+                console.log("GameData.diamonds == ", GameData.diamonds);
             }else{
+                ViewManager.toast("钻石不足！");
                 return;
             }
         }

@@ -203,6 +203,7 @@ export default class Game extends cc.Component {
     }
 
     setDiamonds() {
+        console.log("设置金币钻石！！！！！！！！！！！！！！");
         let lbDiamonds = Util.findChildByName("lbDiamonds", this.ndGold).getComponent(cc.Label);
         lbDiamonds.string = Util.formatNum(GameData.diamonds);
 

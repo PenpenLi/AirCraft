@@ -47,9 +47,9 @@ export default class PlaneUpgradeItem extends cc.Component {
     }
 
     private setLevel(level){
-        if(level > GameData.maxPlaneLevel) {
-            this.lbLevel.node.active = true;
-            this.lbAttribute.node.active = true;
+        if(this.idx > GameData.maxPlaneLevel) {
+            this.lbLevel.node.active = false;
+            this.lbAttribute.node.active = false;
             this.sprPlane.node.opacity = 180;
             this.ndButton.active = false;
             return;
