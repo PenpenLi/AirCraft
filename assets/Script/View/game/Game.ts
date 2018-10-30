@@ -579,6 +579,7 @@ export default class Game extends cc.Component {
             ViewManager.toast("没有作战飞机")
             return;
         }
+        GameCtr.fightStartGold=GameData.gold;
         cc.director.loadScene("Fight");
         GameData.setMissonData("fightTimes", GameData.missionData.fightTimes + 1);
     }
