@@ -116,26 +116,26 @@ export default class Util {
         return time;
     }
 
-    static formatNum(value, digit = 6) {
+    static formatNum(value, digit = 3) {
         value = Math.floor(value);
         if (value >= Math.pow(10, digit) && value < Math.pow(10, digit+3)) {
-            value = Math.floor(value / 1000);
+            value = Math.floor(value / 10) / 100;
             value = this.getString(value) + "K";
         }
         else if (value >= Math.pow(10, digit+3) && value < Math.pow(10, digit+6)) {
-            value = Math.floor(value / 1000000);
+            value = Math.floor(value / 10000) / 100;
             value = this.getString(value) + "M";
         }
         else if (value >= Math.pow(10, digit+6) && value < Math.pow(10, digit+9)) {
-            value = Math.floor(value / 1000000000);
+            value = Math.floor(value / 10000000) / 100;
             value = this.getString(value) + "B";
         }
         else if (value >= Math.pow(10, digit+9) && value < Math.pow(10, digit+12)) {
-            value = Math.floor(value / 1000000000000);
+            value = Math.floor(value / 10000000000) / 100;
             value = this.getString(value) + "T";
         }
         else if (value >= Math.pow(10, digit+12) && value < Math.pow(10, digit+15)) {
-            value = Math.floor(value / 1000000000000000);
+            value = Math.floor(value / 10000000000000) / 100;
             value = this.getString(value) + "P";
         } 
         else if (value >= Math.pow(10, digit+15)) {
