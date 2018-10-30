@@ -122,14 +122,14 @@ export default class NewClass extends cc.Component {
     }
 
     setLotteryTimes(){
-        this._lb_surplusTimes.getComponent(cc.Label).string="("+10+"/"+GameData.lotteryTimes+")";
+        this._lb_surplusTimes.getComponent(cc.Label).string="("+GameData.lotteryTimes+"/"+10+")";
         this._progress.getComponent(cc.ProgressBar).progress=GameData.lotteryTimes/10;
     }
 
 
     doLottery(){
         if(GameData.lotteryTimes<=0){
-            /* 无抽奖次数 */
+            ViewManager.toast("开宝箱次数不足");
             return;
         }
         this._isLotterying=true;

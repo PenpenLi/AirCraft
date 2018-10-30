@@ -175,6 +175,7 @@ export default class HttpCtr {
 
     static compareData(data) {
         console.log("log------compareData----data=:",data);
+        
         if (!data.data_20) {
             GameData.getAllLocalGameData();
             console.log("1111111111111111")
@@ -206,6 +207,9 @@ export default class HttpCtr {
         for (let key in data) {
             sendData[key] = data[key];
         }
+
+        console.log("log-----------sendData",sendData);
+        
         sendData["data_20"] = new Date().getTime();
         sendData["data_21"] = new Date().getTime();
         Http.send({

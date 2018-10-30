@@ -26,6 +26,7 @@ export default class NewClass extends cc.Component {
     _attackDirection=null;
     _bulletCount=0;
     _goldIncrease=0;
+    _bonus=0;
 
     @property(cc.SpriteFrame)
     enemySkins:cc.SpriteFrame[]=[];
@@ -72,6 +73,7 @@ export default class NewClass extends cc.Component {
         this._isEnemy=data.isEnemy;
         this._isBoss=data.isBoss;
         this._level=data.level;
+        this._bonus=data.bonus;
         this._attackDirection=this._isEnemy?Attack.DOWN:Attack.UP;
         this._bulletCount=this._isBoss?30:10;
         this._goldIncrease=GameData.getRecycleGoldIncrease();
@@ -169,14 +171,14 @@ export default class NewClass extends cc.Component {
         }
         if(this._currentLifeValue<=0){
             if(this._isEnemy){
-                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2*GameCtr.attactGoldRate*(1+this._goldIncrease):this._lifeValue*GameCtr.attactGoldRate*(1+this._goldIncrease);
-                GameCtr.getInstance().getFight().showGold(this._lifeValue,{x:this.node.x,y:this.node.y});
+                this._bonus=GameCtr.doubleGold?this._bonus*2*GameCtr.attactGoldRate*(1+this._goldIncrease):this._bonus*GameCtr.attactGoldRate*(1+this._goldIncrease);
+                GameCtr.getInstance().getFight().showGold(this._bonus,{x:this.node.x,y:this.node.y});
             }
 
             if(this._isBoss){
                 GameCtr.getInstance().getFight().doUpLevel();
-                this._lifeValue=GameCtr.doubleGold?this._lifeValue*2*GameCtr.attactGoldRate:this._lifeValue*GameCtr.attactGoldRate;
-                GameCtr.getInstance().getFight().showBossGold(this._lifeValue,{x:this.node.x,y:this.node.y});
+                this._bonus=GameCtr.doubleGold?this._bonus*2*GameCtr.attactGoldRate:this._bonus*GameCtr.attactGoldRate;
+                GameCtr.getInstance().getFight().showBossGold(this._bonus,{x:this.node.x,y:this.node.y});
             }
             AudioManager.getInstance().playSound("audio/boom", false);
             GameCtr.getInstance().getFight().removeAir(this.node);

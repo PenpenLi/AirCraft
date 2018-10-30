@@ -117,7 +117,6 @@ export default class Game extends cc.Component {
         this.initPools();
         this.initMusicState();
         this.initMainMusic();
-       
         WXCtr.onShow(() => {
             WXCtr.isOnHide = false;
             this.scheduleOnce(() => {

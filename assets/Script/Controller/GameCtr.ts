@@ -53,7 +53,7 @@ export default class GameCtr {
 
     public static selfPlanes = [];                                   //个人飞机列表
     public static monsterHP=0;
-    public static baseBonus=0;
+
 
     public static doubleAttack = false;                             //2倍攻击
     public static doubleGold = false;                               //2倍金币
