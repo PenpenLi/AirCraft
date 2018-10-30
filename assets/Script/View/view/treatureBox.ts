@@ -3,6 +3,7 @@ import GameData from "../../Common/GameData";
 import Util from "../../Common/Util";
 import ViewManager from "../../Common/ViewManager";
 import AudioManager from "../../Common/AudioManager";
+import WXCtr from "../../Controller/WXCtr";
 
 
 const {ccclass, property} = cc._decorator;
@@ -23,6 +24,9 @@ export default class NewClass extends cc.Component {
     _bonusTimesArr=[];
     _timeCount=0;
     _isLotterying=false;
+
+    _tipWatchVedio=null;
+    _tipBuy=null;
 
     _hour=-1;
     _min=-1;
@@ -78,12 +82,21 @@ export default class NewClass extends cc.Component {
         this._lb_surplusTimes=this.node.getChildByName("lb_surplusTimes");
         this._lb_timeCount=this.node.getChildByName("lb_timeCount");
         this._lottery=this.node.getChildByName("lottery");
-        this._progress=this._tipNode.getChildByName("progress")
+        this._progress=this._tipNode.getChildByName("progress");
+        this._tipWatchVedio=this._tipNode.getChildByName('tip01');
+        this._tipBuy=this._tipNode.getChildByName("tip02");
 
         this.initBtnEvent(this._btn_close);
         this.initBtnEvent(this._btn_open);
         this.initBtnEvent(this._btn_buy);
         this.initBtnEvent(this._btn_watchVedio);
+
+        if (!WXCtr.videoAd || GameCtr.surplusVideoTimes <= 0) {
+            this._btn_watchVedio.active = false;
+            this._tipWatchVedio.active=false;
+            this._btn_buy.x=0;
+            this._tipBuy.x=0;
+        }
 
         this.setLotteryTimes();
     }

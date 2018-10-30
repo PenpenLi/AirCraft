@@ -221,6 +221,7 @@ export default class Game extends cc.Component {
     showLandPort() {
         this.allPort = [];
         GameCtr.selfPlanes = [];
+        console.log("log---------this.ndPlanePos.childrenCount=:",this.ndPlanePos.childrenCount);
         for (let i = 1; i <= this.ndPlanePos.childrenCount; i++) {
             let node = this.ndPlanePos.getChildByName(i + "");
             node.active = true;

@@ -2,6 +2,7 @@ import GameCtr from "../../Controller/GameCtr";
 import GameData from "../../Common/GameData";
 import ViewManager from "../../Common/ViewManager";
 import AudioManager from "../../Common/AudioManager";
+import WXCtr from "../../Controller/WXCtr";
 
 const {ccclass, property} = cc._decorator;
 enum Way{
@@ -24,6 +25,8 @@ export default class NewClass extends cc.Component {
     _lottery=false;
     _lotteryTime=0;
     _way=-1;
+    _tipWatchVedio=null;
+    _tipBuy=null;
 
     _attactGoldRateTime=0;
 
@@ -44,9 +47,19 @@ export default class NewClass extends cc.Component {
         this._btn_close=this.node.getChildByName("btn_close");
         this._btn_buy=this.node.getChildByName("btn_buy");
         this._btn_watchVedio=this.node.getChildByName("btn_watchVedio");
+        this._tipWatchVedio=this.node.getChildByName("tipNode").getChildByName("tip01");
+        this._tipBuy=this.node.getChildByName("tipNode").getChildByName("tip02");
 
         this._lb_rate.active=false;
         this._lb_timeCount.active=false;
+        
+        if (!WXCtr.videoAd || GameCtr.surplusVideoTimes <= 0) {
+            this._btn_watchVedio.active = false;
+            this._tipWatchVedio.active=false;
+
+            this._btn_buy.x=0;
+            this._tipBuy.x=0;
+        }
 
         this.initBtnEvent(this._btn_close);
         this.initBtnEvent(this._btn_buy);
