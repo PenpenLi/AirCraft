@@ -2,6 +2,7 @@ import GameData from "../../Common/GameData";
 import GameCtr from "../../Controller/GameCtr";
 import ViewManager from "../../Common/ViewManager";
 import AudioManager from "../../Common/AudioManager";
+import WXCtr from "../../Controller/WXCtr";
 
 const {ccclass, property} = cc._decorator;
 
@@ -10,6 +11,8 @@ export default class NewClass extends cc.Component {
     _btn_close=null;
     _btn_buy=null;
     _btn_watchVedio=null;
+    _tipWatchVedio=null;
+    _tipBuy=null;
 
     onLoad(){
         this.initNode();
@@ -19,11 +22,20 @@ export default class NewClass extends cc.Component {
         this._btn_close=this.node.getChildByName('btn_close');
         this._btn_buy=this.node.getChildByName('btn_buy');
         this._btn_watchVedio=this.node.getChildByName('btn_watchVedio');
-
+        this._tipWatchVedio=this.node.getChildByName("tipNode").getChildByName("tip02");
+        this._tipBuy=this.node.getChildByName("tipNode").getChildByName("tip01");
 
         this.initBtnEvent(this._btn_close);
         this.initBtnEvent(this._btn_buy);
         this.initBtnEvent(this._btn_watchVedio);
+        
+        
+        if (!WXCtr.videoAd || GameCtr.surplusVideoTimes <= 0) {
+            this._btn_watchVedio.active = false;
+            this._tipWatchVedio.active=false;
+            this._btn_buy.x=0;
+            this._tipBuy.x=0;
+        }
     }
 
 
