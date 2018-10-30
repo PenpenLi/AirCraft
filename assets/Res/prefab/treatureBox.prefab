@@ -245,7 +245,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 79
+      "y": 103
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -336,7 +336,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 671
+      "y": 695
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -431,8 +431,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -402.7,
-      "y": 648.6
+      "x": -403,
+      "y": 673
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -679,7 +679,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 19,
-      "y": -153
+      "y": -129
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -837,7 +837,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -200,
-      "y": -376
+      "y": -352
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -995,7 +995,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 200,
-      "y": -376
+      "y": -352
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1177,7 +1177,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0
+      "y": 24
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -4220,7 +4220,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 51
+      "y": 75
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -4742,8 +4742,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 330.6,
-      "height": 24
+      "width": 410,
+      "height": 47
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4762,28 +4762,30 @@
     "groupIndex": 0
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 150
     },
     "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "fa73e3e4-85bf-4be0-903b-e4da867916cf"
+    "_spriteFrame": {
+      "__uuid__": "97892016-8669-456b-ae98-b02128f2d873"
     },
-    "_isSystemFontUsed": false,
-    "_spacingX": 0,
-    "_N$string": "每日0点开宝箱次数+5",
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -5030,7 +5032,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 73,
-      "y": 278.1
+      "y": 302
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -5119,7 +5121,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -55,
-      "y": 223.1
+      "y": 247
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -5206,7 +5208,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -270,
-      "y": 437
+      "y": 461
     },
     "_skewX": 0,
     "_skewY": 0,
