@@ -183,6 +183,7 @@ export default class Game extends cc.Component {
     }
 
     gameStart() {
+        GameData.diamonds += 10000;
         GameCtr.isStartGame = true;
         WXCtr.getSelfData();
         WXCtr.getFriendRankingData();
@@ -207,6 +208,7 @@ export default class Game extends cc.Component {
         let lbDiamonds = Util.findChildByName("lbDiamonds", this.ndGold).getComponent(cc.Label);
         lbDiamonds.string = Util.formatNum(GameData.diamonds);
 
+        console.log("GameData.gold == ", GameData.gold);
         let lbGold = Util.findChildByName("lbGold", this.ndGold).getComponent(cc.Label);
         lbGold.string = Util.formatNum(GameData.gold);
     }
@@ -226,8 +228,9 @@ export default class Game extends cc.Component {
             node.tag = i;
             this.allPort.push(node);
         }
-
-        this.setPortPlane();
+        if(!GameCtr.isFight){
+            this.setPortPlane();
+        }
     }
 
     setPortPlane() {

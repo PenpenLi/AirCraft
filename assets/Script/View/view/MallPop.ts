@@ -30,22 +30,22 @@ export default class MallPop extends cc.Component {
             return;
         }
         switch (data) {
-            case 1:
+            case "1":
                 GameData.gold += 100000;
                 break;
-            case 2:
+            case "2":
                 GameData.gold += 750000;
                 break;
-            case 3:
+            case "3":
                 GameData.gold += 5600000;
                 break;
-            case 4:
+            case "4":
                 GameCtr.doubleAttack = true;
                 break;
-            case 5:
+            case "5":
                 GameCtr.doubleGold = true;
                 break;
-            case 6:
+            case "6":
                 if (GameCtr.ins.mGame.getUnusedApronNum() > 0) {
                     GameCtr.ins.mGame.addPlane(7);
                 } else {
@@ -53,7 +53,7 @@ export default class MallPop extends cc.Component {
                     return;
                 }
                 break;
-            case 7:
+            case "7":
                 if (GameCtr.ins.mGame.getUnusedApronNum() > 0) {
                     GameCtr.ins.mGame.addPlane(10);
                 } else {
@@ -61,7 +61,7 @@ export default class MallPop extends cc.Component {
                     return;
                 }
                 break;
-            case 8:
+            case "8":
                 if (GameCtr.ins.mGame.getUnusedApronNum() > 0) {
                     GameCtr.ins.mGame.addPlane(12);
                 } else {
