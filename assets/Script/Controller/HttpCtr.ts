@@ -208,8 +208,6 @@ export default class HttpCtr {
             sendData[key] = data[key];
         }
 
-        console.log("log-----------sendData",sendData);
-        
         sendData["data_20"] = new Date().getTime();
         sendData["data_21"] = new Date().getTime();
         Http.send({
