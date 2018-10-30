@@ -46,6 +46,9 @@ export default class RankingCell extends cc.Component {
                 this.lbRanking.node.active = false;
                 this.sprMedal.node.active = true;
                 this.sprMedal.spriteFrame = this.medalsFrames[data.top-1];
+            }else{
+                this.lbRanking.node.active = true;
+                this.sprMedal.node.active = false;
             }
         }
         if(data.City){

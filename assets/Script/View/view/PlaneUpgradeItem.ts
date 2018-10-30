@@ -53,6 +53,11 @@ export default class PlaneUpgradeItem extends cc.Component {
             this.sprPlane.node.opacity = 180;
             this.ndButton.active = false;
             return;
+        }else{
+            this.lbLevel.node.active = true;
+            this.lbAttribute.node.active = true;
+            this.sprPlane.node.opacity = 255;
+            this.ndButton.active = true;
         }
         this.lbLevel.string = "等级 "+level;
         let attact = this.info.baseAttack+this.info.attackIncrease*(level-1);
