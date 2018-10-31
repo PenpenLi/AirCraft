@@ -127,7 +127,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 178
+      "y": 91
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -218,7 +218,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 476
+      "y": 389
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -307,7 +307,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 595
+      "y": 508
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -408,7 +408,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 362,
-      "y": 701
+      "y": 614
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -652,17 +652,17 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 400,
-      "height": 285
+      "width": 115,
+      "height": 77
     },
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
+    "_scaleX": 2.5,
+    "_scaleY": 2.5,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 178
+      "y": 91
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -683,7 +683,7 @@
       "__uuid__": "3d96220d-af32-4295-b542-0568fab1ac54"
     },
     "_type": 0,
-    "_sizeMode": 0,
+    "_sizeMode": 2,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -743,8 +743,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200.4,
-      "height": 66
+      "width": 269.2,
+      "height": 88
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -753,7 +753,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 390
+      "y": 291
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -771,8 +771,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 60,
-    "_fontSize": 60,
+    "_actualFontSize": 80,
+    "_fontSize": 80,
     "_lineHeight": 55,
     "_enableWrapText": true,
     "_N$file": {
@@ -849,7 +849,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -142
+      "y": -229
     },
     "_skewX": 0,
     "_skewY": 0,

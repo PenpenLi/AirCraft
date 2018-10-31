@@ -49,6 +49,7 @@ export default class LandPlane extends cc.Component {
             this.isTouch = true;
 
             GameCtr.ins.mGame.showTrash();
+            GameCtr.ins.mGame.showSamePlaneTip(this.level);
             if (!this.moveNode) {
                 GameCtr.lastZ = GameCtr.lastZ < 100 ? 100 : ++GameCtr.lastZ;
                 this.node.parent.setLocalZOrder(GameCtr.lastZ);
@@ -81,6 +82,7 @@ export default class LandPlane extends cc.Component {
                     GameCtr.ins.mGame.showTrash(false);
                 }
             }
+            GameCtr.ins.mGame.hideSamePlaneTip();
         }
     }
 
