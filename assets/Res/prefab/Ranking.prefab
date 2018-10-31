@@ -370,7 +370,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [],
     "_prefab": {
       "__id__": 51
@@ -481,7 +481,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -421
+      "y": -422
     },
     "_skewX": 0,
     "_skewY": 0,

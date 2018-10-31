@@ -358,10 +358,10 @@
     "_N$startAxis": 0,
     "_N$paddingLeft": 0,
     "_N$paddingRight": 0,
-    "_N$paddingTop": 0,
+    "_N$paddingTop": 40,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
-    "_N$spacingY": 42,
+    "_N$spacingY": 40,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0
   },
