@@ -281,6 +281,9 @@ export default class Game extends cc.Component {
                 if(GameCtr.autoCompose){
                     this.autoComposePlane(port, port.tag);
                 }
+                if(level > GameData.maxPlaneLevel) {
+                    GameData.maxPlaneLevel = level;
+                }
                 AudioManager.getInstance().playSound("audio/sound_p7_makePlane", false); 
                 return;
             }
