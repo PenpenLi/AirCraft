@@ -85,19 +85,19 @@ export default class Game extends cc.Component {
     pfRanking: cc.Prefab = null;
 
     @property(cc.Node)
-    adContent:cc.Node =null;
+    adContent: cc.Node = null;
 
     @property(cc.Prefab)
-    ad:cc.Prefab =null;
+    ad: cc.Prefab = null;
 
     @property(cc.Prefab)
-    mainMusic:cc.Prefab=null;
+    mainMusic: cc.Prefab = null;
 
     @property(cc.Node)
-    btn_freeDiamond:cc.Node=null;
+    btn_freeDiamond: cc.Node = null;
 
     @property(cc.Node)
-    nodeBanner:cc.Node=null;
+    nodeBanner: cc.Node = null;
 
     private landPlanePool;
     public goldParticlePool;
@@ -106,9 +106,9 @@ export default class Game extends cc.Component {
     public allPort = [];
     private ufoShowTimes = 0;
     private sliderIdx = 0;
-    _youLikeGames=[];
-    _hotGames=[];
-    _carouselHotIndex=-1;
+    _youLikeGames = [];
+    _hotGames = [];
+    _carouselHotIndex = -1;
 
     onLoad() {
         cc.director.setDisplayStats(false);
@@ -123,24 +123,24 @@ export default class Game extends cc.Component {
                 this.showOffLineProfitPop();
             }, 2.5);
             this.initMainMusic();
-            
+
         });
     }
 
-    loadPackages(){
-        WXCtr.loadSubPackages("Fight", ()=>{
+    loadPackages() {
+        WXCtr.loadSubPackages("Fight", () => {
             console.log("log............分包加载完成---------");
         });
     }
 
-    initMainMusic(){
-        while(cc.find("Canvas").getChildByTag(GameCtr.musicTag)){
+    initMainMusic() {
+        while (cc.find("Canvas").getChildByTag(GameCtr.musicTag)) {
             cc.find("Canvas").removeChildByTag(GameCtr.musicTag)
         }
-        let music=cc.instantiate(this.mainMusic);
-        if(music){
-            music.parent=cc.find("Canvas");
-            music.tag=GameCtr.musicTag;
+        let music = cc.instantiate(this.mainMusic);
+        if (music) {
+            music.parent = cc.find("Canvas");
+            music.tag = GameCtr.musicTag;
             music.getComponent("music").updatePlayState();
         }
     }
@@ -159,8 +159,8 @@ export default class Game extends cc.Component {
     }
 
 
-    showSwitchStatus(){
-        this.btn_freeDiamond.active=GameCtr.reviewSwitch;
+    showSwitchStatus() {
+        this.btn_freeDiamond.active = GameCtr.reviewSwitch;
     }
 
     initPools() {
@@ -220,7 +220,7 @@ export default class Game extends cc.Component {
     showLandPort() {
         this.allPort = [];
         GameCtr.selfPlanes = [];
-        console.log("log---------this.ndPlanePos.childrenCount=:",this.ndPlanePos.childrenCount);
+        console.log("log---------this.ndPlanePos.childrenCount=:", this.ndPlanePos.childrenCount);
         for (let i = 1; i <= this.ndPlanePos.childrenCount; i++) {
             let node = this.ndPlanePos.getChildByName(i + "");
             node.active = true;
@@ -228,7 +228,7 @@ export default class Game extends cc.Component {
             this.allPort.push(node);
         }
         this.setPortPlane();
-        
+
     }
 
     setPortPlane() {
@@ -241,8 +241,8 @@ export default class Game extends cc.Component {
             GameCtr.selfPlanes.push(level);
         }
 
-        if(!GameCtr.isFight){
-            this.showOffLineProfitPop();   
+        if (!GameCtr.isFight) {
+            this.showOffLineProfitPop();
         }
     }
 
@@ -277,13 +277,13 @@ export default class Game extends cc.Component {
                 comp.plane = landPlane;
                 comp.isUsed = true;
                 GameData.setApronState(port.tag, level);
-                if(GameCtr.autoCompose){
+                if (GameCtr.autoCompose) {
                     this.autoComposePlane(port, port.tag);
                 }
-                if(level > GameData.maxPlaneLevel) {
+                if (level > GameData.maxPlaneLevel) {
                     GameData.maxPlaneLevel = level;
                 }
-                AudioManager.getInstance().playSound("audio/sound_p7_makePlane", false); 
+                AudioManager.getInstance().playSound("audio/sound_p7_makePlane", false);
                 return;
             }
         }
@@ -299,7 +299,7 @@ export default class Game extends cc.Component {
                 continue;
             }
             if (comp.plane.getLevel() == tApron.plane.getLevel()) {
-                GameData.setApronState(i, comp.plane.getLevel()+1);
+                GameData.setApronState(i, comp.plane.getLevel() + 1);
                 comp.plane.setLevel(comp.plane.getLevel() + 1);
                 GameData.setApronState(idx, 0);
                 this.removeLandPlane(tApron.plane.node);
@@ -308,6 +308,34 @@ export default class Game extends cc.Component {
                 this.autoComposePlane(port, idx);
                 return;
             }
+        }
+    }
+
+    showSamePlaneTip(level) {
+        for (let i = 0; i < this.allPort.length; i++) {
+            let port = this.allPort[i];
+            let comp: Apron = port.getComponent(Apron);
+            if (!comp.isUsed) {
+                continue;
+            }
+            if (comp.plane.getLevel() == level) {
+                let nd = port.getChildByName("apron_choosed");
+                nd.active = true;
+                nd.runAction(cc.repeatForever(cc.sequence(
+                    cc.scaleTo(0.2, 1.1),
+                    cc.scaleTo(0.2, 1.0)
+                )));
+            }
+        }
+    }
+
+    hideSamePlaneTip() {
+        for (let i = 0; i < this.allPort.length; i++) {
+            let port = this.allPort[i];
+            let comp: Apron = port.getComponent(Apron);
+            let nd = port.getChildByName("apron_choosed");
+            nd.stopAllActions();
+            nd.active = false;
         }
     }
 
@@ -363,7 +391,7 @@ export default class Game extends cc.Component {
 
     getBaseProfitOfPlane() {
         let profit = 0;
-        for(let i=0; i< GameCtr.selfPlanes.length; i++) {
+        for (let i = 0; i < GameCtr.selfPlanes.length; i++) {
             let level = GameCtr.selfPlanes[i];
             profit += GameData.planeProfits[level];
         }
@@ -503,7 +531,7 @@ export default class Game extends cc.Component {
                 maskOpacity: 200,
             });
             HttpCtr.clickStatistics(GameCtr.StatisticType.RANKING);                               //排行榜点击统计
-        }else {
+        } else {
             ViewManager.showAuthPop();
         }
     }
@@ -570,17 +598,17 @@ export default class Game extends cc.Component {
 
 
     onClickBtnFight() {
-        let airCount=0;
-        for(let i=0;i<GameCtr.selfPlanes.length;i++){
-            if(GameCtr.selfPlanes[i]>0){
+        let airCount = 0;
+        for (let i = 0; i < GameCtr.selfPlanes.length; i++) {
+            if (GameCtr.selfPlanes[i] > 0) {
                 airCount++
             }
         }
-        if(airCount==0){
+        if (airCount == 0) {
             ViewManager.toast("没有作战飞机")
             return;
         }
-        GameCtr.fightStartGold=GameData.gold;
+        GameCtr.fightStartGold = GameData.gold;
         cc.director.loadScene("Fight");
         GameData.setMissonData("fightTimes", GameData.missionData.fightTimes + 1);
     }
@@ -635,18 +663,18 @@ export default class Game extends cc.Component {
         }
         AudioManager.getInstance().playSound("audio/click", false);
 
-        let music=cc.find("Canvas").getChildByTag(GameCtr.musicTag);
-        if(music){
+        let music = cc.find("Canvas").getChildByTag(GameCtr.musicTag);
+        if (music) {
             music.getComponent("music").updatePlayState();
         }
     }
 
-    onClickMore(){
+    onClickMore() {
         AudioManager.getInstance().playSound("audio/click", false);
         this.showMoreGame()
     }
 
-  
+
 
 
     showSpeedUpTimer() {
@@ -660,8 +688,8 @@ export default class Game extends cc.Component {
         if (GameCtr.speedUpTime < 0) {
             this.speedUpFrame.active = false;
             this.lb_speedUp.string = "";
-            GameCtr.autoCompose=false;
-            GameCtr.isSpeedUpModel=false;
+            GameCtr.autoCompose = false;
+            GameCtr.isSpeedUpModel = false;
             this.stopSpeedAni();
             return;
         }
@@ -681,99 +709,99 @@ export default class Game extends cc.Component {
 
 
     /****************************广告**********************************/
-    requestAds(){
-        HttpCtr.getAdsByType(this.showAds.bind(this),"Recommend");
+    requestAds() {
+        HttpCtr.getAdsByType(this.showAds.bind(this), "Recommend");
     }
-    
-    showAds(ads){
-        if(!GameCtr.reviewSwitch){return}
 
-        this.nodeBanner.active=GameCtr.reviewSwitch;
-        let youLikeGames=GameCtr.getAdList(ads.data,1);
-        let hotGames=GameCtr.getAdList(ads.data,2);
+    showAds(ads) {
+        if (!GameCtr.reviewSwitch) { return }
+
+        this.nodeBanner.active = GameCtr.reviewSwitch;
+        let youLikeGames = GameCtr.getAdList(ads.data, 1);
+        let hotGames = GameCtr.getAdList(ads.data, 2);
 
         this.showYouLikeGames(youLikeGames);
         this.showHotGames(hotGames);
     }
 
     //猜你喜欢
-    showYouLikeGames(games){
-        if(games && games.length>0){
-            for(let i=0;i<games.length;i++){
-                let ad =cc.instantiate(this.ad);
-                ad.parent=this.adContent;
-                ad.x=-342+i*231;
-                ad.y=12;
+    showYouLikeGames(games) {
+        if (games && games.length > 0) {
+            for (let i = 0; i < games.length; i++) {
+                let ad = cc.instantiate(this.ad);
+                ad.parent = this.adContent;
+                ad.x = -342 + i * 231;
+                ad.y = 12;
                 ad.getComponent("ad").init(games[i]);
                 this._youLikeGames.push(ad);
             }
-            this.scheduleOnce(this.doCarouselYouLike.bind(this),10)
+            this.scheduleOnce(this.doCarouselYouLike.bind(this), 10)
         }
     }
 
     //爆款游戏
-    showHotGames(games){
-        if(games && games.length>0){
-            for(let i=0;i<games.length;i++){
-                let ad=cc.instantiate(this.ad);
-                ad.parent=cc.find("Canvas");
-                ad.scale=0.6;
+    showHotGames(games) {
+        if (games && games.length > 0) {
+            for (let i = 0; i < games.length; i++) {
+                let ad = cc.instantiate(this.ad);
+                ad.parent = cc.find("Canvas");
+                ad.scale = 0.6;
                 ad.getComponent("ad").init(games[i]);
-                ad.x=i==0?0:1800;
-                ad.y=i==0?790:3000;
+                ad.x = i == 0 ? 0 : 1800;
+                ad.y = i == 0 ? 790 : 3000;
                 this._hotGames.push(ad);
             }
-            this._carouselHotIndex=0;
-            this.scheduleOnce(()=>{
+            this._carouselHotIndex = 0;
+            this.scheduleOnce(() => {
                 this._hotGames[this._carouselHotIndex].getComponent("ad").doShake();
-            },2)
-            this.scheduleOnce(this.doCarouselHot.bind(this),5);
+            }, 2)
+            this.scheduleOnce(this.doCarouselHot.bind(this), 5);
         }
-       
+
     }
 
     //猜你喜欢轮播
-    doCarouselYouLike(){
-        if(this._youLikeGames.length<=4){ //广告位推荐位大于4个，才有轮播功能
-            return 
+    doCarouselYouLike() {
+        if (this._youLikeGames.length <= 4) { //广告位推荐位大于4个，才有轮播功能
+            return
         }
         //整体左移一个广告位
-        for(let i=0;i<this._youLikeGames.length-1;i++){
+        for (let i = 0; i < this._youLikeGames.length - 1; i++) {
             this._youLikeGames[i].stopAllActions();
-            this._youLikeGames[i].scale=1.0;
-            this._youLikeGames[i].runAction(cc.moveBy(0.5,cc.p(-231*1,0)))
+            this._youLikeGames[i].scale = 1.0;
+            this._youLikeGames[i].runAction(cc.moveBy(0.5, cc.p(-231 * 1, 0)))
         }
         //将超出左边边界的移动到右边
-        this._youLikeGames[this._youLikeGames.length-1].runAction(cc.sequence(
-            cc.moveBy(0.5,cc.p(-231*1,0)),
-            cc.callFunc(()=>{
-                let first=this._youLikeGames.shift();
+        this._youLikeGames[this._youLikeGames.length - 1].runAction(cc.sequence(
+            cc.moveBy(0.5, cc.p(-231 * 1, 0)),
+            cc.callFunc(() => {
+                let first = this._youLikeGames.shift();
                 this._youLikeGames.push(first);
-                this._youLikeGames[this._youLikeGames.length-1].x=this._youLikeGames[this._youLikeGames.length-2].x+231;
-                this.scheduleOnce(this.doCarouselYouLike.bind(this),10)
+                this._youLikeGames[this._youLikeGames.length - 1].x = this._youLikeGames[this._youLikeGames.length - 2].x + 231;
+                this.scheduleOnce(this.doCarouselYouLike.bind(this), 10)
             })
         ))
     }
 
     //爆款游戏轮播
-    doCarouselHot(){
-        if(this._hotGames.length<=1){ //广告位推荐位大于1个，才有轮播功能
-            return 
+    doCarouselHot() {
+        if (this._hotGames.length <= 1) { //广告位推荐位大于1个，才有轮播功能
+            return
         }
-        this._hotGames[this._carouselHotIndex].x=0;
-        this._hotGames[this._carouselHotIndex].y=790;
+        this._hotGames[this._carouselHotIndex].x = 0;
+        this._hotGames[this._carouselHotIndex].y = 790;
         this._hotGames[this._carouselHotIndex].getComponent("ad").doShake();
-        for(let i=0;i<this._hotGames.length;i++){
-            if(i==this._carouselHotIndex){
+        for (let i = 0; i < this._hotGames.length; i++) {
+            if (i == this._carouselHotIndex) {
                 continue;
             }
-            this._hotGames[i].rotation=0;
+            this._hotGames[i].rotation = 0;
             this._hotGames[i].getComponent("ad").stopActions();
-            this._hotGames[i].x=1800;//移除屏幕之外
+            this._hotGames[i].x = 1800;//移除屏幕之外
         }
         this._carouselHotIndex++;
-        this._carouselHotIndex=this._carouselHotIndex%this._hotGames.length;
-        this.scheduleOnce(this.doCarouselHot.bind(this),5);
+        this._carouselHotIndex = this._carouselHotIndex % this._hotGames.length;
+        this.scheduleOnce(this.doCarouselHot.bind(this), 5);
     }
 
 }
