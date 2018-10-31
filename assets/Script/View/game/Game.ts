@@ -98,6 +98,8 @@ export default class Game extends cc.Component {
 
     @property(cc.Node)
     btn_more: cc.Node = null;
+    @property(cc.Node)
+    btnVip: cc.Node = null;
 
     @property(cc.Node)
     nodeBanner: cc.Node = null;
@@ -165,6 +167,7 @@ export default class Game extends cc.Component {
     showSwitchStatus() {
         this.btn_freeDiamond.active = GameCtr.reviewSwitch;
         this.btn_more.active = GameCtr.reviewSwitch;
+        this.btnVip.active = GameCtr.reviewSwitch;
     }
 
     initPools() {
