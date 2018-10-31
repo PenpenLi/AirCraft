@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "d0adfc1e-ad5c-4f3d-9aba-ca297b6911fd",
+  "uuid": "8b8371a6-1147-4060-92f2-0c0eb67f5c6b",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "button_更多游戏@2x": {
+    "btn_more": {
       "ver": "1.0.3",
-      "uuid": "15220967-a8c6-48e5-b3f4-92527c4f4684",
-      "rawTextureUuid": "d0adfc1e-ad5c-4f3d-9aba-ca297b6911fd",
+      "uuid": "644669e3-f91c-4407-9c9e-e34dcc137d14",
+      "rawTextureUuid": "8b8371a6-1147-4060-92f2-0c0eb67f5c6b",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 48,
-      "height": 159,
-      "rawWidth": 48,
-      "rawHeight": 159,
+      "width": 79,
+      "height": 262,
+      "rawWidth": 79,
+      "rawHeight": 262,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,

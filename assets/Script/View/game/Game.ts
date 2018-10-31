@@ -122,7 +122,6 @@ export default class Game extends cc.Component {
             this.scheduleOnce(() => {
                 this.showOffLineProfitPop();
             }, 2.5);
-            console.log("log--------------------回到微信--------------");
             this.initMainMusic();
             
         });
@@ -478,7 +477,6 @@ export default class Game extends cc.Component {
      * 更多游戏
      */
     showMoreGame() {
-        console.log("log------------showMoreGame-----data=:",GameCtr.otherData);
         if (GameCtr.otherData) {
             WXCtr.gotoOther(GameCtr.otherData);
             HttpCtr.clickStatistics(GameCtr.StatisticType.MORE_GAME, GameCtr.otherData.appid);                               //更多游戏点击统计
@@ -652,7 +650,6 @@ export default class Game extends cc.Component {
         //console.log("log---------showSpeedUpTimer-----------");
         this.speedUpFrame.active = true;
         this.lb_speedUp.string = GameCtr.speedUpTime + '';
-
         this.speedUpTimeCount();
     }
 

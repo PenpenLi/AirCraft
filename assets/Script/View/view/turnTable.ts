@@ -27,8 +27,8 @@ export default class NewClass extends cc.Component {
     _way=-1;
     _tipWatchVedio=null;
     _tipBuy=null;
-
     _attactGoldRateTime=0;
+    _isTurning=false;
 
     onLoad(){
         this.initNode();
@@ -84,9 +84,18 @@ export default class NewClass extends cc.Component {
         btn.on(cc.Node.EventType.TOUCH_END,(e)=>{
             AudioManager.getInstance().playSound("audio/click", false);
             if(e.target.getName()=="btn_close"){
-                this.node.destroy();
+                if(!this._isTurning){
+                    this.node.destroy();
+                }else{
+                    ViewManager.toast("转盘抽奖中....");
+                }
             }else if(e.target.getName()=="btn_buy"){
+                
                 if(GameData.diamonds>=50){
+                    if(this._isTurning){
+                        ViewManager.toast("转盘抽奖中....");
+                        return;
+                    }
                     GameData.diamonds-=50;
                     GameCtr.getInstance().getGame().setDiamonds();
                     this._way=Way.BUY;
@@ -136,6 +145,7 @@ export default class NewClass extends cc.Component {
         let randAngle=720+Math.floor(Math.random()*360);
         this._lottery=true;
         this._lotteryTime=Math.random()+4;
+        this._isTurning=true;
     }
 
     doLotteryOver(){
@@ -169,7 +179,8 @@ export default class NewClass extends cc.Component {
         localStorage.setItem("goldRate",JSON.stringify({time:this._attactGoldRateTime,rate:GameCtr.attactGoldRate,timeStamp:Date.now()}));
         GameData.setMissonData("turntableTimes", GameData.missionData.turntableTimes+1);
         this.unscheduleAllCallbacks();
-        this.showDes()
+        this.showDes();
+        this._isTurning=false;
     }
 
     showDes(){

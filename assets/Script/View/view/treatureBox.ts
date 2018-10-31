@@ -112,7 +112,6 @@ export default class NewClass extends cc.Component {
                 }else {
                     ViewManager.toast("宝箱开启中.....");
                 }
-                
             }else if(e.target.getName()=="btn_buy"){
                 this.buyLotteryTimes();
             }else if(e.target.getName()=="btn_watchVedio"){
@@ -141,6 +140,11 @@ export default class NewClass extends cc.Component {
 
 
     doLottery(){
+        if(this.isAirPortFull()){
+            ViewManager.toast("没有空的机位");
+            return;
+        }
+
         if(GameData.lotteryTimes<=0){
             ViewManager.toast("开宝箱次数不足");
             return;
@@ -189,6 +193,10 @@ export default class NewClass extends cc.Component {
     }
 
     buyLotteryTimes(){
+        if(GameData.lotteryTimes==10){
+            ViewManager.toast("开宝箱次数已满");
+        }
+
         if(GameData.diamonds>=50){
             GameData.lotteryTimes++;
             GameData.lotteryTimes=GameData.lotteryTimes>10?10:GameData.lotteryTimes;
@@ -222,6 +230,15 @@ export default class NewClass extends cc.Component {
         }
     }
 
+    isAirPortFull(){
+        for(let i=0;i<GameCtr.selfPlanes.length;i++){
+            if(GameCtr.selfPlanes[i]<=0){
+                return false;
+            }
+        }
+        return true;
+    }
+
     caculateTimeCount(){
         this._bonusTimesArr=[4,8,12,16,20,24];
         let date=new Date();
@@ -241,6 +258,7 @@ export default class NewClass extends cc.Component {
     timeCount(){
         if(this._timeCount==0){
             GameData.lotteryTimes++;
+            GameData.lotteryTimes=GameData.lotteryTimes>=10?10:GameData.lotteryTimes;
             this._timeCount=14400;
         }
         this._hour=Math.floor(this._timeCount/3600);

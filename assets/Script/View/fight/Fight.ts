@@ -24,6 +24,7 @@ export default class NewClass extends cc.Component {
     _airTag=0;
     _bulletTag=0;
     _levelSmall=1;//小关卡
+    _attactGoldRateTime=-1;
 
     @property(cc.Prefab)
     airsPrefab:cc.Prefab[]=[];
@@ -58,9 +59,8 @@ export default class NewClass extends cc.Component {
         this.startBgRoll();
         this.setGameCount();
         this.initFightMusic();
-
+        this.caculateAttackRate();
         WXCtr.onShow(() => {
-            console.log("log--------------------回到微信--------------");
             this.initFightMusic();
         });
     }
@@ -584,6 +584,34 @@ export default class NewClass extends cc.Component {
             }
         }
     }
+
+    caculateAttackRate(){
+        let goldRate=localStorage.getItem("goldRate");
+        if(goldRate){
+            let goldRateObj=JSON.parse(goldRate);
+            if(goldRateObj.time>0){
+                GameCtr.attactGoldRate=goldRateObj.rate;
+                this._attactGoldRateTime=Math.floor(goldRateObj.time-(Date.now()-goldRateObj.timeStamp)/1000);
+                this.scheduleOnce(()=>{
+                    this.attackRateCountDown()
+                },1) 
+            }
+        }
+    }
+
+    attackRateCountDown(){
+        this._attactGoldRateTime--;
+        if(this._attactGoldRateTime<0){
+            GameCtr.attactGoldRate=1;
+            return;
+        }
+
+        this.scheduleOnce(()=>{
+            this.attackRateCountDown();
+        },1)
+    }
+
+    
 
     update(dt){
         this._interval+=dt;

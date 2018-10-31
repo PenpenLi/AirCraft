@@ -46,7 +46,6 @@ export default class HttpCtr {
                         UserManager.user_id = resp.data.uid;
                         UserManager.voucher = resp.data.voucher;
                         HttpCtr.getUserInfo();
-                        console.log("log----------WXCtr.launchOption=:",WXCtr.launchOption);
                         if(WXCtr.launchOption.query.channel){
                             HttpCtr.chanelCheck(WXCtr.launchOption.query.channel);
                         }
@@ -207,9 +206,6 @@ export default class HttpCtr {
         for (let key in data) {
             sendData[key] = data[key];
         }
-
-        console.log("log-----------sendData",sendData);
-        
         sendData["data_20"] = new Date().getTime();
         sendData["data_21"] = new Date().getTime();
         Http.send({

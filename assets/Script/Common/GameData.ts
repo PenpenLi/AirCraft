@@ -48,26 +48,20 @@ export default class GameData {
     private static _forceCriticalStrike: number = 0;                    //暴击暴伤等级
     private static _vipLevel: number = 0;                               //vip等级
     private static _lotteryTimes: number = 0;                           //宝箱抽奖次数
-    private static _freeDiamondCount: number = 0;                        //领取免费钻石奖励次数  
-    private static _fightLevel: number = 1;                              //战斗等级  
-    private static _enemyHP: number = 0;                                 //当前关卡敌人血量  
-    private static _baseBonus: number = 0;                               //当前关卡基础奖励         
-
+    private static _freeDiamondCount: number = 0;                       //领取免费钻石奖励次数  
+    private static _fightLevel: number = 1;                             //战斗等级  
+    private static _enemyHP: number = 0;                                //当前关卡敌人血量  
+    private static _baseBonus: number = 0;                              //当前关卡基础奖励         
     public static saveTime = null;                                      //保存数据时间戳
-
     public static offLineProfit: number = 0;
-
-    public static missionData = null;                                //今日任务数据
-
+    public static missionData = null;                                   //今日任务数据
     public static planeData = {};
     public static maxPlane = 25;                                        //飞机等级上限
     private static maxApron = 15;
-
     private static baseProduceTime = 10;                                //基础制造时间
     private static baseRepository = 8;                                  //基础仓库容量
-
     public static basePlaneLevel = 1;                                   //基础飞机等级
-
+    
     static planesConfig = [
         { name: "1 卡普", baseAttack: 2, attackIncrease: 1, basePrice: 2 },
         { name: "2 喷火", baseAttack: 5, attackIncrease: 2, basePrice: 4 },
@@ -403,8 +397,6 @@ export default class GameData {
         GameData.baseBonus = WXCtr.getStorageData("baseBonus", 10);
         Guide.guideStep = WXCtr.getStorageData("guideStep");
 
-        console.log("log----------GameData.baseBonus  local=:",GameData.baseBonus)
-
         for (let i = 1; i <= this.maxApron; i++) {
             let key = "feiji_" + i;
             let data = WXCtr.getStorageData(key);
@@ -451,8 +443,6 @@ export default class GameData {
         GameData.enemyHP = data.data_16;
         GameData.baseBonus = data.data_17;
 
-        console.log("log----------GameData.baseBonus  online=:",GameData.baseBonus)
-
         Guide.guideStep = data.data_13 == "null" ? 8 : data.data_13;
         GameData.setUserData({ guideStep: Guide.guideStep });
         GameData.setUserData({ lastTime: data.data_21 });
@@ -488,7 +478,6 @@ export default class GameData {
                 GameData.missionData[key] = false;
             }
         }
-        console.log("log----------getMissionData=:", GameData.missionData);
     }
 
     static setMissonData(key, value) {
