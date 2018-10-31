@@ -97,6 +97,9 @@ export default class Game extends cc.Component {
     btn_freeDiamond: cc.Node = null;
 
     @property(cc.Node)
+    btn_more: cc.Node = null;
+
+    @property(cc.Node)
     nodeBanner: cc.Node = null;
 
     private landPlanePool;
@@ -161,6 +164,7 @@ export default class Game extends cc.Component {
 
     showSwitchStatus() {
         this.btn_freeDiamond.active = GameCtr.reviewSwitch;
+        this.btn_more.active = GameCtr.reviewSwitch;
     }
 
     initPools() {
