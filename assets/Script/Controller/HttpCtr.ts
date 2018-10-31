@@ -448,6 +448,7 @@ export default class HttpCtr {
                         },
                         method:'POST',
                         success: (resp) => {
+                            console.log("log--------广告 ---resp.data=：",resp.data);
                             if(callFunc){
                                 callFunc(resp.data);
                             }
