@@ -156,8 +156,9 @@ export default class NewClass extends cc.Component {
             enemy.active=true;
             enemy.parent=cc.find("Canvas");
             enemy.tag=this._airTag;
+            enemy.scale=1.5;
             enemy.x=-200+i*200;
-            enemy.y=800;
+            enemy.y=700;
             enemy.getComponent("Air").init(infodata);
             enemy.getComponent("Air").startAttack();
             enemy.getComponent("Air").doRandomMove();
@@ -339,13 +340,14 @@ export default class NewClass extends cc.Component {
         }else {
             scaleRate=0.6; 
         }
-        startPosY=-1000+150*scaleRate*(line-1);
+        scaleRate=scaleRate*1.2;
 
+        startPosY=-900+160*scaleRate*(line-1);
         for(let i=0;i<formation.length;i++){
             for(let j=0;j<formation[i].length;j++){
                 formation[i][j].node.scale=scaleRate;
-                formation[i][j].node.x=0-(formation[i].length-1)*70*scaleRate+j*140*scaleRate;
-                formation[i][j].node.y=startPosY-150*scaleRate*(i-1);
+                formation[i][j].node.x=0-(formation[i].length-1)*70*scaleRate+j*150*scaleRate;
+                formation[i][j].node.y=startPosY-160*scaleRate*(i-1);
             }
         } 
     }
@@ -535,8 +537,25 @@ export default class NewClass extends cc.Component {
 
     onBtnOver(){
         AudioManager.getInstance().playSound("audio/click", false);
-        cc.director.pause();
+        //cc.director.pause();
+        this.stopGame();
         this.showGameOver();
+    }
+
+    stopGame(){
+        for(let i=0;i<this._enemyAirs.length;i++){
+            this._enemyAirs[i].node.getComponent("Air").stopAttack();
+            this._enemyAirs[i].node.stopAllActions();
+        }
+
+        for(let i=0;i<this._selfAirs.length;i++){
+            this._selfAirs[i].node.getComponent("Air").stopAttack();
+        }
+
+        for(let i=0;i<this._bullets.length;i++){
+            this._bullets[i].stopAllActions(); 
+        }
+
     }
 
 
@@ -615,7 +634,7 @@ export default class NewClass extends cc.Component {
 
     update(dt){
         this._interval+=dt;
-        if(this._interval>=0.1){
+        if(this._interval>=0.05){
             for(let i=0;i<this._airs.length;i++){
                 for(let j=0;j<this._bullets.length;j++){
                     if( this._airs[i] && this._bullets[j] && this._bullets[j].active && this._bullets[j].getComponent("Bullet").getIsEmeny()!=this._airs[i].info.isEnemy &&cc.rectContainsPoint(this._airs[i].node.getBoundingBox(),cc.p(this._bullets[j].x,this._bullets[j].y))){

@@ -201,6 +201,7 @@ export default class NewClass extends cc.Component {
             bubbleHurt=cc.instantiate(this.bubbleHurts[Math.floor(Math.random()*2)]);
             GameCtr.lbHurtPool.put(bubbleHurt)
         }
+
         bubbleHurt.parent=cc.find("Canvas");
         bubbleHurt.active=true;
         bubbleHurt.scale=1.0;
@@ -262,7 +263,7 @@ export default class NewClass extends cc.Component {
     //敌人随机移动
     doRandomMove(){
         let randomX=Math.random()*900-450;
-        let randomY=600-Math.random()*400;
+        let randomY=600-Math.random()*200;
         let dinstance=cc.pDistance(cc.p(this.node.x,this.node.y),cc.p(randomX,randomY))
         this.node.runAction(cc.sequence(
             cc.moveTo(dinstance/100,cc.p(randomX,randomY)),

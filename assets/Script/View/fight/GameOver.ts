@@ -10,18 +10,22 @@ export default class NewClass extends cc.Component {
     _btn_back=null;
     _lb_gold=null;
 
+    @property(cc.Node)
+    ndLights:cc.Node=null;
+
     onLoad(){
+        
         this.initNode();
-        this.initLights();
         GameCtr.doubleAttack=false;
         GameCtr.doubleGold=false;
+
+        
     }
 
     initNode(){
         this._btn_play=this.node.getChildByName("btn_playAgain");
         this._btn_back=this.node.getChildByName("btn_back");
         this._lb_gold=this.node.getChildByName("lb_gold");
-
         this.initBtnEvent(this._btn_play);
         this.initBtnEvent(this._btn_back);
     }
@@ -42,19 +46,13 @@ export default class NewClass extends cc.Component {
         })
     }
 
-    initLights(){
-        let lights=this.node.getChildByName("lights");
-        for(let i=0;i<lights.children.length;i++){
-            lights.children[i].rotation=30*i;
-        }
-
-        for(let i=0;i<lights.children.length;i++){
-            lights.children[i].runAction(cc.repeatForever(cc.rotateBy(1,45)));
-        }
-    }
-
     setGold(_gold){
         this._lb_gold.getComponent(cc.Label).string=Util.formatNum(GameData.gold-GameCtr.fightStartGold);
+    }
+
+
+    update(dt){
+        this.ndLights.rotation+=2;
     }
 
     
