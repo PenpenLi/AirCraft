@@ -3,6 +3,7 @@ import GameData from "../../Common/GameData";
 import Util from "../../Common/Util";
 import AudioManager from "../../Common/AudioManager";
 import GameCtr from "../../Controller/GameCtr";
+import ViewManager from "../../Common/ViewManager";
 
 const {ccclass, property} = cc._decorator;
 
@@ -79,6 +80,8 @@ export default class PlaneUpgradeItem extends cc.Component {
             GameCtr.ins.mGame.setDiamonds();
             GameData.setPlaneLevel(this.idx, this.level);
             AudioManager.getInstance().playSound("audio/sound_p7_up", false);
+        }else{
+            ViewManager.toast("金币不足！");
         }
     }
 

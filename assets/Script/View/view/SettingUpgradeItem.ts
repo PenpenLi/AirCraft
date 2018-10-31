@@ -105,11 +105,9 @@ export default class SettingUpgradeItem extends cc.Component {
     }
 
     clickUpgrade() {
-        console.log("this.price == ", this.price);
         if (this.type <= 5) {
             if (GameData.gold >= this.price) {
                 GameData.gold -= this.price;
-                console.log("GameData.gold == ", GameData.gold);
             }else{
                 ViewManager.toast("金币不足！");
                 return;
@@ -117,7 +115,6 @@ export default class SettingUpgradeItem extends cc.Component {
         } else {
             if (GameData.diamonds >= this.price) {
                 GameData.diamonds -= this.price;
-                console.log("GameData.diamonds == ", GameData.diamonds);
             }else{
                 ViewManager.toast("钻石不足！");
                 return;
