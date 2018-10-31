@@ -158,7 +158,7 @@ export default class NewClass extends cc.Component {
             enemy.tag=this._airTag;
             enemy.scale=1.5;
             enemy.x=-200+i*200;
-            enemy.y=700;
+            enemy.y=650;
             enemy.getComponent("Air").init(infodata);
             enemy.getComponent("Air").startAttack();
             enemy.getComponent("Air").doRandomMove();
@@ -181,6 +181,7 @@ export default class NewClass extends cc.Component {
         };
         boss.parent=cc.find("Canvas");
         boss.y=500;
+        boss.scale=1.5;
         boss.getComponent("Air").init(infoData);
         boss.getComponent("Air").startAttack();
         this.addAir({node:boss,info:infoData});
@@ -321,7 +322,7 @@ export default class NewClass extends cc.Component {
     placeAirs(){
         let formation=this.getAirsformation();
         let line=0;
-        let startPosY=-800;
+        let startPosY=0;
         for(let i=0;i<formation.length;i++){
             if(formation[i].length>0){
                 line++;
@@ -342,7 +343,7 @@ export default class NewClass extends cc.Component {
         }
         scaleRate=scaleRate*1.2;
 
-        startPosY=-900+160*scaleRate*(line-1);
+        startPosY=-1000+160*scaleRate*(line-1);
         for(let i=0;i<formation.length;i++){
             for(let j=0;j<formation[i].length;j++){
                 formation[i][j].node.scale=scaleRate;
@@ -537,7 +538,6 @@ export default class NewClass extends cc.Component {
 
     onBtnOver(){
         AudioManager.getInstance().playSound("audio/click", false);
-        //cc.director.pause();
         this.stopGame();
         this.showGameOver();
     }
