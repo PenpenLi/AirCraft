@@ -105,6 +105,10 @@ export default class NewClass extends cc.Component {
         btn.on(cc.Node.EventType.TOUCH_END,(e)=>{
             AudioManager.getInstance().playSound("audio/click", false);
             if(e.target.getName()=="btn_close"){
+                if(this._isLotterying){
+                    ViewManager.toast("宝箱开启中.....");
+                    return;
+                }
                 this.node.destroy();
             }else if(e.target.getName()=="btn_open"){
                 if(!this._isLotterying){
