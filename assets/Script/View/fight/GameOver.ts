@@ -2,6 +2,7 @@ import GameCtr from "../../Controller/GameCtr";
 import Util from "../../Common/Util";
 import AudioManager from "../../Common/AudioManager";
 import GameData from "../../Common/GameData";
+import HttpCtr from "../../Controller/HttpCtr";
 
 const {ccclass, property} = cc._decorator;
 @ccclass
@@ -13,13 +14,20 @@ export default class NewClass extends cc.Component {
     @property(cc.Node)
     ndLights:cc.Node=null;
 
+    @property(cc.Node)
+    ndAd:cc.Node=null;
+
+    @property(cc.Prefab)
+    gameOverAd:cc.Prefab=null;
+
     onLoad(){
         
         this.initNode();
         GameCtr.doubleAttack=false;
-        GameCtr.doubleGold=false;
-
-        
+        GameCtr.doubleGold=false; 
+        if(GameCtr.reviewSwitch){
+            HttpCtr.getAdsByType(this.showAds.bind(this), "TwoJump");
+        }
     }
 
     initNode(){
@@ -48,6 +56,19 @@ export default class NewClass extends cc.Component {
 
     setGold(_gold){
         this._lb_gold.getComponent(cc.Label).string=Util.formatNum(GameData.gold-GameCtr.fightStartGold);
+    }
+
+    showAds(ads){
+        this.ndAd.active=true
+        for(let i=0;i<ads.data.length;i++){
+            if(i>=6){return;}
+
+            let ad=cc.instantiate(this.gameOverAd)
+            ad.parent=this.ndAd;
+            ad.getComponent("GameOverAd").init(ads.data[i],i);
+            ad.x=-330+i%3*325;
+            ad.y=220+Math.floor(i/3)*(-420);
+        }
     }
 
 

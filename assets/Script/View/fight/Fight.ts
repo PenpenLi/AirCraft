@@ -43,7 +43,12 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Prefab)
     fightMusic:cc.Prefab=null;
-    
+
+    @property(cc.Node)
+    gameCountFrame:cc.Node=null; 
+
+
+
     onLoad(){
         GameCtr.isFight=true;
         GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:GameData.getEnemyHP();
@@ -55,11 +60,13 @@ export default class NewClass extends cc.Component {
         this.initAirs();
         this.initStrikes();
         this.initLbGolds();
+        this.adaptScreen();
         this.initFightTouch();
         this.startBgRoll();
         this.setGameCount();
         this.initFightMusic();
         this.caculateAttackRate();
+        
         WXCtr.onShow(() => {
             this.initFightMusic();
         });
@@ -86,13 +93,21 @@ export default class NewClass extends cc.Component {
         this._gameBg1=this.node.getChildByName("bg1");
         this._gameBg2=this.node.getChildByName("bg2");
         this._touchNode=this.node.getChildByName("touchNode");
-        this._lbGameCount=this._otherNode.getChildByName("lb_gameCount");
+        this._lbGameCount=this.gameCountFrame.getChildByName("lb_gameCount");
         this._goldFrame=this._otherNode.getChildByName("goldFrame");
         this._lbGold=this._goldFrame.getChildByName("lb_gold");
         this._btnOver=this.node.getChildByName("btnOver");
 
         this._btnOver.setLocalZOrder(10);
         this._lbGold.getComponent(cc.Label).string=Util.formatNum(GameData.gold);
+    }
+
+    adaptScreen(){
+        if(Util.isIponeX()){
+            this._btnOver.y=cc.director.getVisibleSize().height/2-300;
+            this._goldFrame.y=cc.director.getVisibleSize().height/2-150;
+            this.gameCountFrame.y=cc.director.getVisibleSize().height/2-200;
+        }
     }
 
     startBgRoll(){
@@ -629,8 +644,6 @@ export default class NewClass extends cc.Component {
             this.attackRateCountDown();
         },1)
     }
-
-    
 
     update(dt){
         this._interval+=dt;

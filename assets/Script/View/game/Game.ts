@@ -722,11 +722,9 @@ export default class Game extends cc.Component {
 
     showAds(ads) {
         if (!GameCtr.reviewSwitch) { return }
-
         this.nodeBanner.active = GameCtr.reviewSwitch;
         let youLikeGames = GameCtr.getAdList(ads.data, 1);
         let hotGames = GameCtr.getAdList(ads.data, 2);
-
         this.showYouLikeGames(youLikeGames);
         this.showHotGames(hotGames);
     }

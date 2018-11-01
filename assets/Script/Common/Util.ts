@@ -245,5 +245,11 @@ export default class Util {
         }
         return number;
     }
+
+    static isIponeX(){
+        let winSize=cc.director.getWinSize();
+        console.log("log--------winSize=:",winSize);
+        return winSize.width==1080 && winSize.height>=2338;
+    }
 }
     
