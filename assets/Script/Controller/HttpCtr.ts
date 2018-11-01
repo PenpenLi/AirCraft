@@ -441,13 +441,14 @@ export default class HttpCtr {
                         header:{
                             "cache-control": "no-cache",
                             "content-type": "application/json",
-                            "x-source": "1000"
+                            "x-source": "1016"
                         },
                         data: {
                             code: loginResp.code,
                         },
                         method:'POST',
                         success: (resp) => {
+                            console.log("log--------广告 ---resp.data=：",resp.data);
                             if(callFunc){
                                 callFunc(resp.data);
                             }
