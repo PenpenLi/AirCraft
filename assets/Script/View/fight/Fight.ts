@@ -30,7 +30,10 @@ export default class NewClass extends cc.Component {
     airsPrefab:cc.Prefab[]=[];
     
     @property(cc.Prefab)
-    gameOver:cc.Prefab=null;
+    revive:cc.Prefab=null;
+
+    @property(cc.Prefab)
+    gameOver2:cc.Node=null; 
 
     @property(cc.Prefab)
     strike:cc.Prefab=null;
@@ -46,8 +49,6 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Node)
     gameCountFrame:cc.Node=null; 
-
-
 
     onLoad(){
         GameCtr.isFight=true;
@@ -306,8 +307,8 @@ export default class NewClass extends cc.Component {
         }
         //己方战败
         if(this._selfAirs.length==0){
-            this.clear();
-            this.showGameOver();
+            this.showRevive();
+            this.emenyStopAttack();
             AudioManager.getInstance().playSound("audio/lose");
         }
     }
@@ -327,7 +328,7 @@ export default class NewClass extends cc.Component {
         if(this._enemyAirs.length==0 ){
             this.clearBulletsData();
             this.clearInvalidBullet();
-            this.stopAttackEnemy();
+            this.selfStopAttack();
             if(!isBoss){
                 this.showPass();
             }
@@ -397,9 +398,21 @@ export default class NewClass extends cc.Component {
         }
     }
 
-    stopAttackEnemy(){
+    selfStopAttack(){
         for(let i=0;i<this._selfAirs.length;i++){
             this._selfAirs[i].node.getComponent("Air").stopAttack();
+        }
+    }
+
+    emenyStopAttack(){
+        for(let i=0;i<this._enemyAirs.length;i++){
+            this._enemyAirs[i].node.getComponent("Air").stopAttack();
+        }
+    }
+
+    emenyStartAttack(){
+        for(let i=0;i<this._enemyAirs.length;i++){
+            this._enemyAirs[i].node.getComponent("Air").startAttack();
         }
     }
 
@@ -515,10 +528,18 @@ export default class NewClass extends cc.Component {
         if(cc.find("Canvas").getChildByName("gameOver")){
             return;
         }
-        let gameOver=cc.instantiate(this.gameOver);
+        let gameOver=cc.instantiate(this.gameOver2);
         gameOver.parent=cc.find("Canvas");
         gameOver.setLocalZOrder(20);
-        gameOver.getComponent("GameOver").setGold((this._levelSmall-1)*GameData.enemyHP);
+    }
+
+    showRevive(){
+        if(cc.find("Canvas").getChildByName("revive")){
+            return;
+        }
+        let revive=cc.instantiate(this.revive);
+        revive.parent=cc.find("Canvas");
+        revive.setLocalZOrder(20); 
     }
 
     setGameCount(){

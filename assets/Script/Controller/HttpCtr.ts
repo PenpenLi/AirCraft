@@ -112,9 +112,7 @@ export default class HttpCtr {
 
                     GameCtr.reviewSwitch = resp.ok;
                     GameCtr.getInstance().getGame().showSwitchStatus();
-                    if(GameCtr.reviewSwitch){
-                        GameCtr.getInstance().getGame().requestAds();
-                    }
+                    GameCtr.getInstance().getGame().requestAds();
                     if (resp.nav.index) GameCtr.otherData = resp.nav.index;
                     if (resp.nav.nav) GameCtr.sliderDatas = resp.nav.nav;
                     if (resp.nav.banner) GameCtr.bannerDatas = resp.nav.banner;

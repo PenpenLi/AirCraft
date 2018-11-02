@@ -1905,8 +1905,11 @@
         "__uuid__": "9349da1c-169f-4127-8d82-1296288d3313"
       }
     ],
-    "gameOver": {
+    "revive": {
       "__uuid__": "40d6b0bd-e092-4b23-8581-b63b064fdf23"
+    },
+    "gameOver2": {
+      "__uuid__": "09b85376-7a8a-4e33-a524-9c1caf975c69"
     },
     "strike": {
       "__uuid__": "1d5b4ae2-c61c-4d93-afc2-fa1f5e70a653"

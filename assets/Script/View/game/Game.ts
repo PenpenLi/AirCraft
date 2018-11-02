@@ -717,12 +717,14 @@ export default class Game extends cc.Component {
 
     /****************************广告**********************************/
     requestAds() {
-        HttpCtr.getAdsByType(this.showAds.bind(this), "Recommend");
+        //if(GameCtr.reviewSwitch){
+            HttpCtr.getAdsByType(this.showAds.bind(this), "Recommend");
+        //}
     }
 
     showAds(ads) {
-        if (!GameCtr.reviewSwitch) { return }
-        this.nodeBanner.active = GameCtr.reviewSwitch;
+        //this.nodeBanner.active = GameCtr.reviewSwitch;
+        this.nodeBanner.active=true;
         let youLikeGames = GameCtr.getAdList(ads.data, 1);
         let hotGames = GameCtr.getAdList(ads.data, 2);
         this.showYouLikeGames(youLikeGames);
