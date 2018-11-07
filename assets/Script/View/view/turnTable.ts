@@ -3,6 +3,7 @@ import GameData from "../../Common/GameData";
 import ViewManager from "../../Common/ViewManager";
 import AudioManager from "../../Common/AudioManager";
 import WXCtr from "../../Controller/WXCtr";
+import HttpCtr from "../../Controller/HttpCtr";
 
 const {ccclass, property} = cc._decorator;
 enum Way{
@@ -104,9 +105,18 @@ export default class NewClass extends cc.Component {
                     ViewManager.toast("钻石不足");
                 }
             }else if(e.target.getName()=="btn_watchVedio"){
-                let callFunc=()=>{
-                    this._way=Way.WATCH_VEDIO;
-                    this.doLottery();
+                if (WXCtr.videoAd) {
+                    WXCtr.showVideoAd();
+                    WXCtr.onCloseVideo((res) => {
+                        WXCtr.offCloseVideo();
+                        if (res) {
+                            this._way=Way.WATCH_VEDIO;
+                            this.doLottery();
+                        }else{
+                            ViewManager.toast("视频未看完");
+                        }
+                    });
+                    HttpCtr.clickStatistics(GameCtr.StatisticType.OFF_LINE_VEDIO);          //离线视频收益点击统计
                 }
             }
         })

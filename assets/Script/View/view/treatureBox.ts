@@ -4,6 +4,7 @@ import Util from "../../Common/Util";
 import ViewManager from "../../Common/ViewManager";
 import AudioManager from "../../Common/AudioManager";
 import WXCtr from "../../Controller/WXCtr";
+import HttpCtr from "../../Controller/HttpCtr";
 
 
 const {ccclass, property} = cc._decorator;
@@ -119,11 +120,19 @@ export default class NewClass extends cc.Component {
             }else if(e.target.getName()=="btn_buy"){
                 this.buyLotteryTimes();
             }else if(e.target.getName()=="btn_watchVedio"){
-                /*看视频 送两次奖励*/
-                let callFunc=()=>{
-                    GameData.lotteryTimes+=2;
-                    GameData.lotteryTimes=GameData.lotteryTimes>10?10:GameData.lotteryTimes;
-                    this.setLotteryTimes();
+                if (WXCtr.videoAd) {
+                    WXCtr.showVideoAd();
+                    WXCtr.onCloseVideo((res) => {
+                        WXCtr.offCloseVideo();
+                        if (res) {
+                            GameData.lotteryTimes+=2;
+                            GameData.lotteryTimes=GameData.lotteryTimes>10?10:GameData.lotteryTimes;
+                            this.setLotteryTimes();
+                        }else{
+                            ViewManager.toast("视频未看完");
+                        }
+                    });
+                    HttpCtr.clickStatistics(GameCtr.StatisticType.OFF_LINE_VEDIO);          //离线视频收益点击统计
                 }
             }
         })

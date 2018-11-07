@@ -4,6 +4,7 @@ import AudioManager from "../../Common/AudioManager";
 import GameData from "../../Common/GameData";
 import HttpCtr from "../../Controller/HttpCtr";
 import WXCtr from "../../Controller/WXCtr";
+import ViewManager from "../../Common/ViewManager";
 
 const {ccclass, property} = cc._decorator;
 @ccclass
@@ -14,6 +15,7 @@ export default class NewClass extends cc.Component {
     _lb_gold=null;
     _countTime=10;
     _ad=[];
+    _isWatchingViedio=false;
 
     @property(cc.Node)
     ndLights:cc.Node=null;
@@ -65,14 +67,23 @@ export default class NewClass extends cc.Component {
             AudioManager.getInstance().playSound("audio/click", false);
             cc.director.resume();
             if(e.target.getName()=="btn_revive"){
-                // let callFunc=()=>{
-                //     GameCtr.getInstance().getFight().initAirs();
-                //     GameCtr.getInstance().getFight().emenyStartAttack();
-                //     this.node.destroy();
-                // }
-                GameCtr.getInstance().getFight().initAirs();
-                GameCtr.getInstance().getFight().emenyStartAttack();
-                this.node.destroy();
+                if (WXCtr.videoAd) {
+                    this._isWatchingViedio=true;
+                    WXCtr.showVideoAd();
+                    WXCtr.onCloseVideo((res) => {
+                        WXCtr.offCloseVideo();
+                        if (res) {
+                            this._isWatchingViedio=false;
+                            GameCtr.getInstance().getFight().initAirs();
+                            GameCtr.getInstance().getFight().emenyStartAttack();
+                            this.node.destroy();
+                        }else{
+                            this._isWatchingViedio=false;
+                            ViewManager.toast("视频未看完");
+                        }
+                    });
+                    HttpCtr.clickStatistics(GameCtr.StatisticType.OFF_LINE_VEDIO);          //离线视频收益点击统计
+                }
 
             }else if(e.target.getName()=="btn_return"){
                 GameCtr.getInstance().getFight().stopGame();
@@ -140,6 +151,8 @@ export default class NewClass extends cc.Component {
     }
 
     update(dt){
+        if(this._isWatchingViedio){return}
+        
         if(this._countTime>=0){
             this._countTime-=dt;
             this.reviveProgress.progress=this._countTime/10;
