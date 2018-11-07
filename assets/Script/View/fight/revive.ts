@@ -37,9 +37,9 @@ export default class NewClass extends cc.Component {
         this.initNode();
         GameCtr.doubleAttack=false;
         GameCtr.doubleGold=false; 
-        //if(GameCtr.reviewSwitch){
+        if(GameCtr.reviewSwitch){
             HttpCtr.getAdsByType(this.showAds.bind(this), "Recommend");
-        //}
+        }
     }
 
     initNode(){
