@@ -58,7 +58,7 @@ export default class OffLineProfit extends cc.Component {
 
     clickVedio() {
         if (WXCtr.videoAd) {
-            AudioManager.getInstance().stopAll();
+            // AudioManager.getInstance().stopAll();
             WXCtr.showVideoAd();
             WXCtr.onCloseVideo((res) => {
                 WXCtr.offCloseVideo();
