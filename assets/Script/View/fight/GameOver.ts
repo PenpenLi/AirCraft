@@ -21,9 +21,11 @@ export default class NewClass extends cc.Component {
         this.initNode();
         GameCtr.doubleAttack=false;
         GameCtr.doubleGold=false; 
-        //if(GameCtr.reviewSwitch){
+
+        if(GameCtr.reviewSwitch){
+            this.ndAd.active=true;
             HttpCtr.getAdsByType(this.showAds.bind(this), "TwoJump");
-        //}
+        }
     }
 
     initNode(){
@@ -31,7 +33,8 @@ export default class NewClass extends cc.Component {
         this._btn_playAgain=this.node.getChildByName("btn_playAgain");
         this._lb_gold=this.node.getChildByName("lb_gold");
         this._lb_gold.getComponent(cc.Label).string=Util.formatNum(GameData.gold-GameCtr.fightStartGold);
-
+        this.ndAd.active=false;
+        
         this.initBtnEvent(this._btn_back);
         this.initBtnEvent(this._btn_playAgain);
     }
