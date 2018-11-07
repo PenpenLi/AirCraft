@@ -96,6 +96,7 @@ export default class GameCtr {
         WXCtr.getAuthSetting();
         WXCtr.showShareMenu();
         WXCtr.getNetworkType();
+        WXCtr.setVideoAd();
     }
 
     static getInstance() {

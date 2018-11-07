@@ -34,9 +34,10 @@ export default class WXCtr {
     static shareTitle;
     static shareImg;
     static videoAd = null;
+    static videoId = "adunit-7ee7df6330093a1a";
     static videoAdCallback = null;
     static bannerAd = null;
-    static bannerId = null;
+    static bannerId = "adunit-667a190428db9263";
     static launchOption;
     static userInfoBtn = null;
     static gameClubBtn;
@@ -375,9 +376,9 @@ export default class WXCtr {
         }
     }
 
-    static setVideoAd(videoId) {
+    static setVideoAd() {
         if (window.wx != undefined && wx.createRewardedVideoAd) {
-            WXCtr.videoAd = wx.createRewardedVideoAd({ adUnitId: videoId });
+            WXCtr.videoAd = wx.createRewardedVideoAd({ adUnitId: WXCtr.videoId });
             WXCtr.videoAd.onLoad(() => {
             });
             WXCtr.videoAd.load();
