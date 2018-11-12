@@ -201,7 +201,7 @@ export default class Game extends cc.Component {
     initGame() {
         this.setDiamonds();
         this.showLandPort();
-        setInterval(() => {
+        this.schedule(() => {
             if (WXCtr.isOnHide) return;
             GameData.submitGameData();
             WXCtr.createBannerAd(100, 300);

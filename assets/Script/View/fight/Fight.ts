@@ -51,6 +51,7 @@ export default class NewClass extends cc.Component {
     gameCountFrame:cc.Node=null; 
 
     onLoad(){
+        WXCtr.hideBannerAd();
         GameCtr.isFight=true;
         GameData.enemyHP=GameData.enemyHP?GameData.enemyHP:GameData.getEnemyHP();
         GameData.baseBonus=GameData.baseBonus?GameData.baseBonus:GameData.getBaseBonus();

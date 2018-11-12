@@ -3,6 +3,7 @@ import GameCtr from "../../Controller/GameCtr";
 import ViewManager from "../../Common/ViewManager";
 import AudioManager from "../../Common/AudioManager";
 import WXCtr from "../../Controller/WXCtr";
+import HttpCtr from "../../Controller/HttpCtr";
 
 const {ccclass, property} = cc._decorator;
 
@@ -48,13 +49,22 @@ export default class NewClass extends cc.Component {
                 this.buy();
                 this.node.destroy();
             }else if(e.target.getName()=="btn_watchVedio"){
-                let callFunc=()=>{
-                    GameCtr.autoCompose=true;
-                    GameCtr.isSpeedUpModel=true;
-                    GameCtr.speedUpTime=120;
-                    GameCtr.getInstance().getGame().showSpeedAni();
-                    GameCtr.getInstance().getGame().showSpeedUpTimer();
-                    GameData.setMissonData("speedTimes", GameData.missionData.speedTimes+1);
+                if (WXCtr.videoAd) {
+                    WXCtr.showVideoAd();
+                    WXCtr.onCloseVideo((res) => {
+                        WXCtr.offCloseVideo();
+                        if (res) {
+                            GameCtr.autoCompose=true;
+                            GameCtr.isSpeedUpModel=true;
+                            GameCtr.speedUpTime=120;
+                            GameCtr.getInstance().getGame().showSpeedAni();
+                            GameCtr.getInstance().getGame().showSpeedUpTimer();
+                            GameData.setMissonData("speedTimes", GameData.missionData.speedTimes+1);
+                        }else{
+                            ViewManager.toast("视频未看完");
+                        }
+                    });
+                    HttpCtr.clickStatistics(GameCtr.StatisticType.OFF_LINE_VEDIO);          //离线视频收益点击统计
                 }
             }
         })
