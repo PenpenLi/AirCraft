@@ -21,6 +21,9 @@ export default class Start extends cc.Component {
 
     onLoad () {
         GameCtr.getInstance().setStart(this);
+        let fsm = State.create({
+            
+        });
     }
 
     start () {
