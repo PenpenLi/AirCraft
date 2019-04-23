@@ -1,4 +1,5 @@
 {
+  "assets-sort-type": "name",
   "collision-matrix": [
     [
       true
@@ -27,11 +28,22 @@
     "Intersection",
     "Native NetWork"
   ],
+  "facebook": {
+    "appID": "",
+    "audience": {
+      "enable": false
+    },
+    "enable": false,
+    "live": {
+      "enable": false
+    }
+  },
   "fit-height": false,
   "fit-width": true,
   "group-list": [
     "default"
   ],
+  "last-module-event-record-time": 1555915996122,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,
@@ -39,10 +51,5 @@
   },
   "start-scene": "60ceea1f-427b-473d-9cc3-bea924bb4fd6",
   "use-customize-simulator": false,
-  "use-project-simulator-setting": false,
-  "cocos-analytics": {
-    "enable": false,
-    "appID": "13798",
-    "appSecret": "959b3ac0037d0f3c2fdce94f8421a9b2"
-  }
+  "use-project-simulator-setting": false
 }

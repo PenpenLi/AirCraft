@@ -1,9 +1,10 @@
 {
-  "ver": "1.0.0",
+  "ver": "2.2.0",
   "uuid": "fd8c7a6a-77ae-4b44-a854-fad8f4effae5",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
+  "premultiplyAlpha": false,
   "subMetas": {
     "eff_feiji_lixian_tex": {
       "ver": "1.0.3",

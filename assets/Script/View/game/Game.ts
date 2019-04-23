@@ -116,7 +116,7 @@ export default class Game extends cc.Component {
     _carouselHotIndex = -1;
 
     onLoad() {
-        cc.director.setDisplayStats(false);
+        // cc.director.setDisplayStats(false);
         GameCtr.getInstance().setGame(this);
         this.loadPackages();
         this.initPools();
